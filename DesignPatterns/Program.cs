@@ -12,6 +12,9 @@ namespace DesignPatterns
     {
             // lettura delle configurazioni iniziali di programma 
             ServiceLocator.GetConfigurationsService.ReadConfigurations();
+
+
+            // TODO: implementazione logica 
     }
   }
 }
