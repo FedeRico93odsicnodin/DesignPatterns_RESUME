@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.DesignPatterns.Creational;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,21 @@ namespace DesignPatterns.DesignPatterns
     /// </summary>
     public class DesignPatternsService
     {
+        #region CREATIONAL PATTERNS
 
+
+        /// <summary>
+        /// Singleton service 
+        /// </summary>
+        public SingletonService GetSingletonService
+        {
+            get
+            {
+                return SingletonService.GetInstanceSingleton;
+            }
+        }
+
+
+        #endregion
     }
 }

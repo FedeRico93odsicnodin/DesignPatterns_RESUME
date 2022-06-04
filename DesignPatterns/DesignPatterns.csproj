@@ -57,6 +57,7 @@
     <Compile Include="Access_DB\QueryStrings.cs" />
     <Compile Include="DesignPatterns\Creational\SingletonService.cs" />
     <Compile Include="DesignPatterns\DesignPatternsService.cs" />
+    <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPatterns_Description.cs" />
     <Compile Include="Model\DesignType.cs" />
     <Compile Include="Program.cs" />
@@ -73,6 +74,7 @@
   <ItemGroup>
     <Folder Include="DesignPatterns\Behavioural\" />
     <Folder Include="DesignPatterns\Structural\" />
+    <Folder Include="ViewConsole\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Access_DB\Design_Patterns.accdb">

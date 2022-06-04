@@ -6,6 +6,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DesignPatterns.Utils.Constants;
 
 namespace DesignPatterns.Access_DB
 {
@@ -20,33 +21,71 @@ namespace DesignPatterns.Access_DB
         /// <returns></returns>
         internal List<DesignType> GetDesignPatternTypes()
         {
-            List<DesignType> currTypes = new List<DesignType>();
+                List<DesignType> currTypes = new List<DesignType>();
+
+                using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+                {
+                    con.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNTYPE_DESCRIPTIONS_QUERY, con))
+                    {
+                        using (OleDbDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = (int)reader["ID"];
+                                string desc = (string)reader["DesignPattern_Type"];
+
+                                currTypes.Add(new DesignType()
+                                {
+                                    ID = id,
+                                    DesignPattern_Type = desc
+
+                                });
+                            }
+                        }
+                    }
+                }
+
+
+                return currTypes;
+           
+        }
+
+
+        /// <summary>
+        /// Recupero per la descrizione per il design pattern corrente: questa descrizione è ricercata in base al valore per l'enumeratore correntemente passato 
+        /// </summary>
+        /// <param name="currDesignPattern"></param>
+        /// <returns></returns>
+        internal DesignPatterns_Description GetDescriptionCurrDesignPattern(DESIGN_PATTERN_ENUM currDesignPattern)
+        {
+            DesignPatterns_Description currDesignPattern_obj = null;
 
             using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
             {
                 con.Open();
-                using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNTYPE_DESCRIPTIONS_QUERY, con))
+                using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNPATTERNDESCRIPTION_QUERY(currDesignPattern.ToString()), con))
                 {
                     using (OleDbDataReader reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        // lettura ultimo valore per il design pattern corrente 
+                        if (reader.Read())
                         {
-                            int id = (int)reader["ID"];
-                            string desc = (string)reader["DesignPattern_Type"];
-
-                            currTypes.Add(new DesignType()
+                            currDesignPattern_obj = new DesignPatterns_Description()
                             {
-                                ID = id,
-                                DesignPattern_Type = desc
-
-                            });
+                                ID = (int)reader["ID"],
+                                DesignPattern = (string)reader["DesignPattern"],
+                                DesignType_ID = (int)reader["DesignType_ID"],
+                                Description = (string)reader["Description"],
+                                Example = (string)reader["Example"]
+                            };
                         }
                     }
                 }
             }
 
-            return currTypes;
-            
+
+            return currDesignPattern_obj;
         }
     }
 }

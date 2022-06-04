@@ -61,6 +61,17 @@ namespace DesignPatterns.Utils
         #endregion
 
 
+        #region ENUMERATORI DESIGN PATTERNS
 
+        /// <summary>
+        /// Enumeratore rispetto al nome per il design pattern corrente 
+        /// </summary>
+        public enum DESIGN_PATTERN_ENUM
+        {
+            Singleton = 0,
+        }
+
+
+        #endregion
     }
 }

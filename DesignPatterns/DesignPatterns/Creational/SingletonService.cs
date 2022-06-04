@@ -1,14 +1,17 @@
-﻿using System;
+﻿using DesignPatterns.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DesignPatterns.Utils.Constants;
 
 namespace DesignPatterns.DesignPatterns.Creational
 {
-    public sealed class SingletonService
+    public sealed class SingletonService : DesignPatternSpecs
     {
         private static SingletonService _istanceSingleton = null;
+
 
 
         /// <summary>
@@ -31,6 +34,8 @@ namespace DesignPatterns.DesignPatterns.Creational
         /// </summary>
         private SingletonService()
         {
+            // attribuzione design pattern corrente 
+            base.DesignPatternName = DESIGN_PATTERN_ENUM.Singleton;
         }
     }
 }

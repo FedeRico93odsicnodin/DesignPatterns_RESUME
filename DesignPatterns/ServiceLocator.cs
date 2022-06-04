@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.Access_DB;
+using DesignPatterns.DesignPatterns;
 using DesignPatterns.Utils;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,25 @@ namespace DesignPatterns
                     _configurationsService = new Configurations();
 
                 return _configurationsService;
+            }
+        }
+
+        #endregion
+
+
+        #region DESIGN PATTERNS SPECIFICATIONS 
+
+        private static DesignPatternsService _designPatternsService;
+
+
+        public static DesignPatternsService GetDesignPatternsService
+        {
+            get
+            {
+                if (_designPatternsService == null)
+                    _designPatternsService = new DesignPatternsService();
+
+                return _designPatternsService;
             }
         }
 
