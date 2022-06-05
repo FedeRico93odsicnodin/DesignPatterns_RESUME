@@ -218,7 +218,6 @@ D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\Terminal.Gui.xml
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\fr-FR\Terminal.Gui.resources.dll
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\ja-JP\Terminal.Gui.resources.dll
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\pt-PT\Terminal.Gui.resources.dll
-D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.exe.config
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csproj.CoreCompileInputs.cache
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csproj.CopyComplete

@@ -15,7 +15,7 @@ namespace DesignPatterns.Utils
         /// <summary>
         /// Lista di tutte le descrizioni per i design patterns correnti 
         /// </summary>
-        internal static List<DesignPatterns_Description> DesignPatterns_Descriptions { get; set; }
+        internal static List<Model.DesignPattern> DesignPatterns_Descriptions { get; set; }
 
 
         /// <summary>

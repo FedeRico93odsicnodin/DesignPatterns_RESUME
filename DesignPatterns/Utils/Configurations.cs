@@ -40,7 +40,7 @@ namespace DesignPatterns.Utils
         private void LoadInitialListsDB()
         {
             // load delle diverse tipologie per i design patterns all'interno del contesto di applicazione attuale 
-            MemLists.DesignPatterns_Types = ServiceLocator.GetAccessDBService.GetDesignPatternTypes();
+            //MemLists.DesignPatterns_Types = ServiceLocator.GetAccessDBService.GetDesignPatternTypes();
         }
     }
 }

@@ -66,6 +66,11 @@
     <Compile Include="Utils\Configurations.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\MemLists.cs" />
+    <Compile Include="ViewConsole\ConsolePageServices\PageInitSelector.cs" />
+    <Compile Include="ViewConsole\GeneralPage.cs" />
+    <Compile Include="ViewConsole\ShowCode_Page.cs" />
+    <Compile Include="ViewConsole\ShowDescription_Page.cs" />
+    <Compile Include="ViewConsole\ShowExample_Page.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -74,7 +79,6 @@
   <ItemGroup>
     <Folder Include="DesignPatterns\Behavioural\" />
     <Folder Include="DesignPatterns\Structural\" />
-    <Folder Include="ViewConsole\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Access_DB\Design_Patterns.accdb">

@@ -14,6 +14,6 @@ namespace DesignPatterns.Model
         public int ID { get; set; }
 
 
-        public string DesignPattern_Type { get; set; }
+        public string Name { get; set; }
     }
 }

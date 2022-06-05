@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.ViewConsole;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,10 @@ namespace DesignPatterns
             ServiceLocator.GetConfigurationsService.ReadConfigurations();
 
             // 
-            string designPatternSingleton = ServiceLocator.GetDesignPatternsService.GetSingletonService.DesignPatternName.ToString();
+            //string designPatternSingleton = ServiceLocator.GetDesignPatternsService.GetSingletonService.DesignPatternName.ToString();
 
-            
+            GeneralPage currPageDefault = new GeneralPage();
+            _applicationTop.Add(currPageDefault.TopMenu, currPageDefault.WindowTitle, currPageDefault.MainMenu);
 
             Application.Run();
         }

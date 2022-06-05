@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,12 +65,15 @@ namespace DesignPatterns.Utils
         #region ENUMERATORI DESIGN PATTERNS
 
         /// <summary>
-        /// Enumeratore rispetto al nome per il design pattern corrente 
+        /// Lista dei possibili design patterns disponibili 
         /// </summary>
-        public enum DESIGN_PATTERN_ENUM
-        {
-            Singleton = 0,
-        }
+        public static List<DesignPattern> AVAILABLE_DESIGN_PATTERNS;
+
+
+        /// <summary>
+        /// Lista dei possibili patterns disponibili
+        /// </summary>
+        public static List<DesignType> AVAILABLE_TYPES;
 
 
         #endregion

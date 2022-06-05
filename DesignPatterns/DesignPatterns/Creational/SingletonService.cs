@@ -35,7 +35,7 @@ namespace DesignPatterns.DesignPatterns.Creational
         private SingletonService()
         {
             // attribuzione design pattern corrente 
-            base.DesignPatternName = DESIGN_PATTERN_ENUM.Singleton;
+            //base.DesignPatternName = DESIGN_PATTERN_ENUM.Singleton;
         }
     }
 }

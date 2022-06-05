@@ -17,7 +17,7 @@ namespace DesignPatterns.Model
         /// <summary>
         /// Descrizione recuperata dal db per il design pattern attuale 
         /// </summary>
-        protected DesignPatterns_Description _designPatternCurrDescription = null;
+        protected DesignPattern _designPatternCurrDescription = null;
 
 
         /// <summary>
@@ -36,13 +36,7 @@ namespace DesignPatterns.Model
         /// Esempio per il design pattern corrente 
         /// </summary>
         public string GetDesignPatternExample { get; protected set; }
-
-
-        /// <summary>
-        /// Nome per il design pattern corrente 
-        /// </summary>
-        public DESIGN_PATTERN_ENUM DesignPatternName { get; protected set; }
-
+        
 
         /// <summary>
         /// Costruttore non si puo richiamare
@@ -60,7 +54,7 @@ namespace DesignPatterns.Model
         protected void GetDesignPatternsObject()
         {
             // recupero parametri descrittivi per il desgin pattern attuale 
-            _designPatternCurrDescription = ServiceLocator.GetAccessDBService.GetDescriptionCurrDesignPattern(DesignPatternName);
+            //_designPatternCurrDescription = ServiceLocator.GetAccessDBService.GetDescriptionCurrDesignPattern(DesignPatternName);
 
             // popolamento delle descrizioni per ogni pagina disponibile 
             PopulateDictionaryPage_Description();
@@ -78,7 +72,7 @@ namespace DesignPatterns.Model
             GetDesignPatternDescriptions = new Dictionary<int, string>();
 
             // popolamento con main description e esempio 
-            GetDesignPatternDescriptions[1] = _designPatternCurrDescription.Description;
+            //GetDesignPatternDescriptions[1] = _designPatternCurrDescription.Description;
         }
 
 
@@ -93,7 +87,7 @@ namespace DesignPatterns.Model
             GetDesignPatternExamples = new Dictionary<int, string>();
 
             // popolamento con main description e esempio 
-            GetDesignPatternExamples[1] = _designPatternCurrDescription.Example;
+            //GetDesignPatternExamples[1] = _designPatternCurrDescription.Example;
 
 
         }
