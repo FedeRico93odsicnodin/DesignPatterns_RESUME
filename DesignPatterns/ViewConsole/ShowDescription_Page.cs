@@ -3,43 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesignPatterns.Model;
+using DesignPatterns.Model.ViewModel;
+using DesignPatterns.Utils;
+using DesignPatterns.ViewConsole.ConsolePageServices;
 
 namespace DesignPatterns.ViewConsole
 {
 
 
+  /// <summary>
+  /// Pagina per la visualizzazione particolare del design pattern in considerazione 
+  /// </summary>
+  internal class ShowDescription_Page : GeneralPage
+  {
     /// <summary>
-    /// Pagina per la visualizzazione particolare del design pattern in considerazione 
+    /// descrizione per il design pattern e la pagina attuale 
     /// </summary>
-    internal class ShowDescription_Page
+    DesignPatternDescription _designPatternDescription;
+
+
+    /// <summary>
+    /// Impostazione per il design pattern e per la sua descrizione attuali
+    /// </summary>
+    /// <param name="designPattern"></param>
+    /// <param name="designPatternDescription"></param>
+    internal ShowDescription_Page(
+      DesignPatternDescription designPatternDescription)
     {
-        #region IDENTIFICATIVI PER LA PAGINA CORRENTE / SUCCESSIVA
-
-        /// <summary>
-        /// Identificativo per l'eventuale ID per la pagina successiva, se non esiste nessuna pagina successiva 
-        /// allora viene tenuto a 0
-        /// </summary>
-        public int IDNextPage { get; private set; }
-
-
-        /// <summary>
-        /// Identificativo per l'eventuale ID per la pagina precedente, se non esiste nessuna pagina precedente 
-        /// allora viene tenuto a 0
-        /// </summary>
-        public int IDPrevPage { get; private set; }
-
-
-        /// <summary>
-        /// Identicativo per la pagina di codice, se nessuna pagina di codire è presente allora viene tenuto a 0
-        /// </summary>
-        public int IDPageCode { get; private set; }
-
-
-        /// <summary>
-        /// Identificativo per l'eventuale pagina di esempio per il pattern corrente 
-        /// </summary>
-        public int IDExample { get; private set; }
-
-        #endregion
+      _designPatternDescription = designPatternDescription;
     }
+
+
+    /// <summary>
+    /// Impostazione oggetto di descrizione in base alle specifiche attuali 
+    /// </summary>
+    /// <returns></returns>
+    protected override DesPatternView DefineParamValues()
+    {
+      // istanza finestra con tutti i parametri utili alla descrizione corrente
+      DesPatternView desPatternScheme = new DesPatternView()
+      {
+        // parametri di finestra grafici 
+        Title_ColorScheme = ViewConsoleConstants.TITLE_DESCR_COLORSCHEME,
+        Txt_ColorScheme = ViewConsoleConstants.TEXT_DESCR_COLORSCHEME,
+        Buttons_ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME,
+        Win_ColorScheme = ViewConsoleConstants.WIN_DESCR_COLORSCHEME,
+
+        // parametri relativi al design pattern corrente
+        DesignPatternName = MemLists.DesignPatterns.Where(x => x.ID == _designPatternDescription.IDPattern).FirstOrDefault().Name,
+        Design_PatternID = _designPatternDescription.IDPattern,
+        DesignPatternDescription = _designPatternDescription.Description,
+        DesignPatternDescriptionID = _designPatternDescription.ID,
+        PageType = Constants.PAGE_TYPE.DESCRIPTION,
+        DesignPatternContextEnum = (_designPatternDescription.ContextEnum == 0) ? _designPatternDescription.ID : _designPatternDescription.ContextEnum
+      };
+
+      return desPatternScheme;
+    }
+  }
 }

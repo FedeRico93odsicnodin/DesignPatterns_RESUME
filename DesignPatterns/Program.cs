@@ -32,8 +32,8 @@ namespace DesignPatterns
             // 
             //string designPatternSingleton = ServiceLocator.GetDesignPatternsService.GetSingletonService.DesignPatternName.ToString();
 
-            GeneralPage currPageDefault = new GeneralPage();
-            _applicationTop.Add(currPageDefault.TopMenu, currPageDefault.WindowTitle, currPageDefault.MainMenu);
+            //GeneralPage currPageDefault = new GeneralPage();
+            //_applicationTop.Add(currPageDefault._topMenu, currPageDefault._windowTitle, currPageDefault._mainMenu);
 
             Application.Run();
         }

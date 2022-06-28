@@ -13,9 +13,15 @@ namespace DesignPatterns.Utils
     internal static class MemLists
     {
         /// <summary>
+        /// Lista di tutti i design patterns per il contesto corrente
+        /// </summary>
+        internal static List<DesignPattern> DesignPatterns { get; set; }
+
+
+        /// <summary>
         /// Lista di tutte le descrizioni per i design patterns correnti 
         /// </summary>
-        internal static List<Model.DesignPattern> DesignPatterns_Descriptions { get; set; }
+        internal static List<DesignPatternDescription> DesignPatterns_Descriptions { get; set; }
 
 
         /// <summary>

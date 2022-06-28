@@ -57,16 +57,24 @@
     <Compile Include="Access_DB\QueryStrings.cs" />
     <Compile Include="DesignPatterns\Creational\SingletonService.cs" />
     <Compile Include="DesignPatterns\DesignPatternsService.cs" />
+    <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />
-    <Compile Include="Model\DesignPatterns_Description.cs" />
+    <Compile Include="Model\DesignPattern.cs" />
     <Compile Include="Model\DesignType.cs" />
+    <Compile Include="Model\ViewModel\DesPatternView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Utils\Configurations.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\MemLists.cs" />
-    <Compile Include="ViewConsole\ConsolePageServices\PageInitSelector.cs" />
+    <Compile Include="ViewConsole\ConsolePageServices\PageContextSelector.cs" />
+    <Compile Include="ViewConsole\ConsolePageServices\ViewConsoleConstants.cs" />
     <Compile Include="ViewConsole\GeneralPage.cs" />
     <Compile Include="ViewConsole\ShowCode_Page.cs" />
     <Compile Include="ViewConsole\ShowDescription_Page.cs" />
@@ -84,6 +92,12 @@
     <Content Include="Access_DB\Design_Patterns.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -74,8 +74,37 @@ namespace DesignPatterns.Utils
         /// Lista dei possibili patterns disponibili
         /// </summary>
         public static List<DesignType> AVAILABLE_TYPES;
+    
+        
+        /// <summary>
+        /// Tipo di pagina di cui eseguire il display 
+        /// </summary>
+        public enum PAGE_TYPE
+        {
+          DESCRIPTION, 
+          EXAMPLE,
+          DEMO
+        }
 
+    #endregion
 
-        #endregion
+      /// <summary>
+      /// Identificatore per la pagina corrente
+      /// </summary>
+      private static int _PAGEID = 0;
+
+      
+      /// <summary>
+      /// Getter per identificatore di pagina 
+      /// </summary>
+      internal static int GETPAGEID
+      {
+        get
+        {
+          _PAGEID++;
+          return _PAGEID;
+        }
+      }
+      
     }
 }
