@@ -18,5 +18,7 @@ namespace DesignPatterns.Model
     public int IDPattern { get; set; }
 
     public int ContextEnum { get; set; }
+
+    public int IDActionType { get; set; }
   }
 }

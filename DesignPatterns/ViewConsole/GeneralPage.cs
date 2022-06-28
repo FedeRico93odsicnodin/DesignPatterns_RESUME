@@ -96,7 +96,13 @@ namespace DesignPatterns.ViewConsole
     /// <summary>
     /// Descrizione applicata alla pagina corrente
     /// </summary>
-    public string DesignPattenDescription { get; protected set; }
+    public string DesignPatternDescription { get; protected set; }
+
+
+    /// <summary>
+    /// ID tipologia di appartenenza per il design pattern attuale 
+    /// </summary>
+    public int DesignTypeID { get; protected set; }
 
 
     /// <summary>

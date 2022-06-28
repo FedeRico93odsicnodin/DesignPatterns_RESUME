@@ -62,6 +62,7 @@
     <Compile Include="Model\DesignPattern.cs" />
     <Compile Include="Model\DesignType.cs" />
     <Compile Include="Model\ViewModel\DesPatternView.cs" />
+    <Compile Include="Model\VisualActionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">

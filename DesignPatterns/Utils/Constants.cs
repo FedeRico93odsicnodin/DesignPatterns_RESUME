@@ -83,7 +83,8 @@ namespace DesignPatterns.Utils
         {
           DESCRIPTION, 
           EXAMPLE,
-          DEMO
+          DEMO,
+          DESIGNTYPE
         }
 
     #endregion
