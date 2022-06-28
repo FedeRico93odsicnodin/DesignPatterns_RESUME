@@ -12,13 +12,18 @@ namespace DesignPatterns.Model
   public class DesignPatternDescription
   {
     public int ID { get; set; }
+    
+    public int ID_DesignPattern { get; set; }
 
     public string Description { get; set; }
 
-    public int IDPattern { get; set; }
+    public string Class_RelativePath { get; set; }
+    
+    public bool HasCode { get; set; }
 
-    public int ContextEnum { get; set; }
+    public int ID_VisualActionType { get; set; }
 
-    public int IDActionType { get; set; }
+    public int ID_Vis { get; set; }
+
   }
 }

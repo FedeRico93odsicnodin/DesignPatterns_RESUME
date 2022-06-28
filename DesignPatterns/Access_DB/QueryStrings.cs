@@ -13,34 +13,56 @@ namespace DesignPatterns.Access_DB
     {
         #region RECUPERO DESCRIZIONI PER LE TIPOLOGIE DI DESIGN PATTERN
 
-        /// <summary>
-        /// Selezione variabili per le tipologie di design patterns disponibili per il contesto corrente 
-        /// </summary>
-        internal static string GETDESIGNTYPE_DESCRIPTIONS_QUERY = @"SELECT ID, DesignPattern_Type FROM DesignType";
-
-        #endregion
+    #endregion
 
 
-        #region RECUPERO OGGETTO PER DESIGN PATTERN SPECIFICO 
+    #region QUERIES PER IL RECUPERO DI TUTTE LE ISTANZE PER GLI ELEMENTI DB
 
-        /// <summary>
-        /// Query di selezione della specifica descrizione per il design pattern corrente 
-        /// </summary>
-        private static string _DESIGNPATTERNDESCRIPTION_QUERY = @"SELECT ID, DesignPattern, DesignType_ID, Description, Example FROM DesignPatterns_Description WHERE DesignPattern = '{0}' ORDER BY ID DESC";
-
-
-        /// <summary>
-        /// Getter per lo specifico oggetto di descrizione relativo al design pattern di cui viene passato il nome corrente 
-        /// </summary>
-        /// <param name="designPatternName"></param>
-        /// <returns></returns>
-        internal static string GETDESIGNPATTERNDESCRIPTION_QUERY(string designPatternName)
-        {
-            return String.Format(_DESIGNPATTERNDESCRIPTION_QUERY, designPatternName);
-        }
-
-
-        #endregion
-
+    /// <summary>
+    /// Getter per la query per il recupero di tutti i design patterns per il contesto attuale 
+    /// </summary>
+    private static string _GETDESIGNPATTERNS_QUERY = @"SELECT ID, DesignPattern, DesignType, HasExample FROM DesignPatterns";
+    
+    internal static string GETDESIGNPATTERNS_QUERY()
+    {
+      return _GETDESIGNPATTERNS_QUERY;
     }
+
+
+    /// <summary>
+    /// Getter per la query di recupero delle descrizioni per i design patterns attuali
+    /// </summary>
+    private static string _GETDESIGNPATTERNSDESCRIPTION_QUERY = @"SELECT ID, ID_DesignPattern, Description, Class_RelativePath, ID_VisualActionType, HasCode, ID_Vis FROM DesignPatterns_Descriptions";
+
+    internal static string GETDESIGNPATTERNSDESCRIPTION_QUERY()
+    {
+      return _GETDESIGNPATTERNSDESCRIPTION_QUERY;
+    }
+
+
+    /// <summary>
+    /// Selezione variabili per le tipologie di design patterns disponibili per il contesto corrente 
+    /// </summary>
+    private static string _GETDESIGNTYPES_QUERY = @"SELECT ID, DesignPattern_Type FROM DesignType";
+
+    internal static string GETDESIGNTYPES_QUERY()
+    {
+      return _GETDESIGNTYPES_QUERY;
+    }
+
+
+    /// <summary>
+    /// Getter query per le descrizioni applicate alle diverse tipologie di design patterns per il contesto corrente
+    /// </summary>
+    private static string _GETDESIGNTYPESDESCRIPTIONS_QUERY = @"SELECT ID, Descrizione, ID_Type FROM DesignTypes_Descriptions";
+
+    internal static string GETDESIGNTYPESDESCRIPTIONS_QUERY()
+    {
+      return _GETDESIGNTYPESDESCRIPTIONS_QUERY;
+    }
+
+    #endregion
+
+
+  }
 }

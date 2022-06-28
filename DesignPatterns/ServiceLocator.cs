@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.Access_DB;
 using DesignPatterns.DesignPatterns;
 using DesignPatterns.Utils;
+using DesignPatterns.ViewConsole.ConsolePageServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,25 @@ namespace DesignPatterns
             }
         }
 
-        #endregion
+    #endregion
+
+
+    #region SERVIZIO DI PAGE SELECTOR E CREATOR
+
+    private static PageContextSelector _getContextSelectorService;
+    
+
+    internal static PageContextSelector GetContextSelectorService
+    {
+      get
+      {
+        if (_getContextSelectorService == null)
+          _getContextSelectorService = new PageContextSelector();
+
+        return _getContextSelectorService;
+      }
     }
+
+    #endregion
+  }
 }

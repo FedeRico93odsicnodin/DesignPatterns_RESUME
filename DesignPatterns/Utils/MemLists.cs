@@ -18,25 +18,25 @@ namespace DesignPatterns.Utils
     /// <summary>
     /// Lista di tutti i design patterns per il contesto corrente
     /// </summary>
-    internal static List<DesignPattern> DesignPatterns { get; set; }
+    public static List<DesignPattern> DesignPatterns { get; set; }
 
 
     /// <summary>
     /// Lista di tutte le descrizioni per i design patterns correnti 
     /// </summary>
-    internal static List<DesignPatternDescription> DesignPatterns_Descriptions { get; set; }
+    public static List<DesignPatternDescription> DesignPatterns_Descriptions { get; set; }
 
 
-    /// <summary>
-    /// Lista di azioni possibili rispetto alla classificazione del design pattern per il contesto attuale 
-    /// </summary>
-    internal static List<VisualActionType> ActionTypes { get; set; }
-
-    
     /// <summary>
     /// Lista di tutti i tipi per i design patterns disponibili 
     /// </summary>
-    internal static List<DesignType> DesignPatterns_Types { get; set; }
+    public static List<DesignType> DesignPatterns_Types { get; set; }
+
+
+    /// <summary>
+    /// Tutte le descrizioni per le tipologie di design pattern e il contesto corrente
+    /// </summary>
+    public static List<DesignTypeDescription> DesignTypesDescriptions { get; set; }
 
     #endregion
 

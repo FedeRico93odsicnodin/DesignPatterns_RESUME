@@ -15,79 +15,161 @@ namespace DesignPatterns.Access_DB
     /// </summary>
     internal class AccessDBService
     {
-        // TODO: implementazione dei metodi per il recupero dei design types e dei relativi design patterns per il caso corrente 
 
-        ///// <summary>
-        ///// Recupero di tutte le descrizioni disponibili per i design patterns e le loro tipologie 
-        ///// </summary>
-        ///// <returns></returns>
-        //internal List<DesignType> GetDesignPatternTypes()
-        //{
-        //        List<DesignType> currTypes = new List<DesignType>();
+    /// <summary>
+    /// Getter design patterns da DB Access
+    /// </summary>
+    /// <returns></returns>
+      public List<DesignPattern> GetDesignPatternsFromAccessDB()
+    {
+      List<DesignPattern> currDesignPatterns = new List<DesignPattern>();
 
-        //        using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
-        //        {
-        //            con.Open();
-        //            using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNTYPE_DESCRIPTIONS_QUERY, con))
-        //            {
-        //                using (OleDbDataReader reader = cmd.ExecuteReader())
-        //                {
-        //                    while (reader.Read())
-        //                    {
-        //                        int id = (int)reader["ID"];
-        //                        string desc = (string)reader["DesignPattern_Type"];
+      using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+      {
+        con.Open();
+        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNPATTERNS_QUERY(), con))
+        {
+          using (OleDbDataReader reader = cmd.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              int id = (int)reader["ID"];
+              string desc = (string)reader["DesignPattern"];
+              int idType = (int)reader["DesignType"];
+              bool hasExample = (bool)reader["HasExample"];
+              // aggiunta per il design pattern corrente
+              currDesignPatterns.Add(new DesignPattern()
+              {
+                ID = id,
+                Name = desc,
+                DesignType_ID = idType,
+                HasExample = hasExample
+              });
+            }
+          }
+        }
+        con.Close();
+      }
 
-        //                        currTypes.Add(new DesignType()
-        //                        {
-        //                            ID = id,
-        //                            DesignPattern_Type = desc
-
-        //                        });
-        //                    }
-        //                }
-        //            }
-        //        }
-
-
-        //        return currTypes;
-           
-        //}
-
-
-        ///// <summary>
-        ///// Recupero per la descrizione per il design pattern corrente: questa descrizione è ricercata in base al valore per l'enumeratore correntemente passato 
-        ///// </summary>
-        ///// <param name="currDesignPattern"></param>
-        ///// <returns></returns>
-        //internal DesignPatterns GetDescriptionCurrDesignPattern(DESIGN_PATTERN_ENUM currDesignPattern)
-        //{
-        //    Model.DesignPattern currDesignPattern_obj = null;
-
-        //    using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
-        //    {
-        //        con.Open();
-        //        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNPATTERNDESCRIPTION_QUERY(currDesignPattern.ToString()), con))
-        //        {
-        //            using (OleDbDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                // lettura ultimo valore per il design pattern corrente 
-        //                if (reader.Read())
-        //                {
-        //                    currDesignPattern_obj = new Model.DesignPattern()
-        //                    {
-        //                        ID = (int)reader["ID"],
-        //                        DesignPattern = (string)reader["DesignPattern"],
-        //                        DesignType_ID = (int)reader["DesignType_ID"],
-        //                        Description = (string)reader["Description"],
-        //                        Example = (string)reader["Example"]
-        //                    };
-        //                }
-        //            }
-        //        }
-        //    }
+      return currDesignPatterns;
+    }
 
 
-        //    return currDesignPattern_obj;
-        //}
+    /// <summary>
+    /// Tutte le descrizioni applicate per i design patterns attuali
+    /// </summary>
+    /// <returns></returns>
+    public List<DesignPatternDescription> GetDesignPatternsDescriptions()
+    {
+      List<DesignPatternDescription> currDesignPatternsDescriptions = new List<DesignPatternDescription>();
+
+      using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+      {
+        con.Open();
+        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNPATTERNSDESCRIPTION_QUERY(), con))
+        {
+          using (OleDbDataReader reader = cmd.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              int id = (int)reader["ID"];
+              int id_DesignPattern = (int)reader["ID_DesignPattern"];
+              string desc = (string)reader["Description"];
+              string classRelativePath = (string)reader["Class_RelativePath"];
+              int idVisualActionType = (int)reader["ID_VisualActionType"];
+              bool hasCode = (bool)reader["HasCode"];
+              int idVis = (int)reader["ID_Vis"];
+              // aggiunta per il design pattern corrente
+              currDesignPatternsDescriptions.Add(new DesignPatternDescription()
+              {
+                ID = id,
+                ID_DesignPattern = id_DesignPattern,
+                Description = desc,
+                Class_RelativePath = classRelativePath,
+                ID_VisualActionType = idVisualActionType,
+                HasCode = hasCode,
+                ID_Vis = idVis
+              });
+            }
+          }
+        }
+        con.Close();
+      }
+
+      return currDesignPatternsDescriptions;
+    }
+
+
+    /// <summary>
+    /// Recupero di tutti i tipi per i design patterns attuali
+    /// </summary>
+    /// <returns></returns>
+    public List<DesignType> GetDesignPatternsTypes()
+    {
+      List<DesignType> currDesignPatternsTypes = new List<DesignType>();
+
+      using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+      {
+        con.Open();
+        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNTYPES_QUERY(), con))
+        {
+          using (OleDbDataReader reader = cmd.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              int id = (int)reader["ID"];
+              string desc = (string)reader["DesignPattern_Type"];
+              // aggiunta per il design pattern corrente
+              currDesignPatternsTypes.Add(new DesignType()
+              {
+                ID = id,
+                Name = desc
+              });
+            }
+          }
+        }
+        con.Close();
+      }
+
+      return currDesignPatternsTypes;
+    }
+
+
+    /// <summary>
+    /// Tutte le descrizioni per le diverse tipologie di design pattern disponibili
+    /// </summary>
+    /// <returns></returns>
+    public List<DesignTypeDescription> GetDesignPatternTypeDescriptions()
+    {
+      List<DesignTypeDescription> currDesignTypeDescriptions = new List<DesignTypeDescription>();
+
+      using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+      {
+        con.Open();
+        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESIGNTYPESDESCRIPTIONS_QUERY(), con))
+        {
+          using (OleDbDataReader reader = cmd.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              int id = (int)reader["ID"];
+              string desc = (string)reader["Descrizione"];
+              int idType = (int)reader["ID_Type"];
+              // aggiunta per il design pattern corrente
+              currDesignTypeDescriptions.Add(new DesignTypeDescription()
+              {
+                ID = id,
+                Description = desc,
+                IDType = idType
+              });
+            }
+          }
+        }
+        con.Close();
+      }
+
+      return currDesignTypeDescriptions;
+    }
+    
     }
 }

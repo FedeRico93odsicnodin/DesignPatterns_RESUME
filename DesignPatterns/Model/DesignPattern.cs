@@ -18,5 +18,8 @@ namespace DesignPatterns.Model
 
 
         public int DesignType_ID { get; set; }
+
+
+        public bool HasExample { get; set; }
     }
 }

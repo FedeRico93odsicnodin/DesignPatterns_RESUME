@@ -51,12 +51,12 @@ namespace DesignPatterns.ViewConsole
         Win_ColorScheme = ViewConsoleConstants.WIN_DESCR_COLORSCHEME,
 
         // parametri relativi al design pattern corrente
-        DesignPatternName = MemLists.DesignPatterns.Where(x => x.ID == _designPatternDescription.IDPattern).FirstOrDefault().Name,
-        Design_PatternID = _designPatternDescription.IDPattern,
+        DesignPatternName = MemLists.DesignPatterns.Where(x => x.ID == _designPatternDescription.ID_DesignPattern).FirstOrDefault().Name,
+        Design_PatternID = _designPatternDescription.ID_DesignPattern,
         DesignPatternDescription = _designPatternDescription.Description,
         DesignPatternDescriptionID = _designPatternDescription.ID,
         PageType = Constants.PAGE_TYPE.DESCRIPTION,
-        DesignPatternContextEnum = (_designPatternDescription.ContextEnum == 0) ? _designPatternDescription.ID : _designPatternDescription.ContextEnum
+        DesignPatternContextEnum = (_designPatternDescription.ID_Vis == 0) ? _designPatternDescription.ID : _designPatternDescription.ID_Vis
       };
 
       return desPatternScheme;
