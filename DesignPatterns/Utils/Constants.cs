@@ -81,6 +81,7 @@ namespace DesignPatterns.Utils
         /// </summary>
         public enum PAGE_TYPE
         {
+          DEFAULT,
           DESCRIPTION, 
           EXAMPLE,
           DEMO,

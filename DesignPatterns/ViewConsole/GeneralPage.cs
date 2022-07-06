@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.Model.ViewModel;
 using DesignPatterns.Properties;
+using DesignPatterns.ViewConsole.ConsolePageServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace DesignPatterns.ViewConsole
   /// <summary>
   /// Pagina principale che viene implemntata diversamente a seconda del contesto di visualizzazione 
   /// </summary>
-  internal abstract class GeneralPage
+  internal class GeneralPage
   {
     #region IDENTIFICATIVI PER LA PAGINA CORRENTE 
 
@@ -291,7 +292,7 @@ namespace DesignPatterns.ViewConsole
     /// la costruzione della pagina attuale 
     /// </summary>
     /// <param name="viewParams"></param>
-    protected GeneralPage()
+    internal GeneralPage(DesPatternView ViewParams)
     {
       // impostazione statica per il menu relativo al contesto corrente
       InitTopMenu();
@@ -303,17 +304,23 @@ namespace DesignPatterns.ViewConsole
       SetPageIdentifiers(ViewParams.Design_PatternID, ViewParams.DesignPatternDescriptionID, ViewParams.PageType, ViewParams.DesignPatternContextEnum);
     }
 
-    /// <summary>
-    /// Parametri relativi all'istanza attuale per l'interfaccia 
-    /// </summary>
-    protected DesPatternView ViewParams { get { return DefineParamValues(); } }
 
-    
     /// <summary>
-    /// Impostazione dei parametri per la finestra corrente da parte della sottoclasse
+    /// Se non passo nessuna proprietà ottengo i valori di default per il mio viewbag di console 
     /// </summary>
-    /// <returns></returns>
-    protected abstract DesPatternView DefineParamValues();
+    internal GeneralPage()
+    {
+      // recupero delle impostazioni di default per la view corrente
+      DesPatternView ViewParams = ViewConsoleConstants.GetDefaultViewBagValues();
+      // impostazione statica per il menu relativo al contesto corrente
+      InitTopMenu();
+      // impostazione per la finestra principale
+      SetPage(ViewParams.Title_ColorScheme, ViewParams.Win_ColorScheme, ViewParams.Buttons_ColorScheme, ViewParams.Txt_ColorScheme);
+      // impostazione dei valori per il nome e la descrizione da leggere sulla pagina corrente
+      SetDesignPatternDescription(ViewParams.DesignPatternName, ViewParams.DesignPatternDescription);
+      // impostazione per gli attributi identificativi della pagina rispetto al design pattern attuale 
+      SetPageIdentifiers(ViewParams.Design_PatternID, ViewParams.DesignPatternDescriptionID, ViewParams.PageType, ViewParams.DesignPatternContextEnum);
+    }
     
     #endregion
 

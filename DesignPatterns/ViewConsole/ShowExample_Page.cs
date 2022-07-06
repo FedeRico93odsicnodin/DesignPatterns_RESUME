@@ -16,27 +16,8 @@ namespace DesignPatterns.ViewConsole
   /// </summary>
   internal class ShowExample_Page : GeneralPage
   {
-
-    /// <summary>
-    /// descrizione per il design pattern e la pagina attuale 
-    /// </summary>
-    DesignPatternDescription _designPatternDescription;
-
-
-    /// <summary>
-    /// Impostazione per il design pattern e per la sua descrizione attuali
-    /// </summary>
-    /// <param name="designPattern"></param>
-    /// <param name="designPatternDescription"></param>
-    internal ShowExample_Page(
-      DesignPatternDescription designPatternDescription)
+    internal ShowExample_Page(DesPatternView ViewParams) : base(ViewParams)
     {
-      _designPatternDescription = designPatternDescription;
-    }
-
-    protected override DesPatternView DefineParamValues()
-    {
-      throw new NotImplementedException();
     }
   }
 }

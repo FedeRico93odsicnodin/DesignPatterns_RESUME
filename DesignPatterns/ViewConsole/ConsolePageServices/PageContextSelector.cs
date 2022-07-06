@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.Model;
+using DesignPatterns.Model.ViewModel;
 using DesignPatterns.Utils;
 using System;
 using System.Collections.Generic;
@@ -42,37 +43,37 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// Creazione di una pagina di contesto relativa al design pattern corrente in base all'elemento recuperato
     /// dalla base dati corrente
     /// </summary>
-    /// <param name="pageDescription"></param>
-    internal void PrepareDesignPatternPageCurrDescription(DesignPatternDescription pageDescription)
+    /// <param name="desPatDescription"></param>
+    internal void PrepareDesignPatternPageCurrDescription(DesignPatternDescription desPatDescription)
     {
       // inizializzazione lista di pagine nel caso siano a empty 
       if (MemLists.AllPagesViewConsole == null)
         MemLists.AllPagesViewConsole = new List<GeneralPage>();
 
-      GeneralPage currPage = null;
+      GeneralPage currPage = new GeneralPage();
 
       // classificazione della diversa specializzazione di pagina in base all'ID per l'action type
-      switch(pageDescription.ID_VisualActionType)
+      switch(desPatDescription.ID_VisualActionType)
       {
         // pagina di descrizione 
         case 1:
           {
             // inizializzazione per la pagina di descrizione corrente
-            currPage = new ShowDescription_Page(pageDescription);
+            currPage = new ShowDescription_Page(PrepareViewParams(desPatDescription));
             break;
           }
         // pagina di esempio 
         case 2:
           {
             // inizializzazione per la pagina di codice corrente
-            currPage = new ShowCode_Page(pageDescription);
+            currPage = new ShowCode_Page(PrepareViewParams(desPatDescription));
             break;
           }
         // pagina di demo 
         case 3:
           {
             // inizializzazione per la pagina di demo corrente
-            currPage = new ShowExample_Page(pageDescription);
+            currPage = new ShowExample_Page(PrepareViewParams(desPatDescription));
             break;
           }
       }
@@ -80,6 +81,18 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       // aggiunta istanza di pagina a tutte le pagine disponibili solo se ne ho trovato una specializzazione
       if(currPage != null)
         MemLists.AllPagesViewConsole.Add(currPage);
+    }
+
+
+    /// <summary>
+    /// Permette di preparare i parametri per l'interfaccia provenienti dal contesto di recupero descrizioni dal database
+    /// </summary>
+    /// <param name="pageDescription"></param>
+    /// <returns></returns>
+    private DesPatternView PrepareViewParams(DesignPatternDescription pageDescription)
+    {
+      // TODO: specializzare con le descrizioni relative ai design patterns e la descrizione attuale 
+      return new DesPatternView();
     }
 
     #endregion

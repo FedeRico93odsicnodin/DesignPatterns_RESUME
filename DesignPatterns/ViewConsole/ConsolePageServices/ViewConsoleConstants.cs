@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatterns.Model.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,27 +13,34 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
   /// </summary>
   internal static class ViewConsoleConstants
   {
-    #region PARAMETRI CONSTANTI PER LA PAGINA DI VISUALIZZAZIONE DELLE DESCRIZIONI
 
-    internal static ColorScheme TITLE_DESCR_COLORSCHEME { get { return Colors.Dialog; } }
+    private static ColorScheme TITLE_DESCR_COLORSCHEME { get { return Colors.Dialog; } }
 
-    internal static ColorScheme TEXT_DESCR_COLORSCHEME { get { return Colors.Menu; } }
+    private static ColorScheme TEXT_DESCR_COLORSCHEME { get { return Colors.Menu; } }
 
-    internal static ColorScheme BUTTON_DESCR_COLORSCHEME { get { return Colors.Dialog; } }
+    private static ColorScheme BUTTON_DESCR_COLORSCHEME { get { return Colors.Dialog; } }
 
-    internal static ColorScheme WIN_DESCR_COLORSCHEME { get { return Colors.Base; } }
+    private static ColorScheme WIN_DESCR_COLORSCHEME { get { return Colors.Base; } }
 
-    #endregion
+    private static string TITLE_DEFAULT = "IN PROGRESS TITLE";
 
+    private static string TEXT_DESCRIPTION_DEFAULT = "THIS PAGE IN IS PROGRESS";
 
-    #region DESCRIZIONI DI DEFAULT 
+    private static string BTN_TXT_DEFAULT = "IN PROGRESS";
 
-    internal static string TITLE_DEFAULT = "IN PROGRESS TITLE";
-
-    internal static string TEXT_DESCRIPTION_DEFAULT = "THIS PAGE IN IS PROGRESS";
-
-    internal static string BTN_TXT_DEFAULT = "IN PROGRESS";
-
-    #endregion
+    internal static DesPatternView GetDefaultViewBagValues()
+    {
+      return new DesPatternView()
+      {
+        Win_ColorScheme = WIN_DESCR_COLORSCHEME,
+        Buttons_ColorScheme = BUTTON_DESCR_COLORSCHEME,
+        Title_ColorScheme = TITLE_DESCR_COLORSCHEME,
+        Txt_ColorScheme = TEXT_DESCR_COLORSCHEME,
+        DesignPatternName = TEXT_DESCRIPTION_DEFAULT,
+        PageType = Utils.Constants.PAGE_TYPE.DEFAULT,
+        DesignPatternDescription = TEXT_DESCRIPTION_DEFAULT
+      };
+    }
+    
   }
 }
