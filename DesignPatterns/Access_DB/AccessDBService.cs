@@ -35,7 +35,7 @@ namespace DesignPatterns.Access_DB
             {
               int id = (int)reader["ID"];
               string desc = (string)reader["DesignPattern"];
-              int idType = (int)reader["DesignType"];
+              int idType = (int)reader["DesignType_ID"];
               bool hasExample = (bool)reader["HasExample"];
               // aggiunta per il design pattern corrente
               currDesignPatterns.Add(new DesignPattern()
@@ -74,11 +74,13 @@ namespace DesignPatterns.Access_DB
             {
               int id = (int)reader["ID"];
               int id_DesignPattern = (int)reader["ID_DesignPattern"];
-              string desc = (string)reader["Description"];
-              string classRelativePath = (string)reader["Class_RelativePath"];
+              string desc = (reader["Description"] != DBNull.Value) ? 
+                (string)reader["Description"] : String.Empty;
+              string classRelativePath = (reader["Class_RelativePath"] != DBNull.Value) ? 
+                (string)reader["Class_RelativePath"] : String.Empty;
               int idVisualActionType = (int)reader["ID_VisualActionType"];
               bool hasCode = (bool)reader["HasCode"];
-              int idVis = (int)reader["ID_Vis"];
+              int idVis = (reader["ID_Vis"] != DBNull.Value) ? (int)reader["ID_Vis"] : 0;
               // aggiunta per il design pattern corrente
               currDesignPatternsDescriptions.Add(new DesignPatternDescription()
               {

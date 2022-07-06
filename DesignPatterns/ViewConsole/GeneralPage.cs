@@ -122,15 +122,18 @@ namespace DesignPatterns.ViewConsole
     private void SetTitleLabel(ColorScheme colorScheme)
     {
       // inizializzazione della label principale 
-      _windowTitle = new Label()
-      {
-        TextAlignment = TextAlignment.Centered,
-        Width = Dim.Fill() - 1,
-        Height = Dim.Fill(),
-        X = 1,
-        Y = 1,
-        ColorScheme = colorScheme
-      };
+      if (_windowTitle == null)
+        _windowTitle = new Label()
+        {
+          TextAlignment = TextAlignment.Centered,
+          Width = Dim.Fill() - 1,
+          Height = Dim.Fill(),
+          X = 1,
+          Y = 1,
+          ColorScheme = colorScheme
+        };
+      else
+        _windowTitle.ColorScheme = colorScheme; // cambiamento del solo stile 
     }
 
 
@@ -140,14 +143,17 @@ namespace DesignPatterns.ViewConsole
     /// <param name="colorScheme"></param>
     private void SetDescriptionText(ColorScheme colorScheme)
     {
-      _descriptionView = new TextView()
-      {
-        Width = Dim.Fill() - 4,
-        Height = Dim.Fill() - 4,
-        X = 2,
-        Y = 2,
-        ColorScheme = colorScheme
-      };
+      if (_descriptionView == null)
+        _descriptionView = new TextView()
+        {
+          Width = Dim.Fill() - 4,
+          Height = Dim.Fill() - 4,
+          X = 2,
+          Y = 2,
+          ColorScheme = colorScheme
+        };
+      else
+        _descriptionView.ColorScheme = colorScheme; // cambio solo lo stile 
     }
 
 
@@ -157,14 +163,18 @@ namespace DesignPatterns.ViewConsole
     /// <param name="colorScheme"></param>
     private void SetWindow(ColorScheme colorScheme)
     {
-      _mainMenu = new Window()
-      {
-        X = 0,
-        Y = 2,
-        Width = Dim.Fill(),
-        Height = Dim.Fill(),
-        ColorScheme = colorScheme
-      };
+      if (_mainMenu == null)
+        _mainMenu = new Window()
+        {
+          X = 0,
+          Y = 2,
+          Width = Dim.Fill(),
+          Height = Dim.Fill(),
+          ColorScheme = colorScheme
+        };
+      else
+        _mainMenu.ColorScheme = colorScheme;
+
     }
 
     /// <summary>
@@ -173,27 +183,36 @@ namespace DesignPatterns.ViewConsole
     /// <param name="colorScheme"></param>
     private void SetButtons(ColorScheme colorScheme)
     {
-      _nextButton = new Button()
-      {
-        X = 13,
-        Y = 13,
-        Text = Resource.NEXT_BTN_TXT,
-        ColorScheme = colorScheme
-      };
-      _prevButton = new Button()
-      {
-        X = 13,
-        Y = 5,
-        Text = Resource.PREV_BTN_TXT,
-        ColorScheme = colorScheme
-      };
-      _mainMenuButton = new Button()
-      {
-        X = 2,
-        Y = 2,
-        Text = Resource.PREV_BTN_TXT,
-        ColorScheme = colorScheme
-      };
+      if (_nextButton == null)
+        _nextButton = new Button()
+        {
+          X = 13,
+          Y = 13,
+          Text = Resource.NEXT_BTN_TXT,
+          ColorScheme = colorScheme
+        };
+      else
+        _nextButton.ColorScheme = colorScheme;
+      if (_prevButton == null)
+        _prevButton = new Button()
+        {
+          X = 13,
+          Y = 5,
+          Text = Resource.PREV_BTN_TXT,
+          ColorScheme = colorScheme
+        };
+      else
+        _prevButton.ColorScheme = colorScheme;
+      if (_mainMenuButton == null)
+        _mainMenuButton = new Button()
+        {
+          X = 2,
+          Y = 2,
+          Text = Resource.PREV_BTN_TXT,
+          ColorScheme = colorScheme
+        };
+      else
+        _mainMenuButton.ColorScheme = colorScheme;
     }
 
     /// <summary>

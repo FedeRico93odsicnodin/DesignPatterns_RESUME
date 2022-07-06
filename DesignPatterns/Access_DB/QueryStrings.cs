@@ -21,7 +21,7 @@ namespace DesignPatterns.Access_DB
     /// <summary>
     /// Getter per la query per il recupero di tutti i design patterns per il contesto attuale 
     /// </summary>
-    private static string _GETDESIGNPATTERNS_QUERY = @"SELECT ID, DesignPattern, DesignType, HasExample FROM DesignPatterns";
+    private static string _GETDESIGNPATTERNS_QUERY = "SELECT ID, DesignPattern, DesignType_ID, HasExample FROM DesignPatterns";
     
     internal static string GETDESIGNPATTERNS_QUERY()
     {
