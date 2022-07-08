@@ -213,6 +213,7 @@ namespace DesignPatterns.ViewConsole
       else
         _descriptionView.ColorScheme = colorScheme; // cambio solo lo stile 
       _mainWindow.Add(_descriptionView);
+      
     }
     
     /// <summary>
@@ -252,28 +253,35 @@ namespace DesignPatterns.ViewConsole
     private void SetButtons(ColorScheme colorScheme)
     {
       if (_nextButton == null)
+      {
         _nextButton = new Button()
         {
-          X = 13,
-          Y = 13,
+          X = 4,
+          Y = 4,
           Text = Resource.NEXT_BTN_TXT,
           ColorScheme = colorScheme,
-          Visible = false
+          Visible = true
         };
+        _mainWindow.Add(_nextButton);
+      }
       else
         _nextButton.ColorScheme = colorScheme;
       if (_prevButton == null)
+      {
         _prevButton = new Button()
         {
           X = 13,
           Y = 5,
           Text = Resource.PREV_BTN_TXT,
           ColorScheme = colorScheme,
-          Visible = false,
+          Visible = true,
         };
+        _mainWindow.Add(_prevButton);
+      }
       else
         _prevButton.ColorScheme = colorScheme;
       if (_mainMenuButton == null)
+      {
         _mainMenuButton = new Button()
         {
           X = 2,
@@ -282,10 +290,13 @@ namespace DesignPatterns.ViewConsole
           ColorScheme = colorScheme,
           Visible = true,
         };
+        _mainWindow.Add(_mainMenuButton);
+      }
       else
         _mainMenuButton.ColorScheme = colorScheme;
       // eventuali button di esempio / demo 
       if(_showExamplePage == null)
+      {
         _showExamplePage = new Button()
         {
           X = 13,
@@ -294,9 +305,12 @@ namespace DesignPatterns.ViewConsole
           ColorScheme = colorScheme,
           Visible = false,
         };
+        _mainWindow.Add(_showExamplePage);
+      }
       else 
         _showExamplePage.ColorScheme = colorScheme;
       if (_showDemoPage == null)
+      {
         _showDemoPage = new Button()
         {
           X = 13,
@@ -305,6 +319,8 @@ namespace DesignPatterns.ViewConsole
           ColorScheme = colorScheme,
           Visible = false,
         };
+        _mainWindow.Add(_showDemoPage);
+      }
       else
         _showDemoPage.ColorScheme = colorScheme;
 
@@ -426,21 +442,6 @@ namespace DesignPatterns.ViewConsole
         ColorScheme = colorScheme,
         Visible = true
       };
-      //TabView.Tab test = new TabView.Tab();
-      //test.Text = "test";
-      //View viewtest = new View()
-      //{
-      //  Width = Dim.Fill() - 4,
-      //  Height = Dim.Fill() - 4,
-      //  X = 2,
-      //  Y = 2,
-      //  ColorScheme = colorScheme,
-      //  Visible = true
-      //};
-      //viewtest.Add(_descriptionView);
-      //test.View = viewtest;
-      //_tabTypologies.AddTab(test, true);
-      
     }
 
 

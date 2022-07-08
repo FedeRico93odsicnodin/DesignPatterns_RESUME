@@ -80,7 +80,9 @@ namespace DesignPatterns.Access_DB
                 (string)reader["Class_RelativePath"] : String.Empty;
               int idVisualActionType = (int)reader["ID_VisualActionType"];
               bool hasCode = (bool)reader["HasCode"];
-              int idVis = (reader["ID_Vis"] != DBNull.Value) ? (int)reader["ID_Vis"] : 0;
+              int idVis = (reader["ID_Vis"] != DBNull.Value) ? (int)reader["ID_Vis"] : id;
+              if (idVis == 0)
+                idVis = id;
               // aggiunta per il design pattern corrente
               currDesignPatternsDescriptions.Add(new DesignPatternDescription()
               {

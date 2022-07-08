@@ -127,6 +127,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       currViewBagConsole.DesignPatternDescription = desPatDescription.Description;
       currViewBagConsole.DesignPatternDescriptionID = desPatDescription.ID;
       currViewBagConsole.Design_PatternID = desPatDescription.ID_DesignPattern;
+      currViewBagConsole.DesignPatternContextEnum = desPatDescription.ID_Vis;
       // ricerca del nome per il design pattern tra gli elementi di partenza 
       currViewBagConsole.DesignPatternName =
         (MemLists.DesignPatterns.Where(x => x.ID == desPatDescription.ID_DesignPattern).FirstOrDefault() != null) ?
@@ -160,7 +161,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       bool verifyNextPage = (MemLists.DesignPatterns_Descriptions.Where(
         x => x.ID_VisualActionType == (int)pageType &&
         x.ID_DesignPattern == EntityPatternID &&
-        (x.ID > EntityID || x.ID_VisualActionType > ContextID)
+        (x.ID > EntityID || x.ID_Vis > ContextID)
         ).Count() > 0);
 
       return verifyNextPage;
@@ -181,9 +182,9 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       bool verifyPrevPage = (MemLists.DesignPatterns_Descriptions.Where(
         x => x.ID_VisualActionType == (int)pageType &&
         x.ID_DesignPattern == EntityPatternID &&
-        (x.ID < EntityID || x.ID_VisualActionType < ContextID)
+        (x.ID < EntityID || x.ID_Vis < ContextID)
         ).Count() > 0);
-
+      
       return verifyPrevPage;
     }
 
@@ -258,7 +259,16 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <param name="idDesPattern"></param>
     internal void ChangePageContext_DesPatternDescription(int idDesPattern)
     {
-      // TODO: implementazione della dinamica di selezione della pagina 
+      ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
+      // recupero della pagina relativa alla descrizione principale per il design pattern
+      ShowDescription_Page currPageDesignPattern = (ShowDescription_Page)MemLists.AllPagesViewConsole.Where(
+        x => x.DesignPatternID == idDesPattern
+        && x.PageType == PAGE_TYPE.DESCRIPTION
+        && x.PageContextEnum ==
+        MemLists.AllPagesViewConsole.Where(y => y.DesignPatternID == idDesPattern &&
+        x.PageType == PAGE_TYPE.DESCRIPTION).Select(y => y.PageContextEnum).Min()).FirstOrDefault();
+      // impostazione dei parametri per questo tipo di pagina 
+      ViewConsoleConstants.ApplicationTop.Add(currPageDesignPattern.TopMenu, currPageDesignPattern.WindowTitle, currPageDesignPattern.MainWindow);
     }
 
 

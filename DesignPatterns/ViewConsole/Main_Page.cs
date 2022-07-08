@@ -24,14 +24,15 @@ namespace DesignPatterns.ViewConsole
     /// <param name="ViewParams"></param>
     internal Main_Page(DesPatternView ViewParams) : base(ViewParams)
     {
+      // impostazione parametri principali di view
+      ViewParams.Tab_ColorScheme = ViewConsoleConstants.TAB_MAIN_COLORSCHEME;
+      ViewParams.Buttons_ColorScheme = ViewConsoleConstants.BUTTON_MAIN_COLORSCHEME;
       // impostazione della pagina come una pagina di main 
       base.PageType = Utils.Constants.PAGE_TYPE.MAIN;
       // impostazione del nuovo valore per il viewbag corrente 
       base.viewBagBase = ViewParams;
       // inizializzazione del dizionario di mappatura per i diversi design patterns nel contesto corrente 
       _desPatternsMapperSelector = new Dictionary<int, Button>();
-      // impostazione parametri principali di view
-      ViewParams.Tab_ColorScheme = ViewConsoleConstants.TAB_MAIN_COLORSCHEME;
       // impostazione dei parametri principali
       base.InitMainTabs(ViewParams.Tab_ColorScheme);
       // creazione delle diverse tabs
@@ -90,7 +91,6 @@ namespace DesignPatterns.ViewConsole
       {
         Width = Dim.Fill() - 4,
         Height = Dim.Fill() - 4,
-        ColorScheme = Colors.Error,
         Visible = true,
       };
       // creazione dei diversi buttons e inserimento nel dizionario per poter effettuare la corrispondenza
@@ -102,7 +102,8 @@ namespace DesignPatterns.ViewConsole
         {
           Text = designPatternNameID.Value,
           X = startingX,
-          Y = startingY
+          Y = startingY,
+          ColorScheme = viewBagBase.Buttons_ColorScheme
         };
         startingX = startingX + designPatternNameID.Value.Length + 5;
         desPatternBtn.Clicked += () => DesPatternClickedAction(desPatternBtn);

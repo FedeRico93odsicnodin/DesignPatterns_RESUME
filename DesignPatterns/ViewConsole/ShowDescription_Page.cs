@@ -38,6 +38,10 @@ namespace DesignPatterns.ViewConsole
       base.Btn_Prev_Activation(ViewParams.HasPrevPage);
       // eventuale attivazione del button di esempio (se mi trovo sull'ultima pagina)
       base.Btn_Example_Activation(ViewParams.HasExamplePage);
+      // impostazione dei parametri per riconoscere la pagina velocemente 
+      base.DesignPatternID = ViewParams.Design_PatternID;
+      base.PageType = Constants.PAGE_TYPE.DESCRIPTION;
+      base.PageContextEnum = ViewParams.DesignPatternContextEnum;
     }
 
 
