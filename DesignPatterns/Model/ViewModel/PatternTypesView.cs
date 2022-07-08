@@ -11,11 +11,11 @@ namespace DesignPatterns.Model.ViewModel
   /// + un dizionario di tutti i design pattern collegati nel quale sono riportati il nome e l'ID principale con cui andare allo specifico
   /// design pattern corrente
   /// </summary>
-  internal class PatterTypesView
+  internal class PatternTypesView
   {
     internal string DesignTypeName { get; set; }
 
-    internal string DesignTypeID { get; set; }
+    internal int DesignTypeID { get; set; }
 
     internal string DesignTypeDescription { get; set; }
 

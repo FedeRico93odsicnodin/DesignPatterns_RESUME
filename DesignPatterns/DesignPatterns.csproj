@@ -63,7 +63,7 @@
     <Compile Include="Model\DesignType.cs" />
     <Compile Include="Model\DesignTypeDescription.cs" />
     <Compile Include="Model\ViewModel\DesPatternView.cs" />
-    <Compile Include="Model\ViewModel\PatterTypesView.cs" />
+    <Compile Include="Model\ViewModel\PatternTypesView.cs" />
     <Compile Include="Model\VisualActionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

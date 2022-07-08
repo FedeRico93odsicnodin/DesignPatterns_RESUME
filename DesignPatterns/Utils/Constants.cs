@@ -85,7 +85,7 @@ namespace DesignPatterns.Utils
           DESCRIPTION = 1, 
           EXAMPLE = 2,
           DEMO = 3,
-          DESIGNTYPE = 4
+          MAIN = 4 // pagina principale di descrizione delle tipologie 
         }
 
     #endregion

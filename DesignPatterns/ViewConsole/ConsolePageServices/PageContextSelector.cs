@@ -25,7 +25,37 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// </summary>
     internal void PrepareMainPageContext()
     {
-      // TODO: implementazione metodo per la creazione della pagina principale di contesto per il caso corrente
+      // inizializzazione lista di pagine nel caso siano a empty 
+      if (MemLists.AllPagesViewConsole == null)
+        MemLists.AllPagesViewConsole = new List<GeneralPage>();
+      // creazione del viewbag per il contesto di main 
+      Main_Page currMainPage = new Main_Page(GetMainParameters());
+      // inserimento della pagina all'interno del contesto 
+      MemLists.AllPagesViewConsole.Add(currMainPage);
+    }
+
+
+    /// <summary>
+    /// Recupero di tutti i parametri di cui eseguire il display nella view corrente 
+    /// </summary>
+    /// <returns></returns>
+    private DesPatternView GetMainParameters()
+    {
+      DesPatternView currMainParameters = new DesPatternView();
+      // iterazione per ongi tipologia di design pattern ritrovata 
+      List<PatternTypesView> currPatTypesView = new List<PatternTypesView>();
+      foreach(DesignType currDesType in MemLists.DesignPatterns_Types)
+      {
+        PatternTypesView typeView = new PatternTypesView();
+        typeView.DesignTypeID = currDesType.ID;
+        typeView.DesignTypeName = currDesType.Name;
+        typeView.DesignTypeDescription = MemLists.DesignTypesDescriptions.Where(x => x.IDType == currDesType.ID).FirstOrDefault().Description;
+        typeView.DesignPatternList =
+          MemLists.DesignPatterns.Where(x => x.DesignType_ID == currDesType.ID).ToDictionary(x => x.ID, x => x.Name);
+        currPatTypesView.Add(typeView);
+      }
+      currMainParameters.DesignTypesList = currPatTypesView;
+      return currMainParameters;
     }
 
 
@@ -112,69 +142,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     }
 
     #endregion
-
-
-    #region RECUPERO DELLA PAGINA CORRENTE
-
-    /// <summary>
-    /// Metodo per il recupero di una singola pagina per la descrizione di un tipo
-    /// particolare di pattern
-    /// </summary>
-    /// <param name="pageType"></param>
-    /// <param name="EntityID"></param>
-    /// <returns></returns>
-    internal GeneralPage GetPage(PAGE_TYPE pageType, int EntityID)
-    {
-      // questo metodo va bene solo per il recupero di una eventuale pagina relativa alla descrizione 
-      // per un particolare tipo di design pattern
-      if (pageType != PAGE_TYPE.DESIGNTYPE)
-        return null;
-
-      // ritorno la pagina relativa al display descrizione per la tipologia di design pattern selezionata
-      GeneralPage currContentPage = MemLists.AllPagesViewConsole.Where(
-        x => x.DesignTypeID == EntityID &&
-        x.PageType == pageType
-        ).FirstOrDefault();
-
-      return currContentPage;
-    }
-
-
-    /// <summary>
-    /// Ritorno la pagina attuale in base alla enumerazione eseguita per il design pattern attuale 
-    /// per la descrizione del design pattern o per l'identificativo di contesto con il riferimento alla tipologia attuale 
-    /// per la descrizione (quindi una pagina di demo di descrizione o di esempio)
-    /// </summary>
-    /// <param name="pageType"></param>
-    /// <param name="EntityID"></param>
-    /// <param name="ContextID"></param>
-    /// <param name="EntityPatternID"></param>
-    /// <returns></returns>
-    internal GeneralPage GetPage(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
-    {
-      // provo a recuperare la pagina con l'enumerazione "piu fiscale"
-      GeneralPage currContentPage = MemLists.AllPagesViewConsole.Where(
-        x => x.PageType == pageType &&
-        x.DescriptionPatternID == EntityID &&
-        x.PageContextEnum == ContextID &&
-        x.DesignPatternID == EntityPatternID
-        ).FirstOrDefault();
-      // se non trovo nessun risultato allora provo con una enumerazione diversa
-      if(currContentPage == null)
-      {
-        currContentPage = MemLists.AllPagesViewConsole.Where(
-          x => x.PageType == pageType &&
-          x.DescriptionPatternID == EntityID &&
-          x.PageContextEnum == EntityID && // da costruzione l'ID per il contesto deve essere uguale a quello della entità
-          x.DesignPatternID == EntityPatternID
-          ).FirstOrDefault();
-      }
-      // in ogni caso ritorno la pagina corrente (da verificare dopo che non sia nulla)
-      return currContentPage;
-    }
-
-    #endregion
-
+    
 
     #region VERIFICA DI PRESENZA PAGINA SUCCESSIVA / PRECEDENTE 
 
@@ -280,6 +248,38 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
 
     #endregion
 
+
+    #region SWITCH NEL CONTESTO GRAFICO 
+
+    /// <summary>
+    /// Recupero della prima pagina di descrizione per il design pattern corrente: questo si usa quando si
+    /// arriva per la prima volta alla definizione per questo design pattern 
+    /// </summary>
+    /// <param name="idDesPattern"></param>
+    internal void ChangePageContext_DesPatternDescription(int idDesPattern)
+    {
+      // TODO: implementazione della dinamica di selezione della pagina 
+    }
+
+
+    /// <summary>
+    /// Chiamato ogni volta che si torna alla pagina principale o si apre per la prima volta 
+    /// </summary>
+    internal void LoadMainPage()
+    {
+      ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
+      // recupero della pagina principale dall'insieme di tutte le pagine disponibili
+      Main_Page currMainPage = (Main_Page)MemLists.AllPagesViewConsole.Where(
+        x => x.PageType == PAGE_TYPE.MAIN
+        ).FirstOrDefault();
+      // inserimento del contesto per la pagina principale 
+      ViewConsoleConstants.ApplicationTop.Add(
+        currMainPage.TopMenu, currMainPage.WindowTitle, currMainPage.MainWindow
+        );
+    }
+
+
+    #endregion
 
   }
 

@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.ViewConsole;
+using DesignPatterns.ViewConsole.ConsolePageServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,31 +12,24 @@ namespace DesignPatterns
   class Program
   {
 
-        /// <summary>
-        /// Selezione del contesto di top per l'applicazione corrente 
-        /// </summary>
-        private static Toplevel _applicationTop;
-
-        
 
 
 
         static void Main(string[] args)
     {
 
+            // inizializzazione dei contesti nei quali eseguire le diverse pagine 
             Application.Init();
-            _applicationTop = Application.Top;
+            ViewConsoleConstants.ApplicationTop = Application.Top;
 
             // lettura delle configurazioni iniziali di programma 
             ServiceLocator.GetConfigurationsService.ReadConfigurations();
 
-      // 
-      //string designPatternSingleton = ServiceLocator.GetDesignPatternsService.GetSingletonService.DesignPatternName.ToString();
-
-      //GeneralPage currPageDefault = new GeneralPage();
-      //_applicationTop.Add(currPageDefault.TopMenu, currPageDefault.WindowTitle, currPageDefault.MainWindow);
-
-      Application.Run();
-        }
+            // inserimento della pagina principale per il contesto corrente 
+            ServiceLocator.GetContextSelectorService.LoadMainPage();
+      
+            // avvio applicazione console corrente 
+            Application.Run();
+    }
   }
 }

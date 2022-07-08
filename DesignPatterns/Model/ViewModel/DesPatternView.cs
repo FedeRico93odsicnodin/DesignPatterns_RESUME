@@ -103,7 +103,7 @@ namespace DesignPatterns.Model.ViewModel
 
     #region PARAMETRI PER LA PAGINA PRINCIPALE
 
-    internal List<PatterTypesView> DesignTypesList { get; set; }
+    internal List<PatternTypesView> DesignTypesList { get; set; }
 
     #endregion
   }

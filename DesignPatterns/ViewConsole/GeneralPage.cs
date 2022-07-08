@@ -426,21 +426,21 @@ namespace DesignPatterns.ViewConsole
         ColorScheme = colorScheme,
         Visible = true
       };
-      TabView.Tab test = new TabView.Tab();
-      test.Text = "test";
-      View viewtest = new View()
-      {
-        Width = Dim.Fill() - 4,
-        Height = Dim.Fill() - 4,
-        X = 2,
-        Y = 2,
-        ColorScheme = colorScheme,
-        Visible = true
-      };
-      viewtest.Add(_descriptionView);
-      test.View = viewtest;
-      _tabTypologies.AddTab(test, true);
-      _mainWindow.Add(_tabTypologies);
+      //TabView.Tab test = new TabView.Tab();
+      //test.Text = "test";
+      //View viewtest = new View()
+      //{
+      //  Width = Dim.Fill() - 4,
+      //  Height = Dim.Fill() - 4,
+      //  X = 2,
+      //  Y = 2,
+      //  ColorScheme = colorScheme,
+      //  Visible = true
+      //};
+      //viewtest.Add(_descriptionView);
+      //test.View = viewtest;
+      //_tabTypologies.AddTab(test, true);
+      
     }
 
 
@@ -450,11 +450,11 @@ namespace DesignPatterns.ViewConsole
     /// <param name="currTabType"></param>
     protected void AddTab(TabView.Tab currTabType)
     {
-      // rimozione di tutti i tabs che erano stati precedentemente inseriti 
-      if (_isTabViewTest)
-        _tabTypologies.RemoveAll();
+      
       // inserimento per il tab corrente 
-      _tabTypologies.AddTab(currTabType, true);
+      _tabTypologies.AddTab(currTabType, _isTabViewTest);
+      _mainWindow.Add(_tabTypologies);
+      _isTabViewTest = false;
     }
 
     #endregion

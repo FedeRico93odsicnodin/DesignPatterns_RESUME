@@ -13,6 +13,17 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
   /// </summary>
   internal static class ViewConsoleConstants
   {
+    #region CONTESTO PRINCIPALE SUL QUALE AGIRE PER LE DIVERSE PAGINE UTILIZZATE IN CONSOLE
+
+    /// <summary>
+    /// Selezione del contesto di top per l'applicazione corrente 
+    /// </summary>
+    internal static Toplevel ApplicationTop;
+
+    #endregion
+
+
+
 
     #region PARAMETRI STANDARD 
 
