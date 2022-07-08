@@ -36,6 +36,12 @@ namespace DesignPatterns.Model.ViewModel
     /// Colore per il testo e per le descrizioni da applicare al contesto corrente
     /// </summary>
     internal ColorScheme Txt_ColorScheme { get; set; }
+
+
+    /// <summary>
+    /// Impostazione della colorazione per i tab nel caso di schermata principale
+    /// </summary>
+    internal ColorScheme Tab_ColorScheme { get; set; }
     
 
     /// <summary>
@@ -72,5 +78,33 @@ namespace DesignPatterns.Model.ViewModel
     /// Enumeratore per il contesto di creazione corrente per il design pattern corrente
     /// </summary>
     internal int DesignPatternContextEnum { get; set; }
+
+    #region PARAMETRI IDENTIFICATORI PER LA PAGINA CORRENTE
+
+    /// <summary>
+    /// Indicazione di pagina successiva per il contenuto attuale 
+    /// </summary>
+    internal bool HasNextPage { get; set; }
+
+
+    /// <summary>
+    /// Indicazione di pagina precedente per il contenuto attuale 
+    /// </summary>
+    internal bool HasPrevPage { get; set; }
+
+
+    /// <summary>
+    /// Indicazione di contesto di visualizzazione button di Esempio per una descrizione 
+    /// </summary>
+    internal bool HasExamplePage { get; set; }
+
+    #endregion
+
+
+    #region PARAMETRI PER LA PAGINA PRINCIPALE
+
+    internal List<PatterTypesView> DesignTypesList { get; set; }
+
+    #endregion
   }
 }

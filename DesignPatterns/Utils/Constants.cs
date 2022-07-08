@@ -81,11 +81,11 @@ namespace DesignPatterns.Utils
         /// </summary>
         public enum PAGE_TYPE
         {
-          DEFAULT,
-          DESCRIPTION, 
-          EXAMPLE,
-          DEMO,
-          DESIGNTYPE
+          DEFAULT = 0,
+          DESCRIPTION = 1, 
+          EXAMPLE = 2,
+          DEMO = 3,
+          DESIGNTYPE = 4
         }
 
     #endregion

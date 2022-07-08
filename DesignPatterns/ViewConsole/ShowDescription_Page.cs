@@ -17,36 +17,30 @@ namespace DesignPatterns.ViewConsole
   /// </summary>
   internal class ShowDescription_Page : GeneralPage
   {
-
-
-    ///// <summary>
-    ///// Impostazione oggetto di descrizione in base alle specifiche attuali 
-    ///// </summary>
-    ///// <returns></returns>
-    //protected override DesPatternView DefineParamValues()
-    //{
-    //  // istanza finestra con tutti i parametri utili alla descrizione corrente
-    //  DesPatternView desPatternScheme = new DesPatternView()
-    //  {
-    //    // parametri di finestra grafici 
-    //    Title_ColorScheme = ViewConsoleConstants.TITLE_DESCR_COLORSCHEME,
-    //    Txt_ColorScheme = ViewConsoleConstants.TEXT_DESCR_COLORSCHEME,
-    //    Buttons_ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME,
-    //    Win_ColorScheme = ViewConsoleConstants.WIN_DESCR_COLORSCHEME,
-
-    //    // parametri relativi al design pattern corrente
-    //    DesignPatternName = MemLists.DesignPatterns.Where(x => x.ID == _designPatternDescription.ID_DesignPattern).FirstOrDefault().Name,
-    //    Design_PatternID = _designPatternDescription.ID_DesignPattern,
-    //    DesignPatternDescription = _designPatternDescription.Description,
-    //    DesignPatternDescriptionID = _designPatternDescription.ID,
-    //    PageType = Constants.PAGE_TYPE.DESCRIPTION,
-    //    DesignPatternContextEnum = (_designPatternDescription.ID_Vis == 0) ? _designPatternDescription.ID : _designPatternDescription.ID_Vis
-    //  };
-
-    //  return desPatternScheme;
-    //}
+    /// <summary>
+    /// Impostazione dei valori per la descrizione e per il nome per il design pattern corrente 
+    /// in base all'individuazione di pagine extra viene eventualmente eseguito il display dei buttons di pagina 
+    /// </summary>
+    /// <param name="ViewParams"></param>
     internal ShowDescription_Page(DesPatternView ViewParams) : base(ViewParams)
     {
+      // impostazione attributi principali per ViewParams e refresh view
+      ViewParams.Buttons_ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME;
+      ViewParams.Title_ColorScheme = ViewConsoleConstants.TITLE_DESCR_COLORSCHEME;
+      ViewParams.Txt_ColorScheme = ViewConsoleConstants.TEXT_DESCR_COLORSCHEME;
+      ViewParams.Win_ColorScheme = ViewConsoleConstants.WIN_DESCR_COLORSCHEME;
+      base.viewBagBase = ViewParams;
+      // impostazione del titolo + descrizione per il design pattern corrente
+      base.SetTitleLabel(ViewParams.DesignPatternName);
+      base.SetDescriptionText(ViewParams.DesignPatternDescription);
+      // impostazione buttons avanti e indietro per il contesto corrente 
+      base.Btn_Next_Activation(ViewParams.HasNextPage);
+      base.Btn_Prev_Activation(ViewParams.HasPrevPage);
+      // eventuale attivazione del button di esempio (se mi trovo sull'ultima pagina)
+      base.Btn_Example_Activation(ViewParams.HasExamplePage);
     }
+
+
+    
   }
 }

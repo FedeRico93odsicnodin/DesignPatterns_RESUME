@@ -63,6 +63,7 @@
     <Compile Include="Model\DesignType.cs" />
     <Compile Include="Model\DesignTypeDescription.cs" />
     <Compile Include="Model\ViewModel\DesPatternView.cs" />
+    <Compile Include="Model\ViewModel\PatterTypesView.cs" />
     <Compile Include="Model\VisualActionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="ViewConsole\ConsolePageServices\PageContextSelector.cs" />
     <Compile Include="ViewConsole\ConsolePageServices\ViewConsoleConstants.cs" />
     <Compile Include="ViewConsole\GeneralPage.cs" />
+    <Compile Include="ViewConsole\Main_Page.cs" />
     <Compile Include="ViewConsole\ShowCode_Page.cs" />
     <Compile Include="ViewConsole\ShowDescription_Page.cs" />
     <Compile Include="ViewConsole\ShowExample_Page.cs" />

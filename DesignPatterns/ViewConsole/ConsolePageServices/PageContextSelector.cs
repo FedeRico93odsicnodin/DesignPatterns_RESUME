@@ -59,21 +59,21 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         case 1:
           {
             // inizializzazione per la pagina di descrizione corrente
-            currPage = new ShowDescription_Page(PrepareViewParams(desPatDescription));
+            currPage = new ShowDescription_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.DESCRIPTION));
             break;
           }
         // pagina di esempio 
         case 2:
           {
             // inizializzazione per la pagina di codice corrente
-            currPage = new ShowCode_Page(PrepareViewParams(desPatDescription));
+            currPage = new ShowCode_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.EXAMPLE));
             break;
           }
         // pagina di demo 
         case 3:
           {
             // inizializzazione per la pagina di demo corrente
-            currPage = new ShowExample_Page(PrepareViewParams(desPatDescription));
+            currPage = new ShowExample_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.DEMO));
             break;
           }
       }
@@ -87,12 +87,28 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <summary>
     /// Permette di preparare i parametri per l'interfaccia provenienti dal contesto di recupero descrizioni dal database
     /// </summary>
-    /// <param name="pageDescription"></param>
+    /// <param name="desPatDescription"></param>
+    /// <param name="identifiedType"></param>
     /// <returns></returns>
-    private DesPatternView PrepareViewParams(DesignPatternDescription pageDescription)
+    private DesPatternView PrepareViewParams(DesignPatternDescription desPatDescription, PAGE_TYPE identifiedType)
     {
-      // TODO: specializzare con le descrizioni relative ai design patterns e la descrizione attuale 
-      return new DesPatternView();
+      // parto dal caso di default e riempo con i parametri che mi occorrono
+      DesPatternView currViewBagConsole = ViewConsoleConstants.GetDefaultViewBagValues();
+      currViewBagConsole.DesignPatternDescription = desPatDescription.Description;
+      currViewBagConsole.DesignPatternDescriptionID = desPatDescription.ID;
+      currViewBagConsole.Design_PatternID = desPatDescription.ID_DesignPattern;
+      // ricerca del nome per il design pattern tra gli elementi di partenza 
+      currViewBagConsole.DesignPatternName =
+        (MemLists.DesignPatterns.Where(x => x.ID == desPatDescription.ID_DesignPattern).FirstOrDefault() != null) ?
+        MemLists.DesignPatterns.Where(x => x.ID == desPatDescription.ID_DesignPattern).FirstOrDefault().Name : ViewConsoleConstants.NOTFOUND_DESCRIPTION;
+      // verifica di presenza pagine precedente / successiva
+      if (CheckNextPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern))
+        currViewBagConsole.HasNextPage = true;
+      if (CheckPrevPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern))
+        currViewBagConsole.HasPrevPage = true;
+      // impostazione per l'eventuale pagina di esempio da mostrare per il contesto corrente 
+      currViewBagConsole.HasExamplePage = VerifyExamplePagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern);
+      return currViewBagConsole;
     }
 
     #endregion
@@ -173,10 +189,10 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     internal bool CheckNextPagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
     {
       // verifica di presenza di una pagina che abbia entity ID o contesto di pagina maggiori
-      bool verifyNextPage = (MemLists.AllPagesViewConsole.Where(
-        x => x.PageType == pageType &&
-        x.DesignPatternID == EntityPatternID &&
-        (x.DescriptionPatternID > EntityID || x.PageContextEnum > ContextID)
+      bool verifyNextPage = (MemLists.DesignPatterns_Descriptions.Where(
+        x => x.ID_VisualActionType == (int)pageType &&
+        x.ID_DesignPattern == EntityPatternID &&
+        (x.ID > EntityID || x.ID_VisualActionType > ContextID)
         ).Count() > 0);
 
       return verifyNextPage;
@@ -194,10 +210,10 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     internal bool CheckPrevPagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
     {
       // verifica di presenza di una pagina che abbia entity ID o contesto di pagina minori
-      bool verifyPrevPage = (MemLists.AllPagesViewConsole.Where(
-        x => x.PageType == pageType &&
-        x.DesignPatternID == EntityPatternID &&
-        (x.DescriptionPatternID < EntityID || x.PageContextEnum < ContextID)
+      bool verifyPrevPage = (MemLists.DesignPatterns_Descriptions.Where(
+        x => x.ID_VisualActionType == (int)pageType &&
+        x.ID_DesignPattern == EntityPatternID &&
+        (x.ID < EntityID || x.ID_VisualActionType < ContextID)
         ).Count() > 0);
 
       return verifyPrevPage;
@@ -229,9 +245,9 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         return false;
 
       // ritorno per la presenza di una pagina di esempio per il design pattern corrente
-      return (MemLists.AllPagesViewConsole.Where(
-        x => x.PageType == PAGE_TYPE.EXAMPLE &&
-        x.DesignPatternID == EntityPatternID
+      return (MemLists.DesignPatterns_Descriptions.Where(
+        x => x.ID_VisualActionType == (int)PAGE_TYPE.EXAMPLE &&
+        x.ID_DesignPattern == EntityPatternID
         ).Count() > 0);
     }
 

@@ -29,13 +29,13 @@ namespace DesignPatterns
             // lettura delle configurazioni iniziali di programma 
             ServiceLocator.GetConfigurationsService.ReadConfigurations();
 
-            // 
-            //string designPatternSingleton = ServiceLocator.GetDesignPatternsService.GetSingletonService.DesignPatternName.ToString();
+      // 
+      //string designPatternSingleton = ServiceLocator.GetDesignPatternsService.GetSingletonService.DesignPatternName.ToString();
 
-            //GeneralPage currPageDefault = new GeneralPage();
-            //_applicationTop.Add(currPageDefault._topMenu, currPageDefault._windowTitle, currPageDefault._mainMenu);
+      //GeneralPage currPageDefault = new GeneralPage();
+      //_applicationTop.Add(currPageDefault.TopMenu, currPageDefault.WindowTitle, currPageDefault.MainWindow);
 
-            Application.Run();
+      Application.Run();
         }
   }
 }

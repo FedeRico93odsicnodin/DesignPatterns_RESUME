@@ -61,6 +61,24 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Demo.
+        /// </summary>
+        internal static string DEMO_BTN_TXT {
+            get {
+                return ResourceManager.GetString("DEMO_BTN_TXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example.
+        /// </summary>
+        internal static string EXAMPLE_BTN_TXT {
+            get {
+                return ResourceManager.GetString("EXAMPLE_BTN_TXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         internal static string MAIN_BTN_TXT {
