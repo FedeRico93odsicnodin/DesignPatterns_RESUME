@@ -70,7 +70,16 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Example.
+        ///   Looks up a localized string similar to Descr.
+        /// </summary>
+        internal static string DSCR_BTN_TXT {
+            get {
+                return ResourceManager.GetString("DSCR_BTN_TXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exmp.
         /// </summary>
         internal static string EXAMPLE_BTN_TXT {
             get {

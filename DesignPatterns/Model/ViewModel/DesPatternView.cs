@@ -83,20 +83,46 @@ namespace DesignPatterns.Model.ViewModel
 
     /// <summary>
     /// Indicazione di pagina successiva per il contenuto attuale 
+    /// riferimento al contesto relativo alla stessa tipologia di pagina 
     /// </summary>
     internal bool HasNextPage { get; set; }
 
 
     /// <summary>
     /// Indicazione di pagina precedente per il contenuto attuale 
+    /// riferimento al contesto relativa alla stessa tipologia di pagina 
     /// </summary>
     internal bool HasPrevPage { get; set; }
 
 
     /// <summary>
     /// Indicazione di contesto di visualizzazione button di Esempio per una descrizione 
+    /// forward rispetto a delle pagine di esempio
     /// </summary>
     internal bool HasExamplePage { get; set; }
+
+
+    #region JUMP BACK O FORWARD RISPETTO ALLA PAGINA DI ESEMPIO 
+
+    /// <summary>
+    /// Indicazione di rientro all'indietro rispetto ad una pagina di descrizione dalla quale 
+    /// era stato effettuato il salto alla pagina di esempio per il contesto corrente 
+    /// </summary>
+    internal bool BackDescriptionPage { get; set; }
+
+
+    /// <summary>
+    /// Ritorno alla pagina di contesto relativa alle descrizioni una volta visualizzate tutte le pagine di esempio per il contesto corrente 
+    /// </summary>
+    internal bool ForwardDescriptionPage { get; set; }
+
+    #endregion
+
+
+    /// <summary>
+    /// Indicazione di contesto relativa alla presenza della pagina di demo (devo aprire un nuovo programma)
+    /// </summary>
+    internal bool HasDemoPage { get; set; }
 
     #endregion
 
@@ -104,6 +130,16 @@ namespace DesignPatterns.Model.ViewModel
     #region PARAMETRI PER LA PAGINA PRINCIPALE
 
     internal List<PatternTypesView> DesignTypesList { get; set; }
+
+    #endregion
+
+
+    #region INDICAZIONI TIPOLOGIA PAGINA PRECEDENTE SUCCESSIVA 
+
+    internal PAGE_TYPE PrevPage_Type { get; set; }
+
+
+    internal PAGE_TYPE NextPage_Type { get; set; }
 
     #endregion
   }

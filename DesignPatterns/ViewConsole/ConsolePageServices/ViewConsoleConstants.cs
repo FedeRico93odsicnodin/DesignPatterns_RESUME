@@ -34,12 +34,10 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     private static ColorScheme BUTTON_DEF_COLORSCHEME { get { return Colors.Dialog; } }
 
     private static ColorScheme WIN_DEF_COLORSCHEME { get { return Colors.Base; } }
-
-    private static string TITLE_DEFAULT = "IN PROGRESS TITLE";
+    
 
     private static string TEXT_DESCRIPTION_DEFAULT = "THIS PAGE IN IS PROGRESS";
-
-    private static string BTN_TXT_DEFAULT = "IN PROGRESS";
+    
 
     internal static DesPatternView GetDefaultViewBagValues()
     {
@@ -67,9 +65,21 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     internal static ColorScheme BUTTON_DESCR_COLORSCHEME { get { return Colors.Dialog; } }
 
     internal static ColorScheme WIN_DESCR_COLORSCHEME { get { return Colors.Base; } }
-
+    
     #endregion
 
+
+    #region PARAMETRI RELATIVI ALLA PAGINA DI ESEMPIO 
+
+    internal static ColorScheme TITLE_EXAMPLE_COLORSCHEME { get { return Colors.Error; } }
+
+    internal static ColorScheme TEXT_EXAMPLE_COLORSCHEME { get { return Colors.TopLevel; } }
+
+    internal static ColorScheme BUTTON_EXAMPLE_COLORSCHEME { get { return Colors.Error; } }
+
+    internal static ColorScheme WIN_EXAMPLE_COLORSCHEME { get { return Colors.Menu; } }
+
+    #endregion
 
     #region PARAMETRI DESCRITTIVI PER LA PAGINA PRINCIPALE
 

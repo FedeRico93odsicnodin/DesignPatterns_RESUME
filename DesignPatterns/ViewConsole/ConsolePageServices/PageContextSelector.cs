@@ -96,14 +96,14 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         case 2:
           {
             // inizializzazione per la pagina di codice corrente
-            currPage = new ShowCode_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.EXAMPLE));
+            currPage = new ShowExample_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.EXAMPLE));
             break;
           }
         // pagina di demo 
         case 3:
           {
             // inizializzazione per la pagina di demo corrente
-            currPage = new ShowExample_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.DEMO));
+            currPage = new ShowCode_Page(PrepareViewParams(desPatDescription, PAGE_TYPE.DEMO));
             break;
           }
       }
@@ -132,21 +132,56 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       currViewBagConsole.DesignPatternName =
         (MemLists.DesignPatterns.Where(x => x.ID == desPatDescription.ID_DesignPattern).FirstOrDefault() != null) ?
         MemLists.DesignPatterns.Where(x => x.ID == desPatDescription.ID_DesignPattern).FirstOrDefault().Name : ViewConsoleConstants.NOTFOUND_DESCRIPTION;
+      // verifica della presenza di una DEMO per l'ultima pagina corrente 
+      currViewBagConsole.HasDemoPage = VerifyDEMOPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID_Vis, desPatDescription.ID_DesignPattern);
       // verifica di presenza pagine precedente / successiva
-      if (CheckNextPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern))
+      if (CheckNextPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID_Vis, desPatDescription.ID_DesignPattern))
         currViewBagConsole.HasNextPage = true;
-      if (CheckPrevPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern))
+      if (CheckPrevPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID_Vis, desPatDescription.ID_DesignPattern))
         currViewBagConsole.HasPrevPage = true;
       // impostazione per l'eventuale pagina di esempio da mostrare per il contesto corrente 
       currViewBagConsole.HasExamplePage = VerifyExamplePagePresence(
         identifiedType, 
         desPatDescription.ID, 
-        desPatDescription.ID, 
+        desPatDescription.ID_Vis, 
         desPatDescription.ID_DesignPattern);
+      // verifica che la pagina precedente sia una pagina di contesto di descrizione su cui eventualmente eseguire il jump back 
+      currViewBagConsole.BackDescriptionPage = VerifyBackDescriptionPage(identifiedType,
+        desPatDescription.ID,
+        desPatDescription.ID_Vis,
+        desPatDescription.ID_DesignPattern
+        );
+      // verifica che la pagina successiva sia l'ultima pagina di visualizzazione per l'esempio corrente
+      currViewBagConsole.ForwardDescriptionPage = VerifyLastExamplePage(
+        identifiedType,
+        desPatDescription.ID,
+        desPatDescription.ID_Vis,
+        desPatDescription.ID_DesignPattern
+        );
+      #region AZIONI DI DISATTIVAZIONI SUCCESSIVE NEL CASO IN CUI SIANO STATI TROVATI DEI CONTESTI PARTICOLARI 
+
       // se la pagina successiva è stata identificata come una pagina di esempio devo mettere nextpage a false
       // (questa pagina viene sostituita dalla pagina successiva di esempio)
       if (currViewBagConsole.HasExamplePage)
         currViewBagConsole.HasNextPage = false;
+      // se la pagina è una pagina di esempio per la quale è stata identificata una pagina precedente di descrizione 
+      // allora devo disattivare il menu back 
+      if (currViewBagConsole.BackDescriptionPage)
+        currViewBagConsole.PrevPage_Type = PAGE_TYPE.DESCRIPTION;
+      else
+        currViewBagConsole.PrevPage_Type = identifiedType;
+      // se la pagina corrente è una pagina di esempio ed è l'ultima pagina di esempio rispetto a una nuova visualizzazione 
+      // allora devo disattivare la visualizzazione della pagina successiva per il passaggio alla pagina successiva di descrizione 
+      if (currViewBagConsole.ForwardDescriptionPage)
+      {
+        currViewBagConsole.HasNextPage = false;
+        currViewBagConsole.NextPage_Type = PAGE_TYPE.EXAMPLE;
+      }
+      else
+        currViewBagConsole.NextPage_Type = identifiedType;
+
+      #endregion
+
       return currViewBagConsole;
     }
 
@@ -163,7 +198,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <param name="ContextID"></param>
     /// <param name="EntityPatternID"></param>
     /// <returns></returns>
-    internal bool CheckNextPagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
+    private bool CheckNextPagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
     {
       // verifica di presenza di una pagina che abbia entity ID o contesto di pagina maggiori
       bool verifyNextPage = (MemLists.DesignPatterns_Descriptions.Where(
@@ -171,6 +206,27 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         x.ID_DesignPattern == EntityPatternID &&
         (x.ID > EntityID || x.ID_Vis > ContextID)
         ).Count() > 0);
+
+      return verifyNextPage;
+    }
+
+
+    /// <summary>
+    /// Controllo identico al precedente ma verifico che non siano presenti piu pagine successive per il design pattern corrente 
+    /// questa è l'unica condizione per la quale devo visualizzare il button relativo alla pagina di possibile esempio (solamente 
+    /// se la condizione lo prevede)
+    /// </summary>
+    /// <param name="EntityID"></param>
+    /// <param name="ContextID"></param>
+    /// <param name="EntityPatternID"></param>
+    /// <returns></returns>
+    private bool CheckLastPageContext(int EntityID, int ContextID, int EntityPatternID)
+    {
+      // nessuna altra pagina successiva per il design pattern corrente 
+      bool verifyNextPage = (MemLists.DesignPatterns_Descriptions.Where(x =>
+        x.ID_DesignPattern == EntityPatternID &&
+        (x.ID > EntityID || x.ID_Vis > ContextID)
+        ).Count() == 0);
 
       return verifyNextPage;
     }
@@ -187,8 +243,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     internal bool CheckPrevPagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
     {
       // verifica di presenza di una pagina che abbia entity ID o contesto di pagina minori
-      bool verifyPrevPage = (MemLists.DesignPatterns_Descriptions.Where(
-        x => x.ID_VisualActionType == (int)pageType &&
+      bool verifyPrevPage = (MemLists.DesignPatterns_Descriptions.Where(x =>
         x.ID_DesignPattern == EntityPatternID &&
         (x.ID < EntityID || x.ID_Vis < ContextID)
         ).Count() > 0);
@@ -210,19 +265,53 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <param name="ContextID"></param>
     /// <param name="EntityPatternID"></param>
     /// <returns></returns>
-    internal bool VerifyExamplePagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
+    private bool VerifyExamplePagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
     {
       // se la pagina corrente è diversa da una pagina di descrizione allora ritorno false
       if (pageType != PAGE_TYPE.DESCRIPTION)
         return false;
-
-      //// verifico se la pagina corrente è l'ultima pagina di descrizione per il design pattern corrente
-      //// e se è associato un esempio a questo design pattern
-      //if (CheckNextPagePresence(pageType, EntityID, ContextID, EntityPatternID))
-      //  return false;
-
+      
       // ritorno per la presenza di una pagina di esempio per il design pattern corrente
       if (GetNextIDVisType(EntityID, ContextID, EntityPatternID) == (int)PAGE_TYPE.EXAMPLE) return true;
+      return false;
+    }
+
+
+    /// <summary>
+    /// Verifico che la pagina immediatamente precedente sia una pagina di contesto di descrizioni rispetto 
+    /// all'esempio visualizzato 
+    /// </summary>
+    /// <param name="pageType"></param>
+    /// <param name="EntityID"></param>
+    /// <param name="ContextID"></param>
+    /// <param name="EntityPatternID"></param>
+    /// <returns></returns>
+    private bool VerifyBackDescriptionPage(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
+    {
+      // se la pagina corrente non è una pagina di esempio allora il controllo non ha senso 
+      if (pageType != PAGE_TYPE.EXAMPLE)
+        return false;
+
+      if (GetPrevIDVisType(EntityID, ContextID, EntityPatternID) == (int)PAGE_TYPE.DESCRIPTION) return true;
+      return false;
+    }
+
+
+    /// <summary>
+    /// Verifica che la pagina corrente sia l'ultima pagina di visualizzazione per il contesto di esempio rispetto a delle descrizioni da applicare
+    /// </summary>
+    /// <param name="pageType"></param>
+    /// <param name="EntityID"></param>
+    /// <param name="ContextID"></param>
+    /// <param name="EntityPatternID"></param>
+    /// <returns></returns>
+    private bool VerifyLastExamplePage(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
+    {
+      // se la pagina corrente non è una pagina di esempio allora il controllo non ha senso 
+      if (pageType != PAGE_TYPE.EXAMPLE)
+        return false;
+
+      if (GetNextIDVisType(EntityID, ContextID, EntityPatternID) == (int)PAGE_TYPE.DESCRIPTION) return true;
       return false;
     }
 
@@ -255,7 +344,36 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
 
 
     /// <summary>
+    /// Ritorno la tipologia per la pagina immediatamente precedente rispetto a quella di contesto attuale e legata allo stesso design pattern
+    /// </summary>
+    /// <param name="EntityID"></param>
+    /// <param name="ContextID"></param>
+    /// <param name="EntityPatternID"></param>
+    /// <returns></returns>
+    private int GetPrevIDVisType(int EntityID, int ContextID, int EntityPatternID)
+    {
+      // verifico che siano presenti delle pagine precedenti per il contesto corrente 
+      // indipendentemente dalla tipologia 
+      if (MemLists.DesignPatterns_Descriptions.Where(y => y.ID_DesignPattern == EntityPatternID
+         && y.ID_Vis < ContextID).FirstOrDefault() == null)
+        return 0;
+
+      // recupero della tipologia in base alla pagina successiva e secondo le caratteristiche attuali
+      DesignPatternDescription currDescription = MemLists.DesignPatterns_Descriptions.Where(
+        x =>
+        x.ID_DesignPattern == EntityPatternID && x.ID_Vis ==
+        (MemLists.DesignPatterns_Descriptions.Where(y => y.ID_DesignPattern == EntityPatternID
+        && y.ID_Vis < ContextID).Select(z => z.ID_Vis).Max())
+        ).FirstOrDefault();
+      if (currDescription == null) return 0;
+      return currDescription.ID_VisualActionType;
+    }
+
+
+    /// <summary>
     /// Ritorno per la presenza di una pagina di DEMO per il contesto e il design pattern corrente
+    /// NB: se viene verificata la pagina di demo allora viene anche verificato il fatto che mi trovi esattamente sull'ultima pagina 
+    /// per il contesto corrente 
     /// </summary>
     /// <param name="pageType"></param>
     /// <param name="EntityID"></param>
@@ -264,20 +382,15 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <returns></returns>
     internal bool VerifyDEMOPagePresence(PAGE_TYPE pageType, int EntityID, int ContextID, int EntityPatternID)
     {
-      // se la pagina corrente non è una pagina di esempio allora ritorno false
-      if (pageType != PAGE_TYPE.EXAMPLE)
-        return false;
-
       // verifico se la pagina corrente è l'ultima pagina di esempio per il design pattern corrente
       // e se è associato un demo a questo design pattern
-      if (!CheckNextPagePresence(pageType, EntityID, ContextID, EntityPatternID))
+      if (!CheckLastPageContext(EntityID, ContextID, EntityPatternID))
         return false;
 
-      // ritorno per la presenza di una pagina di esempio per il design pattern corrente
-      return (MemLists.AllPagesViewConsole.Where(
-        x => x.PageType == PAGE_TYPE.DEMO &&
-        x.DesignPatternID == EntityPatternID
-        ).Count() > 0);
+      // la verifica viene eseguita in base all'applicazione del flag di DEMO per il design pattern corrente 
+      DesignPattern designPatternREF = MemLists.DesignPatterns.Where(x => x.ID == EntityPatternID).FirstOrDefault();
+      if (designPatternREF == null) return false; // se non trovo la pagina di riferimento vuol dire che c'è un errore 
+      return designPatternREF.HasExample; // ritorno il fatto che il design pattern corrente debba avere una visualizzazione di esempio
     }
 
     #endregion
@@ -329,17 +442,21 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     }
 
 
-    internal void GoToPREVContextPage(int idDesPattern, int idContextEnum, PAGE_TYPE currPageType)
+    /// <summary>
+    /// Vado alla pagina precedente indipendentemente dal contesto 
+    /// </summary>
+    /// <param name="idDesPattern"></param>
+    /// <param name="idContextEnum"></param>
+    internal void GoToPREVContextPage(int idDesPattern, int idContextEnum)
     {
       ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
-      // recupero della pagina successiva rispetto al contesto corrente 
+      // recupero della pagina precedente rispetto al contesto corrente 
       GeneralPage currGenPage = MemLists.AllPagesViewConsole.Where(
         x => x.DesignPatternID == idDesPattern &&
-        x.PageType == currPageType &&
         // trovo la prima pagina con enumeratore successivo di contesto piu alto (non deve essere per forza la pagina incrementalmente successiva)
         x.PageContextEnum == (
         MemLists.AllPagesViewConsole.Where(w => w.DesignPatternID == idDesPattern &&
-       w.PageType == currPageType && w.PageContextEnum < idContextEnum).Select(y => y.PageContextEnum).OrderByDescending(z => z).FirstOrDefault()
+       w.PageContextEnum < idContextEnum).Select(y => y.PageContextEnum).OrderByDescending(z => z).FirstOrDefault()
         )
         ).FirstOrDefault();
       // impostazione dei parametri per la pagina ritrovata 
@@ -364,6 +481,52 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     }
 
 
+    /// <summary>
+    /// Switch alla prossima pagina di contesto relativa alla visualizzazione dell'esempio associato alle descrizioni precedenti
+    /// </summary>
+    /// <param name="idDesPattern"></param>
+    /// <param name="idContextEnum"></param>
+    /// <param name="currPageType"></param>
+    internal void GoToExampleNextPage(int idDesPattern, int idContextEnum)
+    {
+      ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
+      // recupero della pagina successiva rispetto al contesto corrente (pagina di esempio) 
+      GeneralPage currGenPage = MemLists.AllPagesViewConsole.Where(
+        x => x.DesignPatternID == idDesPattern &&
+        x.PageType == PAGE_TYPE.EXAMPLE &&
+        // trovo la prima pagina con enumeratore successivo di contesto piu alto (non deve essere per forza la pagina incrementalmente successiva)
+        x.PageContextEnum == (
+        MemLists.AllPagesViewConsole.Where(w => w.DesignPatternID == idDesPattern &&
+       w.PageType == PAGE_TYPE.EXAMPLE && w.PageContextEnum > idContextEnum).Select(y => y.PageContextEnum).OrderBy(z => z).FirstOrDefault()
+        )
+        ).FirstOrDefault();
+      // impostazione dei parametri per la pagina ritrovata 
+      ViewConsoleConstants.ApplicationTop.Add(currGenPage.TopMenu, currGenPage.WindowTitle, currGenPage.MainWindow);
+    }
+
+
+    /// <summary>
+    /// Ritorno al contesto di visualizzazione di pagine di descrizione dopo aver eseguito un forward da una pagina di esempio 
+    /// </summary>
+    /// <param name="idDesPattern"></param>
+    /// <param name="idContextEnum"></param>
+    internal void GoToDescriptionNextPage(int idDesPattern, int idContextEnum)
+    {
+      ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
+      // recupero della pagina successiva rispetto al contesto corrente (pagina di esempio) 
+      GeneralPage currGenPage = MemLists.AllPagesViewConsole.Where(
+        x => x.DesignPatternID == idDesPattern &&
+        x.PageType == PAGE_TYPE.DESCRIPTION &&
+        // trovo la prima pagina con enumeratore successivo di contesto piu alto (non deve essere per forza la pagina incrementalmente successiva)
+        x.PageContextEnum == (
+        MemLists.AllPagesViewConsole.Where(w => w.DesignPatternID == idDesPattern &&
+       w.PageType == PAGE_TYPE.DESCRIPTION && w.PageContextEnum > idContextEnum).Select(y => y.PageContextEnum).OrderBy(z => z).FirstOrDefault()
+        )
+        ).FirstOrDefault();
+      // impostazione dei parametri per la pagina ritrovata 
+      ViewConsoleConstants.ApplicationTop.Add(currGenPage.TopMenu, currGenPage.WindowTitle, currGenPage.MainWindow);
+    }
+       
     #endregion
 
   }

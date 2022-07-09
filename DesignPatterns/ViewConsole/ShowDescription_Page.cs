@@ -32,12 +32,16 @@ namespace DesignPatterns.ViewConsole
       // impostazione del page type per i parametri che sono ancora stati letti come default 
       ViewParams.PageType = Constants.PAGE_TYPE.DESCRIPTION;
       base.viewBagBase = ViewParams;
+      // re impostazione dei valori per la screen 
+      ResetPage();
       // impostazione del titolo + descrizione per il design pattern corrente
       base.SetTitleLabel(ViewParams.DesignPatternName);
       base.SetDescriptionText(ViewParams.DesignPatternDescription);
       // impostazione buttons avanti e indietro per il contesto corrente 
       base.Btn_Next_Activation(ViewParams.HasNextPage);
       base.Btn_Prev_Activation(ViewParams.HasPrevPage);
+      // eventuale attivazione del button di demo (se mi trovo all'ultima pagina)
+      base.Btn_Demo_Activation(ViewParams.HasDemoPage);
       // eventuale attivazione del button di esempio (se mi trovo sull'ultima pagina)
       base.Btn_Example_Activation(ViewParams.HasExamplePage);
       // impostazione dei parametri per riconoscere la pagina velocemente 

@@ -120,8 +120,11 @@
   <data name="DEMO_BTN_TXT" xml:space="preserve">
     <value>Demo</value>
   </data>
+  <data name="DSCR_BTN_TXT" xml:space="preserve">
+    <value>Descr</value>
+  </data>
   <data name="EXAMPLE_BTN_TXT" xml:space="preserve">
-    <value>Example</value>
+    <value>Exmp</value>
   </data>
   <data name="MAIN_BTN_TXT" xml:space="preserve">
     <value>Main</value>

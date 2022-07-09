@@ -97,6 +97,13 @@ namespace DesignPatterns.ViewConsole
     /// </summary>
     private Button _mainMenuButton { get; set; }
 
+
+    /// <summary>
+    /// Ritorno al contesto di visualizzazione delle descrizioni per il design pattern attuale 
+    /// dopo aver visualizzato un certo numero di pagine di esempio per il contesto attuale 
+    /// </summary>
+    private Button _forwardDescrButton { get; set; }
+
     #endregion
 
 
@@ -232,6 +239,7 @@ namespace DesignPatterns.ViewConsole
       _mainMenuButton.Y = numLines + 5;
       _showDemoPage.Y = numLines + 5;
       _showExamplePage.Y = numLines + 5;
+      _forwardDescrButton.Y = numLines + 5;
     }
 
 
@@ -284,15 +292,15 @@ namespace DesignPatterns.ViewConsole
           X = 14,
           Y = 15,
           Text = Resource.PREV_BTN_TXT,
-          ColorScheme = colorScheme,
+          ColorScheme = DecidePrevButtonColor(colorScheme),
           Visible = true,
         };
         // impostazione dell'azione di visualizzazione pagina precedente 
-        _prevButton.Clicked += () => GoToPrevPage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum, viewBagBase.PageType);
+        _prevButton.Clicked += () => GoToPrevPage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum);
         _mainWindow.Add(_prevButton);
       }
       else
-        _prevButton.ColorScheme = colorScheme;
+        _prevButton.ColorScheme = DecidePrevButtonColor(colorScheme);
       if (_mainMenuButton == null)
       {
         _mainMenuButton = new Button()
@@ -300,7 +308,8 @@ namespace DesignPatterns.ViewConsole
           X = 24,
           Y = 15,
           Text = Resource.MAIN_BTN_TXT,
-          ColorScheme = colorScheme,
+          ColorScheme =
+          colorScheme,
           Visible = true,
         };
         // impostazione dell'azione indipendentemente dal contesto che si sta analizzando 
@@ -309,21 +318,23 @@ namespace DesignPatterns.ViewConsole
       }
       else
         _mainMenuButton.ColorScheme = colorScheme;
-      // eventuali button di esempio / demo 
-      if(_showExamplePage == null)
+      // eventuali button di esempio -> questo button deve andare in sostituzione al button di next per la lettura delle descrizioni correnti 
+      if (_showExamplePage == null)
       {
         _showExamplePage = new Button()
         {
-          X = 34,
+          X = 4,
           Y = 15,
           Text = Resource.EXAMPLE_BTN_TXT,
-          ColorScheme = colorScheme,
+          ColorScheme = ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME, // colore specifico per la visualizzazione di questo tipo di button
           Visible = false,
         };
+        // impostazione dell'azione di switch all'esempio rispetto alle descrizioni precedenti 
+        _showExamplePage.Clicked += () => ShowExamplePage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum);
         _mainWindow.Add(_showExamplePage);
       }
       else 
-        _showExamplePage.ColorScheme = colorScheme;
+        _showExamplePage.ColorScheme = ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME;
       if (_showDemoPage == null)
       {
         _showDemoPage = new Button()
@@ -338,16 +349,26 @@ namespace DesignPatterns.ViewConsole
       }
       else
         _showDemoPage.ColorScheme = colorScheme;
+      // impostazione button di forward description page 
+      if(_forwardDescrButton == null)
+      {
+        _forwardDescrButton = new Button()
+        {
+          X = 4,
+          Y = 15,
+          Text = Resource.DSCR_BTN_TXT, // impostazione della label di visualizzazione descrizione 
+          ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME,
+          Visible = false
+        };
+        // impostazione dell'azione di visualizzazione pagina successiva 
+        _forwardDescrButton.Clicked += () => ForwardDescriptionPage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum);
+        _mainWindow.Add(_forwardDescrButton);
+      }
 
     }
 
     #region MODIFICATORI DI VISIBILITA' PER I BUTTONS
-
-    protected void Btn_Main_Activation(bool activation)
-    {
-      _mainMenuButton.Visible = activation;
-    }
-
+    
     protected void Btn_Next_Activation(bool activation)
     {
       _nextButton.Visible = activation;
@@ -366,6 +387,11 @@ namespace DesignPatterns.ViewConsole
     protected void Btn_Demo_Activation(bool activation)
     {
       _showDemoPage.Visible = activation;
+    }
+
+    protected void Btn_ForwardDescr_Activation(bool activation)
+    {
+      _forwardDescrButton.Visible = activation;
     }
 
     #endregion
@@ -387,12 +413,13 @@ namespace DesignPatterns.ViewConsole
 
     /// <summary>
     /// Set dei parametri per la pagina principale in visualizzazione 
+    /// questo metodo viene utilizzato dal costruttore di default 
     /// </summary>
     /// <param name="pageTitle"></param>
     /// <param name="titleScheme"></param>
     /// <param name="winScheme"></param>
     /// <param name="btnScheme"></param>
-    protected void SetPage(
+    private void SetPage(
       ColorScheme titleScheme, 
       ColorScheme winScheme, 
       ColorScheme btnScheme,
@@ -403,6 +430,16 @@ namespace DesignPatterns.ViewConsole
       SetWindow(winScheme);
       SetButtons(btnScheme);
       CreateDescriptionText(txtColorScheme);
+    }
+
+
+    /// <summary>
+    /// Metodo utilizzato per il reset degli stili da una pagina che eredita e che ha bisogno di una particolare visualizzazione 
+    /// per il suo contesto 
+    /// </summary>
+    protected void ResetPage()
+    {
+      SetPage(viewBagBase.Title_ColorScheme, viewBagBase.Win_ColorScheme, viewBagBase.Buttons_ColorScheme, viewBagBase.Txt_ColorScheme);
     }
     
     #endregion
@@ -498,15 +535,60 @@ namespace DesignPatterns.ViewConsole
     /// </summary>
     /// <param name="desPatternID"></param>
     /// <param name="typePageID"></param>
-    /// <param name="currPageType"></param>
-    private void GoToPrevPage(int desPatternID, int typePageID, PAGE_TYPE currPageType)
+    private void GoToPrevPage(int desPatternID, int typePageID)
     {
       // richiamo il metodo del context selector 
-      ServiceLocator.GetContextSelectorService.GoToPREVContextPage(desPatternID, typePageID, currPageType);
+      ServiceLocator.GetContextSelectorService.GoToPREVContextPage(desPatternID, typePageID);
     }
-
 
     #endregion
 
+
+    #region AZIONE RELATIVA ALLA VISUALIZZAZIONE PER LA PAGINA DI ESEMPIO 
+
+    /// <summary>
+    /// Azione relativa alla visualizzazione della pagina di esempio per il contesto corrente 
+    /// </summary>
+    /// <param name="desPatternID"></param>
+    /// <param name="typePageID"></param>
+    /// <param name="currPageType"></param>
+    private void ShowExamplePage(int desPatternID, int typePageID)
+    {
+      // richiamo del metodo del context selector 
+      ServiceLocator.GetContextSelectorService.GoToExampleNextPage(desPatternID, typePageID);
+    }
+
+
+    /// <summary>
+    /// Ritorno al contesto di visualizzazione delle descrizioni dopo aver visualizzato le pagine di esempio 
+    /// per il contesto corrente 
+    /// </summary>
+    /// <param name="desPatternID"></param>
+    /// <param name="typePageID"></param>
+    private void ForwardDescriptionPage(int desPatternID, int typePageID)
+    {
+      // richiamo del metodo del context selector 
+      ServiceLocator.GetContextSelectorService.GoToDescriptionNextPage(desPatternID, typePageID);
+    }
+
+    #endregion
+
+
+    /// <summary>
+    /// Permette di stabilire quale colorazione applicare al button per tornare alla pagina precedente
+    /// (gestita al di fuori del contesto )
+    /// </summary>
+    /// <returns></returns>
+    private ColorScheme DecidePrevButtonColor(ColorScheme currColorScheme)
+    {
+      // pagina corrente di esempio e pagina precedente di descrizione -> ritorno il colore della pagina di descrizione 
+      if (viewBagBase.PageType == PAGE_TYPE.EXAMPLE && viewBagBase.PrevPage_Type == PAGE_TYPE.DESCRIPTION)
+        return ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME;
+      // pagina corrente di descrizione e pagina precedente di esempio -> ritorno il colore della pagina di esempio
+      if (viewBagBase.PageType == PAGE_TYPE.DESCRIPTION && viewBagBase.PrevPage_Type == PAGE_TYPE.EXAMPLE)
+        return ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME;
+
+      return currColorScheme;
+    }
   }
 }
