@@ -77,7 +77,12 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
 
     internal static ColorScheme BUTTON_EXAMPLE_COLORSCHEME { get { return Colors.Error; } }
 
-    internal static ColorScheme WIN_EXAMPLE_COLORSCHEME { get { return Colors.Menu; } }
+    internal static ColorScheme WIN_EXAMPLE_COLORSCHEME { get { return Colors.Base; } }
+
+    /// <summary>
+    /// Questo color scheme è da applicare solo per la label di descrizione nel caso in cui stia visualizzando una pagina di esempio
+    /// </summary>
+    internal static ColorScheme LABEL_EXAMPLE_DESCRIPTION_COLORSCHEME { get { return Colors.Base; } }
 
     #endregion
 

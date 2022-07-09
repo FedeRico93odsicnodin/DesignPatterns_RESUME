@@ -107,6 +107,19 @@ namespace DesignPatterns.Utils
           return _PAGEID;
         }
       }
-      
+
+
+    /// <summary>
+    /// Percorso Pagina di esempio per il contesto corrente e da andare ad inserire insieme alla descrizione 
+    /// </summary>
+    internal static string CODEEXAMPLE_RELATIVEPATH = "DesignPatterns\\Creational\\";
+
+
+    /// <summary>
+    /// File di esempio da cui leggere le diverse righe di codice per il contesto corrente 
+    /// </summary>
+    internal static string CODEEXAMPLE_FILE = "SingletonService.cs";
+
+
     }
 }

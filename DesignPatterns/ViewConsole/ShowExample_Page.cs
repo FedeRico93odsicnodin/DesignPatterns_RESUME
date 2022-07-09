@@ -32,8 +32,11 @@ namespace DesignPatterns.ViewConsole
       ResetPage();
       // impostazione del titolo + descrizione per il design pattern corrente
       base.SetTitleLabel(ViewParams.DesignPatternName);
-      base.SetDescriptionText(ViewParams.DesignPatternDescription);
-      // TODO: inserire qui l'eventuale codice da accodare rispetto alla visualizzazione della descrizione standard 
+      base.SetLabelDescriptionVisibility(true);
+      string codeToShow = ServiceLocator.GetContextSelectorService.GetPageCode_TEST();
+      base.SetLabelDescriptionExample(ViewParams.DesignPatternDescription);
+      base.SetDescriptionText(
+        codeToShow);
       // impostazione buttons avanti e indietro per il contesto corrente 
       base.Btn_Next_Activation(ViewParams.HasNextPage);
       base.Btn_Prev_Activation(ViewParams.HasPrevPage);

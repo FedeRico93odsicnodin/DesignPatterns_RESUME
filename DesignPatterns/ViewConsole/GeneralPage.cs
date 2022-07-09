@@ -104,6 +104,13 @@ namespace DesignPatterns.ViewConsole
     /// </summary>
     private Button _forwardDescrButton { get; set; }
 
+
+    /// <summary>
+    /// Questa label viene posizionata sopra il txt view principale ma di fatto è attiva solo per la pagina di esempio 
+    /// viene impostata la descrizione per la label e nel blocco di testo mostrato il codice 
+    /// </summary>
+    private Label _labelDescriptionExample { get; set; }
+    
     #endregion
 
 
@@ -202,11 +209,62 @@ namespace DesignPatterns.ViewConsole
 
 
     /// <summary>
+    /// Impostazione della label di testo nel caso in cui stia visualizzando una pagina di esempio 
+    /// </summary>
+    /// <param name="colorScheme"></param>
+    private void CreateLabelDescriptionExample()
+    {
+      if (_labelDescriptionExample == null)
+      {
+        _labelDescriptionExample = new Label()
+        {
+          Width = Dim.Fill() - 4,
+          Height = Dim.Fill() - 10,
+          X = 2,
+          Y = 2,
+          ColorScheme = ViewConsoleConstants.LABEL_EXAMPLE_DESCRIPTION_COLORSCHEME,
+          Visible = false
+        };
+      }
+      else
+        _labelDescriptionExample.ColorScheme = ViewConsoleConstants.LABEL_EXAMPLE_DESCRIPTION_COLORSCHEME;
+      _mainWindow.Add(_labelDescriptionExample);
+    }
+
+
+    /// <summary>
+    /// Permette di visualizzare la label relativa alla descrizione per la pagina di esempio
+    /// </summary>
+    /// <param name="visibility"></param>
+    protected void SetLabelDescriptionVisibility(bool visibility)
+    {
+      _labelDescriptionExample.Visible = visibility;
+    }
+
+
+    /// <summary>
+    /// Permette di impostare il valore per la descrizione della pagina di esempio corrente 
+    /// Assicurarsi che questo metodo sia invocato prima della creazione del blocco di testo successivo 
+    /// </summary>
+    /// <param name="exampleDescr"></param>
+    protected void SetLabelDescriptionExample(string exampleDescr)
+    {
+      _labelDescriptionExample.Text = exampleDescr;
+      // impostazione della dimensione da attribuire alla label
+      int numLines = exampleDescr.Split('\n').Length;
+      _labelDescriptionExample.Height = numLines;
+      // impostazione della posizione di partenza del blocco di esempio
+      _descriptionView.Y = Pos.Bottom(_labelDescriptionExample) + 1;
+    }
+
+
+    /// <summary>
     /// Impostazione del testo per la descrizione corrente
     /// </summary>
     /// <param name="colorScheme"></param>
     private void CreateDescriptionText(ColorScheme colorScheme)
     {
+      // testo di descrizione 
       if (_descriptionView == null)
         _descriptionView = new TextView()
         {
@@ -220,7 +278,6 @@ namespace DesignPatterns.ViewConsole
       else
         _descriptionView.ColorScheme = colorScheme; // cambio solo lo stile 
       _mainWindow.Add(_descriptionView);
-      
     }
     
     /// <summary>
@@ -234,14 +291,14 @@ namespace DesignPatterns.ViewConsole
       int numLines = descriptionText.Split('\n').Length;
       _descriptionView.Height = numLines + 2;
       // ricalcolo delle posizioni per tutti i buttons coinvolti
-      _nextButton.Y = numLines + 5;
-      _prevButton.Y = numLines + 5;
-      _mainMenuButton.Y = numLines + 5;
-      _showDemoPage.Y = numLines + 5;
-      _showExamplePage.Y = numLines + 5;
-      _forwardDescrButton.Y = numLines + 5;
+      _nextButton.Y = Pos.Bottom(_descriptionView) + 1;
+      _prevButton.Y = Pos.Bottom(_descriptionView) + 1;
+      _mainMenuButton.Y = Pos.Bottom(_descriptionView) + 1;
+      _showDemoPage.Y = Pos.Bottom(_descriptionView) + 1;
+      _showExamplePage.Y = Pos.Bottom(_descriptionView) + 1;
+      _forwardDescrButton.Y = Pos.Bottom(_descriptionView) + 1;
     }
-
+    
 
     /// <summary>
     /// Impostazione della window per il contesto corrente
@@ -274,7 +331,7 @@ namespace DesignPatterns.ViewConsole
         _nextButton = new Button()
         {
           X = 4,
-          Y = 15,
+          Y = Pos.Bottom(_mainWindow) + 2,
           Text = Resource.NEXT_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = true
@@ -290,7 +347,7 @@ namespace DesignPatterns.ViewConsole
         _prevButton = new Button()
         {
           X = 14,
-          Y = 15,
+          Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.PREV_BTN_TXT,
           ColorScheme = DecidePrevButtonColor(colorScheme),
           Visible = true,
@@ -306,7 +363,7 @@ namespace DesignPatterns.ViewConsole
         _mainMenuButton = new Button()
         {
           X = 24,
-          Y = 15,
+          Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.MAIN_BTN_TXT,
           ColorScheme =
           colorScheme,
@@ -324,7 +381,7 @@ namespace DesignPatterns.ViewConsole
         _showExamplePage = new Button()
         {
           X = 4,
-          Y = 15,
+          Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.EXAMPLE_BTN_TXT,
           ColorScheme = ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME, // colore specifico per la visualizzazione di questo tipo di button
           Visible = false,
@@ -340,7 +397,7 @@ namespace DesignPatterns.ViewConsole
         _showDemoPage = new Button()
         {
           X = 34,
-          Y = 15,
+          Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.DEMO_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = false,
@@ -355,7 +412,7 @@ namespace DesignPatterns.ViewConsole
         _forwardDescrButton = new Button()
         {
           X = 4,
-          Y = 15,
+          Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.DSCR_BTN_TXT, // impostazione della label di visualizzazione descrizione 
           ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME,
           Visible = false
@@ -429,7 +486,9 @@ namespace DesignPatterns.ViewConsole
       CreateTitleLabel(titleScheme);
       SetWindow(winScheme);
       SetButtons(btnScheme);
+      CreateLabelDescriptionExample(); // creazione della label di visualizzazione descrizione (visibile solo per gli esempi)
       CreateDescriptionText(txtColorScheme);
+      
     }
 
 

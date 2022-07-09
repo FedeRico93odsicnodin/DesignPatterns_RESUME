@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="Access_DB\AccessDBService.cs" />
     <Compile Include="Access_DB\QueryStrings.cs" />
-    <Compile Include="DesignPatterns\Creational\SingletonService.cs" />
+    <Compile Include="DesignPatterns\Creational\SingletonService.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\DesignPatternsService.cs" />
     <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />

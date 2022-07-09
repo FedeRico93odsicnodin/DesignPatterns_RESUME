@@ -3,6 +3,7 @@ using DesignPatterns.Model.ViewModel;
 using DesignPatterns.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -526,7 +527,27 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       // impostazione dei parametri per la pagina ritrovata 
       ViewConsoleConstants.ApplicationTop.Add(currGenPage.TopMenu, currGenPage.WindowTitle, currGenPage.MainWindow);
     }
-       
+
+    #endregion
+
+
+    #region RECUPERO PER LA PAGINA DI CODICE PER IL CONTESTO CORRENTE
+
+    /// <summary>
+    /// Permette il recupero della pagina di test per la visualizzazione del codice relativo alla pagina corrente 
+    /// il file da cui attingere è nelle costanti 
+    /// </summary>
+    /// <returns></returns>
+    internal string GetPageCode_TEST()
+    {
+      string finalText = String.Empty;
+      List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, Constants.CODEEXAMPLE_RELATIVEPATH, Constants.CODEEXAMPLE_FILE)).ToList();
+      foreach (string codeLine in GetLinesTEST)
+        finalText += codeLine + Environment.NewLine;
+
+      return finalText;
+    }
+
     #endregion
 
   }
