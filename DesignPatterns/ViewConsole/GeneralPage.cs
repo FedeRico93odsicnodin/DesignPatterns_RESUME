@@ -204,7 +204,7 @@ namespace DesignPatterns.ViewConsole
         _descriptionView = new TextView()
         {
           Width = Dim.Fill() - 4,
-          Height = Dim.Fill() - 4,
+          Height = Dim.Fill() - 10,
           X = 2,
           Y = 2,
           ColorScheme = colorScheme,
@@ -223,6 +223,15 @@ namespace DesignPatterns.ViewConsole
     protected void SetDescriptionText(string descriptionText)
     {
       _descriptionView.Text = descriptionText;
+      // impostazione della dimensione da attribuire al textblock 
+      int numLines = descriptionText.Split('\n').Length;
+      _descriptionView.Height = numLines + 2;
+      // ricalcolo delle posizioni per tutti i buttons coinvolti
+      _nextButton.Y = numLines + 5;
+      _prevButton.Y = numLines + 5;
+      _mainMenuButton.Y = numLines + 5;
+      _showDemoPage.Y = numLines + 5;
+      _showExamplePage.Y = numLines + 5;
     }
 
 
@@ -257,11 +266,13 @@ namespace DesignPatterns.ViewConsole
         _nextButton = new Button()
         {
           X = 4,
-          Y = 4,
+          Y = 15,
           Text = Resource.NEXT_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = true
         };
+        // impostazione dell'azione di visualizzazione pagina successiva 
+        _nextButton.Clicked += () => GoToNextPage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum, viewBagBase.PageType);
         _mainWindow.Add(_nextButton);
       }
       else
@@ -270,12 +281,14 @@ namespace DesignPatterns.ViewConsole
       {
         _prevButton = new Button()
         {
-          X = 13,
-          Y = 5,
+          X = 14,
+          Y = 15,
           Text = Resource.PREV_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = true,
         };
+        // impostazione dell'azione di visualizzazione pagina precedente 
+        _prevButton.Clicked += () => GoToPrevPage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum, viewBagBase.PageType);
         _mainWindow.Add(_prevButton);
       }
       else
@@ -284,12 +297,14 @@ namespace DesignPatterns.ViewConsole
       {
         _mainMenuButton = new Button()
         {
-          X = 2,
-          Y = 2,
-          Text = Resource.PREV_BTN_TXT,
+          X = 24,
+          Y = 15,
+          Text = Resource.MAIN_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = true,
         };
+        // impostazione dell'azione indipendentemente dal contesto che si sta analizzando 
+        _mainMenuButton.Clicked += () => ServiceLocator.GetContextSelectorService.LoadMainPage();
         _mainWindow.Add(_mainMenuButton);
       }
       else
@@ -299,8 +314,8 @@ namespace DesignPatterns.ViewConsole
       {
         _showExamplePage = new Button()
         {
-          X = 13,
-          Y = 20,
+          X = 34,
+          Y = 15,
           Text = Resource.EXAMPLE_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = false,
@@ -313,8 +328,8 @@ namespace DesignPatterns.ViewConsole
       {
         _showDemoPage = new Button()
         {
-          X = 13,
-          Y = 20,
+          X = 34,
+          Y = 15,
           Text = Resource.DEMO_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = false,
@@ -457,6 +472,39 @@ namespace DesignPatterns.ViewConsole
       _mainWindow.Add(_tabTypologies);
       _isTabViewTest = false;
     }
+
+    #endregion
+
+
+    #region AZIONI DI PREV E NEXT 
+
+    /// <summary>
+    /// Permette di eseguire il go to alla pagina successiva nel contesto corrente di analisi di un design pattern
+    /// questo potrebbe essere dovuto alla presenza di piu pagine per il design pattern corrente e per le quali 
+    /// si ceerca il typePageID successivo 
+    /// </summary>
+    /// <param name="desPatternID"></param>
+    /// <param name="typePageID"></param>
+    /// <param name="currPageType"></param>
+    private void GoToNextPage(int desPatternID, int typePageID, PAGE_TYPE currPageType)
+    {
+      // richiamo il metodo del context selector 
+      ServiceLocator.GetContextSelectorService.GoToNEXTContextPage(desPatternID, typePageID, currPageType);
+    }
+
+
+    /// <summary>
+    /// Vado alla pagina precedente applicando la stessa logica del metodo precedente 
+    /// </summary>
+    /// <param name="desPatternID"></param>
+    /// <param name="typePageID"></param>
+    /// <param name="currPageType"></param>
+    private void GoToPrevPage(int desPatternID, int typePageID, PAGE_TYPE currPageType)
+    {
+      // richiamo il metodo del context selector 
+      ServiceLocator.GetContextSelectorService.GoToPREVContextPage(desPatternID, typePageID, currPageType);
+    }
+
 
     #endregion
 

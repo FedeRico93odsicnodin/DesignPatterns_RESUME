@@ -29,6 +29,8 @@ namespace DesignPatterns.ViewConsole
       ViewParams.Title_ColorScheme = ViewConsoleConstants.TITLE_DESCR_COLORSCHEME;
       ViewParams.Txt_ColorScheme = ViewConsoleConstants.TEXT_DESCR_COLORSCHEME;
       ViewParams.Win_ColorScheme = ViewConsoleConstants.WIN_DESCR_COLORSCHEME;
+      // impostazione del page type per i parametri che sono ancora stati letti come default 
+      ViewParams.PageType = Constants.PAGE_TYPE.DESCRIPTION;
       base.viewBagBase = ViewParams;
       // impostazione del titolo + descrizione per il design pattern corrente
       base.SetTitleLabel(ViewParams.DesignPatternName);

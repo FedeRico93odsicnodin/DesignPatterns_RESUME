@@ -138,7 +138,15 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       if (CheckPrevPagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern))
         currViewBagConsole.HasPrevPage = true;
       // impostazione per l'eventuale pagina di esempio da mostrare per il contesto corrente 
-      currViewBagConsole.HasExamplePage = VerifyExamplePagePresence(identifiedType, desPatDescription.ID, desPatDescription.ID, desPatDescription.ID_DesignPattern);
+      currViewBagConsole.HasExamplePage = VerifyExamplePagePresence(
+        identifiedType, 
+        desPatDescription.ID, 
+        desPatDescription.ID, 
+        desPatDescription.ID_DesignPattern);
+      // se la pagina successiva è stata identificata come una pagina di esempio devo mettere nextpage a false
+      // (questa pagina viene sostituita dalla pagina successiva di esempio)
+      if (currViewBagConsole.HasExamplePage)
+        currViewBagConsole.HasNextPage = false;
       return currViewBagConsole;
     }
 
@@ -208,16 +216,41 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       if (pageType != PAGE_TYPE.DESCRIPTION)
         return false;
 
-      // verifico se la pagina corrente è l'ultima pagina di descrizione per il design pattern corrente
-      // e se è associato un esempio a questo design pattern
-      if (!CheckNextPagePresence(pageType, EntityID, ContextID, EntityPatternID))
-        return false;
+      //// verifico se la pagina corrente è l'ultima pagina di descrizione per il design pattern corrente
+      //// e se è associato un esempio a questo design pattern
+      //if (CheckNextPagePresence(pageType, EntityID, ContextID, EntityPatternID))
+      //  return false;
 
       // ritorno per la presenza di una pagina di esempio per il design pattern corrente
-      return (MemLists.DesignPatterns_Descriptions.Where(
-        x => x.ID_VisualActionType == (int)PAGE_TYPE.EXAMPLE &&
-        x.ID_DesignPattern == EntityPatternID
-        ).Count() > 0);
+      if (GetNextIDVisType(EntityID, ContextID, EntityPatternID) == (int)PAGE_TYPE.EXAMPLE) return true;
+      return false;
+    }
+
+
+    /// <summary>
+    /// Recupero delle impostazioni relative alla pagina immediatamente successiva rispetto a quella attuale 
+    /// </summary>
+    /// <param name="EntityID"></param>
+    /// <param name="ContextID"></param>
+    /// <param name="EntityPatternID"></param>
+    /// <returns></returns>
+    private int GetNextIDVisType(int EntityID, int ContextID, int EntityPatternID)
+    {
+      // verifico che siano presenti delle pagine successive per il contesto corrente 
+      // indipendentemente dalla tipologia 
+      if (MemLists.DesignPatterns_Descriptions.Where(y => y.ID_DesignPattern == EntityPatternID
+         && y.ID_Vis > ContextID).FirstOrDefault() == null)
+        return 0;
+
+      // recupero della tipologia in base alla pagina successiva e secondo le caratteristiche attuali
+      DesignPatternDescription currDescription = MemLists.DesignPatterns_Descriptions.Where(
+        x =>
+        x.ID_DesignPattern == EntityPatternID && x.ID_Vis ==
+        (MemLists.DesignPatterns_Descriptions.Where(y => y.ID_DesignPattern == EntityPatternID
+        && y.ID_Vis > ContextID).Select(z => z.ID_Vis).Min())
+        ).FirstOrDefault();
+      if (currDescription == null) return 0;
+      return currDescription.ID_VisualActionType;
     }
 
 
@@ -269,6 +302,48 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         x.PageType == PAGE_TYPE.DESCRIPTION).Select(y => y.PageContextEnum).Min()).FirstOrDefault();
       // impostazione dei parametri per questo tipo di pagina 
       ViewConsoleConstants.ApplicationTop.Add(currPageDesignPattern.TopMenu, currPageDesignPattern.WindowTitle, currPageDesignPattern.MainWindow);
+    }
+
+
+    /// <summary>
+    /// Salto alla pagina successiva nel contesto di visualizzazione corrente 
+    /// </summary>
+    /// <param name="idDesPattern"></param>
+    /// <param name="idContextEnum"></param>
+    /// <param name="currPageType"></param>
+    internal void GoToNEXTContextPage(int idDesPattern, int idContextEnum, PAGE_TYPE currPageType)
+    {
+      ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
+      // recupero della pagina successiva rispetto al contesto corrente 
+      GeneralPage currGenPage = MemLists.AllPagesViewConsole.Where(
+        x => x.DesignPatternID == idDesPattern &&
+        x.PageType == currPageType &&
+        // trovo la prima pagina con enumeratore successivo di contesto piu alto (non deve essere per forza la pagina incrementalmente successiva)
+        x.PageContextEnum == (
+        MemLists.AllPagesViewConsole.Where(w => w.DesignPatternID == idDesPattern &&
+       w.PageType == currPageType && w.PageContextEnum > idContextEnum).Select(y => y.PageContextEnum).OrderBy(z => z).FirstOrDefault()
+        )
+        ).FirstOrDefault();
+      // impostazione dei parametri per la pagina ritrovata 
+      ViewConsoleConstants.ApplicationTop.Add(currGenPage.TopMenu, currGenPage.WindowTitle, currGenPage.MainWindow);
+    }
+
+
+    internal void GoToPREVContextPage(int idDesPattern, int idContextEnum, PAGE_TYPE currPageType)
+    {
+      ViewConsoleConstants.ApplicationTop.RemoveAll(); // rimozione degli elementi dal contesto principale 
+      // recupero della pagina successiva rispetto al contesto corrente 
+      GeneralPage currGenPage = MemLists.AllPagesViewConsole.Where(
+        x => x.DesignPatternID == idDesPattern &&
+        x.PageType == currPageType &&
+        // trovo la prima pagina con enumeratore successivo di contesto piu alto (non deve essere per forza la pagina incrementalmente successiva)
+        x.PageContextEnum == (
+        MemLists.AllPagesViewConsole.Where(w => w.DesignPatternID == idDesPattern &&
+       w.PageType == currPageType && w.PageContextEnum < idContextEnum).Select(y => y.PageContextEnum).OrderByDescending(z => z).FirstOrDefault()
+        )
+        ).FirstOrDefault();
+      // impostazione dei parametri per la pagina ritrovata 
+      ViewConsoleConstants.ApplicationTop.Add(currGenPage.TopMenu, currGenPage.WindowTitle, currGenPage.MainWindow);
     }
 
 
