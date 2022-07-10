@@ -181,6 +181,15 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This code is still unavailable.
+        /// </summary>
+        internal static string UNAVAILABLE_CODE {
+            get {
+                return ResourceManager.GetString("UNAVAILABLE_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong.
         /// </summary>
         internal static string WRONG_EXAMPLE_BTN {

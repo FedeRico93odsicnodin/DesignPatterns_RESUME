@@ -287,6 +287,18 @@ namespace DesignPatterns.ViewConsole
         _descriptionView.ColorScheme = colorScheme; // cambio solo lo stile 
       _mainWindow.Add(_descriptionView);
     }
+
+
+    /// <summary>
+    /// Definizione alternativa data rispetto alla precedente per il draw del blocco 
+    /// se infatti viene trovato l'esempio viene eseguito il draw a blocchi per evidenziare eventualmente la presenza di
+    /// aggiunte rispetto alle definizioni iniziali del codice 
+    /// </summary>
+    /// <param name="exampleID"></param>
+    private void DrawTextBlockShowedExample(int exampleID)
+    {
+
+    }
     
     /// <summary>
     /// Impostazione del testo principale per la pagina corrente

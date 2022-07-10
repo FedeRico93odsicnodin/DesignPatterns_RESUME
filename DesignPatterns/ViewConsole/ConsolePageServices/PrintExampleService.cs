@@ -1,10 +1,13 @@
 ﻿using DesignPatterns.Model;
+using DesignPatterns.Properties;
 using DesignPatterns.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terminal.Gui;
 
 namespace DesignPatterns.ViewConsole.ConsolePageServices
 {
@@ -14,6 +17,8 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
   /// </summary>
   internal class PrintExampleService
   {
+    #region PRINTING DELL'ESEMPIO "SBAGLIATO"
+
     /// <summary>
     /// Permette di stabilire se l'esempio corrente è presente all'interno della base dati di partenza 
     /// in questo caso sto verificando per la presenza di un esempio sbagliato da mostrare a video
@@ -43,7 +48,33 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <param name="foundExample"></param>
     internal void PrintWrongExample_CONSOLE(DesignPatterns_Examples foundExample)
     {
-      // TODO: implementazione del print example su console in base alla colorazione attribuita (attribuirla nelle costanti di view)
+      // recupero delle righe per l'esempio corrente 
+      List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, 
+        foundExample.RelativePath_Example, 
+        foundExample.Name_Example)).ToList();
+      // contatore relativo alla riga corrente 
+      int counterLine = 1;
+      foreach(string lineText in GetLinesTEST)
+      {
+        // verifica del colore per la riga corrente 
+        if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(counterLine, foundExample.MarkedLines))
+        {
+          // impostazione del colore rosso per segnalare la riga come errata per il contesto corrente 
+          Console.ForegroundColor = ConsoleColor.Red;
+          Console.WriteLine(lineText);
+        }
+        else
+        {
+          // impostazione del colore corretto per la segnalazione di riga appropriata 
+          Console.ForegroundColor = ConsoleColor.Cyan;
+          Console.WriteLine(lineText);
+        }
+        // incremento numero per la riga corrente 
+        counterLine++;
+      }
+      // imposto un paio di linee di spazio e imposto la lettura di un tasto per uscire da questa modalità
+      Console.WriteLine("\n\n");
+      Console.ReadKey();
     }
 
 
@@ -52,7 +83,170 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// </summary>
     internal void PrintWrongExample_NOTFOUNDMsg()
     {
-      // TODO: implementazione con il messaggio standard 
+      Console.WriteLine(Resource.UNAVAILABLE_CODE); // impostazione del messaggio di non disponibilità per il codice corrente 
+      // imposto un paio di linee di spazio e imposto la lettura di un tasto per uscire da questa modalità
+      Console.WriteLine("\n\n");
+      Console.ReadKey();
     }
+
+    #endregion
+
+
+    #region PRINTING DELL'ESEMPIO CORRETTO 
+
+    /// <summary>
+    /// Color scheme per il blocco di creazione corrente (nessuna nuova aggiunta rispetto ad un codice precedente)
+    /// </summary>
+    private ColorScheme colorSchemeNormalLevel = Colors.TopLevel;
+
+
+    /// <summary>
+    /// ColorScheme per i blocchi che sono stati aggiunti con la descrizione corrente 
+    /// </summary>
+    private ColorScheme colorSchemeAddedLevel = Colors.Menu;
+
+
+    /// <summary>
+    /// Permette la creazione delle linee relative all'esempio corretto accodando diverse definizioni di TextView, 
+    /// queste definizioni sono marcate differentemente a seconda delle linee che mi sto trovando a colorare e aggiunte 
+    /// per l'esempio corrente 
+    /// </summary>
+    /// <param name="foundExample"></param>
+    /// <param name="startingX"></param>
+    /// <param name="startingY"></param>
+    /// <returns></returns>
+    internal List<TextView> GetTextViewCorrectExample(DesignPatterns_Examples foundExample, 
+      int startingX, 
+      int startingY)
+    {
+      // inizializzazione della lista di blocchi 
+      List<TextView> listBlocks = new List<TextView>();
+      // recupero delle righe per l'esempio corrente 
+      List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory,
+        foundExample.RelativePath_Example,
+        foundExample.Name_Example)).ToList();
+      // contatore relativo alla riga corrente 
+      int finalLinesCounter = 1;
+      int currBlockLineCounter = 1; // blocco di linee corrente: mi serve per impostare l'altezza del blocco per il caso corrente 
+      TextView currBlockLine = new TextView(); // blocco di linea corrente 
+      string currTextBlock = String.Empty; // blocco di linee finale da aggiungere rispetto al contesto corrente 
+      foreach (string lineText in GetLinesTEST)
+      {
+        // CASO 1: distinzione del caso in cui sto partendo (prima linea + definizione del blocco)
+        if(lineText == GetLinesTEST.First())
+        {
+          if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines))
+          {
+            currBlockLine = new TextView()
+            {
+              Width = Dim.Fill() - 4,
+              X = startingX,
+              Y = startingY,
+              ColorScheme = colorSchemeAddedLevel,
+              Visible = true
+            };
+            // incremento per il numero di righe correnti 
+            currBlockLineCounter++;
+            finalLinesCounter++;
+            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+          }
+          else
+          {
+            currBlockLine = new TextView()
+            {
+              Width = Dim.Fill() - 4,
+              X = startingX,
+              Y = startingY,
+              ColorScheme = colorSchemeNormalLevel,
+              Visible = true
+            };
+            // incremento per il numero di righe correnti 
+            currBlockLineCounter++;
+            finalLinesCounter++;
+            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+          }
+        }
+        // CASO 2: sto iterando dalla seconda riga in poi
+        else
+        {
+          // CASO 2.1: non ho il cambio per il blocco corrente: continuo ad aggiungere le linee 
+          if(
+            // ho trovato un'altra linea aggiunta 
+            (ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)
+            && currBlockLine.ColorScheme == colorSchemeAddedLevel) 
+            || 
+            // ho trovato un'altra linea gia presente 
+            (!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)) 
+            && currBlockLine.ColorScheme == colorSchemeNormalLevel
+            )
+          {
+            // incremento per il numero di righe correnti 
+            currBlockLineCounter++;
+            finalLinesCounter++;
+            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+          }
+          // CASO 2.2: sto cambiando il blocco: devo aggiungere il blocco precedente al set della lista e passare alla nuova inizializzazione
+          // caso nel quale passo ad un blocco di aggiunta 
+          else if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)
+            && currBlockLine.ColorScheme == colorSchemeNormalLevel)
+          {
+            // impostazione testo e altezza blocco corrente 
+            currBlockLine.Text = currTextBlock;
+            currBlockLine.Height = currBlockLineCounter;
+            // inserimento del blocco corrente all'interno della lista 
+            listBlocks.Add(currBlockLine);
+            // re inizializzazioni per il testo corrente 
+            currTextBlock = String.Empty;
+            currBlockLineCounter = 1;
+            // creazione del nuovo blocco 
+            currBlockLine = new TextView()
+            {
+              Width = Dim.Fill() - 4,
+              X = startingX, // la X rimane sempre fissa allo startX
+              Y = Pos.Bottom(listBlocks.Last()) + 1, // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
+              ColorScheme = colorSchemeAddedLevel,
+              Visible = true
+            };
+            // incremento per il numero di righe correnti 
+            currBlockLineCounter++;
+            finalLinesCounter++;
+            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+          }
+          // CASO 2.2 ma passo ad un blocco di testo gia presente 
+          else if(!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)
+            && currBlockLine.ColorScheme == colorSchemeAddedLevel)
+          {
+            // impostazione testo e altezza blocco corrente 
+            currBlockLine.Text = currTextBlock;
+            currBlockLine.Height = currBlockLineCounter;
+            // inserimento del blocco corrente all'interno della lista 
+            listBlocks.Add(currBlockLine);
+            // re inizializzazioni per il testo corrente 
+            currTextBlock = String.Empty;
+            currBlockLineCounter = 1;
+            // creazione del nuovo blocco 
+            currBlockLine = new TextView()
+            {
+              Width = Dim.Fill() - 4,
+              X = startingX, // la X rimane sempre fissa allo startX
+              Y = Pos.Bottom(listBlocks.Last()) + 1, // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
+              ColorScheme = colorSchemeNormalLevel,
+              Visible = true
+            };
+            // incremento per il numero di righe correnti 
+            currBlockLineCounter++;
+            finalLinesCounter++;
+            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+          }
+
+        }
+        
+      }
+      // una volta creati correttamente tutti i blocchi ritorno la lista dei textview
+      return listBlocks;
+    }
+
+
+    #endregion
   }
 }

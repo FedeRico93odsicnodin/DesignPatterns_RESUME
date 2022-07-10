@@ -597,6 +597,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       return finalText;
     }
 
+    
 
     /// <summary>
     /// Recupero degli elementi che devono essere passati come parametri per il programma in fase di visualizzazione dell'esempio scorretto 

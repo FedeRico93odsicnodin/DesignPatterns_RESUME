@@ -127,6 +127,8 @@ namespace DesignPatterns.Utils
     /// </summary>
     internal void LoadExamplesFromDB()
     {
+      // impostazione relativa al database access di provenienza descrizioni diversi design patterns
+      CreateConnString_Access();
       // recupero di tutti gli esempi disponibili per i design patterns correnti 
       MemLists.DesignPatternsExamples = ServiceLocator.GetAccessDBService.GetDesignPatternsExamples();
     }

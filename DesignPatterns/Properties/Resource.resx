@@ -159,6 +159,9 @@
   <data name="PREV_BTN_TXT" xml:space="preserve">
     <value>Prev</value>
   </data>
+  <data name="UNAVAILABLE_CODE" xml:space="preserve">
+    <value>This code is still unavailable</value>
+  </data>
   <data name="WRONG_EXAMPLE_BTN" xml:space="preserve">
     <value>Wrong</value>
   </data>

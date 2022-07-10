@@ -76,5 +76,26 @@ namespace DesignPatterns.Utils
         return new List<int[]>();
       }
     }
+
+
+    /// <summary>
+    /// Verifico che la riga corrente sia da marcare di un determinato colore o meno per il caso in analisi
+    /// </summary>
+    /// <param name="currLine"></param>
+    /// <param name="currListLines"></param>
+    /// <returns></returns>
+    public bool CheckLineToMark(int currLine, List<int[]> currListLines)
+    {
+      // separazione delle righe per le currLines che hanno una sola entry da quelle che ne hanno 2
+      List<int[]> onlyOneEntryLine = currListLines.Where(x => x.Length == 1).ToList();
+      List<int[]> rangeLines = currListLines.Where(x => x.Length == 2).ToList();
+
+      // verifica di presenza della riga corrente all'interno delle entry che hanno una sola posizione 
+      if (onlyOneEntryLine.Where(x => x[0] == currLine).Count() > 0) return true;
+      // verifica di presenza della riga corrente nel range indicato 
+      if (rangeLines.Where(x => x[0] <= currLine && x[1] >= currLine).Count() > 0) return true;
+      // per tutti gli altri casi ritorn false (non ho trovato la linea come da marcare di un determinato colore 
+      return false;
+    }
   }
 }
