@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.28307.1913
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPatterns", "DesignPatterns\DesignPatterns.csproj", "{4138C70A-EE35-48B8-9F2C-2343F2DAC14D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtraFiles", "ExtraFiles", "{A8D398F7-8519-4590-9F45-98CC4C3FA5D3}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\tmp\Design patterns RESUME - Notes.docx = ..\..\tmp\Design patterns RESUME - Notes.docx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -32,7 +32,16 @@ namespace DesignPatterns.Access_DB
     /// <summary>
     /// Getter per la query di recupero delle descrizioni per i design patterns attuali
     /// </summary>
-    private static string _GETDESIGNPATTERNSDESCRIPTION_QUERY = @"SELECT ID, ID_DesignPattern, Description, Class_RelativePath, ID_VisualActionType, HasCode, ID_Vis FROM DesignPatterns_Descriptions";
+    private static string _GETDESIGNPATTERNSDESCRIPTION_QUERY = @"SELECT 
+                                                                          ID, 
+                                                                          ID_DesignPattern, 
+                                                                          Description, 
+                                                                          ID_VisualActionType, 
+                                                                          HasCode, 
+                                                                          HasWrongCode,
+                                                                          ExampleID,
+                                                                          WrongID,
+                                                                          ID_Vis FROM DesignPatterns_Descriptions";
 
     internal static string GETDESIGNPATTERNSDESCRIPTION_QUERY()
     {
@@ -63,6 +72,20 @@ namespace DesignPatterns.Access_DB
 
     #endregion
 
+
+    #region QUERY PER IL RECUPERO DEGLI ESEMPI LEGATI AI DESIGN PATTERNS ATTUALI
+
+    /// <summary>
+    /// Query di recupero per gli esempi legati ai design patterns attuali
+    /// </summary>
+    private static string _GETDESPATTERNEXAMPLES_QUERY = @"SELECT ID, RelativePath_Example, Name_Example, IsWrong, MarkedLine FROM Designpatterns_Examples";
+
+    internal static string GETDESPATTERNEXAMPLES_QUERY()
+    {
+      return _GETDESPATTERNEXAMPLES_QUERY;
+    }
+
+    #endregion
 
   }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.DesignPatterns.Behavioural
+namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
 {
   public class Strategy
   {

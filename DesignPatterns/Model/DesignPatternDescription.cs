@@ -16,14 +16,18 @@ namespace DesignPatterns.Model
     public int ID_DesignPattern { get; set; }
 
     public string Description { get; set; }
-
-    public string Class_RelativePath { get; set; }
     
     public bool HasCode { get; set; }
+
+    public bool HasWrongCode { get; set; }
 
     public int ID_VisualActionType { get; set; }
 
     public int ID_Vis { get; set; }
+
+    public int ExampleID { get; set; }
+
+    public int WrongID { get; set; }
 
   }
 }

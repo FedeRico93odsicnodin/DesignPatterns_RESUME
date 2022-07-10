@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural;
+using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.Properties;
 using DesignPatterns.Utils;

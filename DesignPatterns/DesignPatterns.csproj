@@ -55,7 +55,11 @@
   <ItemGroup>
     <Compile Include="Access_DB\AccessDBService.cs" />
     <Compile Include="Access_DB\QueryStrings.cs" />
-    <Compile Include="DesignPatterns\Behavioural\Strategy.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_WrongImplementation1.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Strategy\Strategy.cs" />
     <Compile Include="DesignPatterns\Creational\SingletonService.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -63,6 +67,7 @@
     <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPattern.cs" />
+    <Compile Include="Model\DesignPatterns_Examples.cs" />
     <Compile Include="Model\DesignType.cs" />
     <Compile Include="Model\DesignTypeDescription.cs" />
     <Compile Include="Model\ViewModel\DesPatternView.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Utils\Configurations.cs" />
     <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Utils\ExtraConverters.cs" />
     <Compile Include="Utils\MemLists.cs" />
     <Compile Include="Utils\ParallelExe.cs" />
     <Compile Include="ViewConsole\ConsolePageServices\PageContextSelector.cs" />

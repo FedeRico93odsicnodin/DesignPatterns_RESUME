@@ -116,5 +116,23 @@ namespace DesignPatterns
 
 
     #endregion
+
+
+    #region SERVIZI DI PREPARAZIONE EXTRA 
+
+    private static ExtraConverters _extraConvertersService;
+
+    internal static ExtraConverters GetExtraConvertersService
+    {
+      get
+      {
+        if (_extraConvertersService == null)
+          _extraConvertersService = new ExtraConverters();
+
+        return _extraConvertersService;
+      }
+    }
+
+    #endregion
   }
 }

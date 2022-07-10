@@ -76,22 +76,25 @@ namespace DesignPatterns.Access_DB
               int id_DesignPattern = (int)reader["ID_DesignPattern"];
               string desc = (reader["Description"] != DBNull.Value) ? 
                 (string)reader["Description"] : String.Empty;
-              string classRelativePath = (reader["Class_RelativePath"] != DBNull.Value) ? 
-                (string)reader["Class_RelativePath"] : String.Empty;
               int idVisualActionType = (int)reader["ID_VisualActionType"];
               bool hasCode = (bool)reader["HasCode"];
+              bool hasWrongCode = (bool)reader["HasWrongCode"];
               int idVis = (reader["ID_Vis"] != DBNull.Value) ? (int)reader["ID_Vis"] : id;
               if (idVis == 0)
                 idVis = id;
+              int exampleID = (reader["ExampleID"] != DBNull.Value) ? (int)reader["ExampleID"] : 0;
+              int wrongID = (reader["WrongID"] != DBNull.Value) ? (int)reader["WrongID"] : 0;
               // aggiunta per il design pattern corrente
               currDesignPatternsDescriptions.Add(new DesignPatternDescription()
               {
                 ID = id,
                 ID_DesignPattern = id_DesignPattern,
                 Description = desc,
-                Class_RelativePath = classRelativePath,
+                ExampleID = exampleID,
+                WrongID = wrongID,
                 ID_VisualActionType = idVisualActionType,
                 HasCode = hasCode,
+                HasWrongCode = hasWrongCode,
                 ID_Vis = idVis
               });
             }
@@ -174,6 +177,43 @@ namespace DesignPatterns.Access_DB
 
       return currDesignTypeDescriptions;
     }
-    
+
+
+    public List<DesignPatterns_Examples> GetDesignPatternsExamples()
+    {
+      List<DesignPatterns_Examples> currDesignPatternsExamples = new List<DesignPatterns_Examples>();
+
+      using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+      {
+        con.Open();
+        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDESPATTERNEXAMPLES_QUERY(), con))
+        {
+          using (OleDbDataReader reader = cmd.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              int id = (int)reader["ID"];
+              string relPath = (string)reader["RelativePath_Example"];
+              string name = (string)reader["Name_Example"];
+              bool isWrong = (bool)reader["IsWrong"];
+              List<int[]> markedLines = ServiceLocator.GetExtraConvertersService.GetMarkedLines((string)reader["MarkedLine"]);
+              // aggiunta per il design pattern corrente
+              currDesignPatternsExamples.Add(new DesignPatterns_Examples()
+              {
+                ID = id,
+                RelativePath_Example = relPath,
+                Name_Example = name,
+                IsWrong = isWrong,
+                MarkedLines = markedLines
+              });
+            }
+          }
+        }
+        con.Close();
+      }
+
+      return currDesignPatternsExamples;
     }
+
+  }
 }
