@@ -132,7 +132,8 @@ namespace DesignPatterns.Utils
     internal enum PROGRAM_MODES
     {
       PRESENTATION = 1,
-      CODE_DEMO = 2
+      CODE_DEMO = 2,
+      WRONG_EXAMPLE = 3
     }
 
 

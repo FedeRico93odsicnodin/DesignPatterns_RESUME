@@ -38,6 +38,12 @@ namespace DesignPatterns.Utils
     /// </summary>
     public static List<DesignTypeDescription> DesignTypesDescriptions { get; set; }
 
+
+    /// <summary>
+    /// Tutti gli esempi per i design patterns correnti 
+    /// </summary>
+    public static List<DesignPatterns_Examples> DesignPatternsExamples { get; set; }
+
     #endregion
 
 

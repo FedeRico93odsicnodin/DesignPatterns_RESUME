@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DesignPatterns.Model;
 using DesignPatterns.Model.ViewModel;
+using DesignPatterns.Properties;
 using DesignPatterns.Utils;
 using DesignPatterns.ViewConsole.ConsolePageServices;
 
@@ -33,7 +34,12 @@ namespace DesignPatterns.ViewConsole
       // impostazione del titolo + descrizione per il design pattern corrente
       base.SetTitleLabel(ViewParams.DesignPatternName);
       base.SetLabelDescriptionVisibility(true);
-      string codeToShow = ServiceLocator.GetContextSelectorService.GetPageCode_TEST();
+      // se la pagina ha un esempio di codice allora la visualizzo
+      string codeToShow = Resource.CODE_NOT_AVAILABLE;
+      if (ViewParams.HasCode)
+        codeToShow = ServiceLocator.GetContextSelectorService.GetCodeToShow(ViewParams.DesignPatternDescriptionID, ViewParams.CodeClassID);
+      // attivo il button per esempio contrario nel caso in cui effettivamente sia presente 
+      Btn_WrongExample_Activation(ViewParams.HasWrongCode);
       base.SetLabelDescriptionExample(ViewParams.DesignPatternDescription);
       base.SetDescriptionText(
         codeToShow);

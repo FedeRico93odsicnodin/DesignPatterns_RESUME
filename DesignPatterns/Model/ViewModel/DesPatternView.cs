@@ -142,5 +142,23 @@ namespace DesignPatterns.Model.ViewModel
     internal PAGE_TYPE NextPage_Type { get; set; }
 
     #endregion
+
+
+    #region VALORIZZAZIONE CON ID CODE E ANTICODE 
+
+
+    internal bool HasCode { get; set; }
+
+
+    internal bool HasWrongCode { get; set; }
+
+
+    internal int CodeClassID { get; set; }
+
+
+    internal int WrongCodeClassID { get; set; }
+
+
+    #endregion
   }
 }

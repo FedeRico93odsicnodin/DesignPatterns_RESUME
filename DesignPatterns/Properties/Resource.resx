@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CODE_NOT_AVAILABLE" xml:space="preserve">
+    <value>Code not available</value>
+  </data>
   <data name="DEMO_BTN_TXT" xml:space="preserve">
     <value>Demo</value>
   </data>
@@ -141,13 +144,22 @@
   <data name="EXEPTION_DEMO_NOTFOUND" xml:space="preserve">
     <value>No Demo found for the design pattern of ID {0} and Name '{1}'</value>
   </data>
+  <data name="FILE_NOT_FOUND" xml:space="preserve">
+    <value>File code not found</value>
+  </data>
   <data name="MAIN_BTN_TXT" xml:space="preserve">
     <value>Main</value>
   </data>
   <data name="NEXT_BTN_TXT" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="NO_CODE_TO_DISPLAY" xml:space="preserve">
+    <value>No code to display</value>
+  </data>
   <data name="PREV_BTN_TXT" xml:space="preserve">
     <value>Prev</value>
+  </data>
+  <data name="WRONG_EXAMPLE_BTN" xml:space="preserve">
+    <value>Wrong</value>
   </data>
 </root>

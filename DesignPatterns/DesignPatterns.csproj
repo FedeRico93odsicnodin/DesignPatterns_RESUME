@@ -87,6 +87,7 @@
     <Compile Include="Utils\MemLists.cs" />
     <Compile Include="Utils\ParallelExe.cs" />
     <Compile Include="ViewConsole\ConsolePageServices\PageContextSelector.cs" />
+    <Compile Include="ViewConsole\ConsolePageServices\PrintExampleService.cs" />
     <Compile Include="ViewConsole\ConsolePageServices\ViewConsoleConstants.cs" />
     <Compile Include="ViewConsole\GeneralPage.cs" />
     <Compile Include="ViewConsole\Main_Page.cs" />
@@ -96,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ExtraFiles\Design patterns RESUME - Notes.docx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

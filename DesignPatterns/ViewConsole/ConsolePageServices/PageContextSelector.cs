@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.Model;
 using DesignPatterns.Model.ViewModel;
+using DesignPatterns.Properties;
 using DesignPatterns.Utils;
 using System;
 using System.Collections.Generic;
@@ -180,6 +181,16 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       }
       else
         currViewBagConsole.NextPage_Type = identifiedType;
+
+      #endregion
+
+
+      #region RECUPERO DELLE PROPPRIETA DI CODICE DA MOSTRARE PER LA PAGINA CORRENTE 
+
+      currViewBagConsole.HasCode = desPatDescription.HasCode;
+      currViewBagConsole.HasWrongCode = desPatDescription.HasWrongCode;
+      currViewBagConsole.CodeClassID = desPatDescription.ExampleID;
+      currViewBagConsole.WrongCodeClassID = desPatDescription.WrongID;
 
       #endregion
 
@@ -546,6 +557,67 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         finalText += codeLine + Environment.NewLine;
 
       return finalText;
+    }
+
+    #endregion
+
+
+    #region RECUPERO DEL CODICE DA MOSTRARE ALL'INTERNO DI UN CERTO CONTESTO DI VISUALIZZAZIONE 
+
+    /// <summary>
+    /// Recupero dell'eventuale codice da mostrare per il design pattern corrente 
+    /// </summary>
+    /// <param name="entityID"></param>
+    /// <param name="codeSampleID"></param>
+    /// <returns></returns>
+    internal string GetCodeToShow(int entityID, int codeSampleID)
+    {
+      // se non ho ID maggiori di 0 allora ritorno non aver la possibilità di display
+      if(entityID == 0 || codeSampleID == 0)
+        return Resource.NO_CODE_TO_DISPLAY;
+      string finalText = String.Empty;
+      // inizializzazione del percorso e del nome del file da visualizzare per il contesto corrente 
+      string fileCurrDirectory = String.Empty;
+      string fileCurrFile = String.Empty;
+      // recupero dell'esempio associato per il contesto corrente 
+      DesignPatterns_Examples currSample = MemLists.DesignPatternsExamples.Where(x => x.ID == codeSampleID && x.IsWrong == false).FirstOrDefault();
+      // se non trovo niente allora ritorno no code to display
+      if (currSample == null)
+        return Resource.NO_CODE_TO_DISPLAY;
+      // valorizzazione del percorso da cui prendere l'esempio 
+      fileCurrDirectory = currSample.RelativePath_Example;
+      fileCurrFile = currSample.Name_Example;
+      // controllo che il file esista 
+      if (!File.Exists(Path.Combine(Environment.CurrentDirectory, fileCurrDirectory, fileCurrFile)))
+        return Resource.FILE_NOT_FOUND;
+      // recupero finale delle stringhe da mostrare 
+      List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, fileCurrDirectory, fileCurrFile)).ToList();
+      foreach (string codeLine in GetLinesTEST)
+        finalText += codeLine + Environment.NewLine;
+      return finalText;
+    }
+
+
+    /// <summary>
+    /// Recupero degli elementi che devono essere passati come parametri per il programma in fase di visualizzazione dell'esempio scorretto 
+    /// </summary>
+    /// <param name="wrongCodeExampleID"></param>
+    /// <param name="classRelativePath"></param>
+    /// <param name="className"></param>
+    /// <returns></returns>
+    internal bool GetWrongExampleClassRelativePathAndName(int wrongCodeExampleID, out string classRelativePath, out string className)
+    {
+      // inizializzazione parametri out 
+      classRelativePath = String.Empty;
+      className = String.Empty;
+      // recupero dell'esempio scorretto corrente
+      DesignPatterns_Examples currSample = MemLists.DesignPatternsExamples.Where(x => x.ID == wrongCodeExampleID && x.IsWrong == true).FirstOrDefault();
+      if (currSample == null) // non sono riuscito a trovare per l'esempio scorretto corrente 
+        return false;
+      // attribuzione parametri di out 
+      classRelativePath = currSample.RelativePath_Example;
+      className = currSample.Name_Example;
+      return true;
     }
 
     #endregion

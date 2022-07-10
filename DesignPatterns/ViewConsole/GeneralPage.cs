@@ -107,6 +107,13 @@ namespace DesignPatterns.ViewConsole
 
 
     /// <summary>
+    /// Impostazione del button per vedere l'esempio contrario che non va bene: con questa azione viene aperta 
+    /// la finestra che mostra il codice relativo alla classe che viene utilizzata come counterexample per il caso corrente 
+    /// </summary>
+    private Button _wrongExampleButton { get; set; }
+
+
+    /// <summary>
     /// Questa label viene posizionata sopra il txt view principale ma di fatto è attiva solo per la pagina di esempio 
     /// viene impostata la descrizione per la label e nel blocco di testo mostrato il codice 
     /// </summary>
@@ -298,6 +305,8 @@ namespace DesignPatterns.ViewConsole
       _showDemoPage.Y = Pos.Bottom(_descriptionView) + 1;
       _showExamplePage.Y = Pos.Bottom(_descriptionView) + 1;
       _forwardDescrButton.Y = Pos.Bottom(_descriptionView) + 1;
+      _wrongExampleButton.Y = Pos.Bottom(_descriptionView) + 1;
+      _wrongExampleButton.X = Pos.Right(_descriptionView) - 10;
     }
     
 
@@ -331,7 +340,7 @@ namespace DesignPatterns.ViewConsole
       {
         _nextButton = new Button()
         {
-          X = 4,
+          X = 14,
           Y = Pos.Bottom(_mainWindow) + 2,
           Text = Resource.NEXT_BTN_TXT,
           ColorScheme = colorScheme,
@@ -347,7 +356,7 @@ namespace DesignPatterns.ViewConsole
       {
         _prevButton = new Button()
         {
-          X = 14,
+          X = 4,
           Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.PREV_BTN_TXT,
           ColorScheme = DecidePrevButtonColor(colorScheme),
@@ -381,7 +390,7 @@ namespace DesignPatterns.ViewConsole
       {
         _showExamplePage = new Button()
         {
-          X = 4,
+          X = 14,
           Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.EXAMPLE_BTN_TXT,
           ColorScheme = ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME, // colore specifico per la visualizzazione di questo tipo di button
@@ -410,11 +419,11 @@ namespace DesignPatterns.ViewConsole
       else
         _showDemoPage.ColorScheme = colorScheme;
       // impostazione button di forward description page 
-      if(_forwardDescrButton == null)
+      if (_forwardDescrButton == null)
       {
         _forwardDescrButton = new Button()
         {
-          X = 4,
+          X = 14,
           Y = Pos.Bottom(_mainWindow) - 2,
           Text = Resource.DSCR_BTN_TXT, // impostazione della label di visualizzazione descrizione 
           ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME,
@@ -424,6 +433,25 @@ namespace DesignPatterns.ViewConsole
         _forwardDescrButton.Clicked += () => ForwardDescriptionPage(viewBagBase.Design_PatternID, viewBagBase.DesignPatternContextEnum);
         _mainWindow.Add(_forwardDescrButton);
       }
+      else
+        _forwardDescrButton.ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME;
+      // impostazione per button del counterexample 
+      if (_wrongExampleButton == null)
+      {
+        _wrongExampleButton = new Button()
+        {
+          X = 64,
+          Y = Pos.Bottom(_mainWindow) - 2,
+          Text = Resource.WRONG_EXAMPLE_BTN, // impostazione della label di visualizzazione descrizione 
+          ColorScheme = colorScheme,
+          Visible = false // di default questo button è disattivato: appena viene attivato viene lanciato il programma per il counterexample corrente 
+        };
+        // impostazione dell'azione di visualizzazione pagina successiva 
+        _wrongExampleButton.Clicked += () => InvokeWrongExampleVisualizationCode(viewBagBase.WrongCodeClassID);
+        _mainWindow.Add(_wrongExampleButton);
+      }
+      else
+        _wrongExampleButton.ColorScheme = colorScheme;
 
     }
 
@@ -452,6 +480,11 @@ namespace DesignPatterns.ViewConsole
     protected void Btn_ForwardDescr_Activation(bool activation)
     {
       _forwardDescrButton.Visible = activation;
+    }
+
+    protected void Btn_WrongExample_Activation(bool activation)
+    {
+      _wrongExampleButton.Visible = activation;
     }
 
     #endregion
@@ -665,6 +698,25 @@ namespace DesignPatterns.ViewConsole
       string paramsDEMO = ServiceLocator.GetParallelExeService.GetDesPatternDemoPresentationExeParams(desPatternID, desPatternName);
       // richiamo servizio per launch seconda applicazione 
       ServiceLocator.GetParallelExeService.RunProcessAsAdmin(Constants.EXENAME, paramsDEMO);
+    }
+
+
+    /// <summary>
+    /// Recupero di tutti i parametri relativi alla visualizzazione per l'esempio scorretto 
+    /// </summary>
+    /// <param name="wrongExampleID"></param>
+    private void InvokeWrongExampleVisualizationCode(int wrongExampleID)
+    {
+      // recupero dei parametri per il counterexample attuale 
+      string relativePathWrongExample = String.Empty;
+      string nameWrongExample = String.Empty;
+      if(ServiceLocator.GetContextSelectorService.GetWrongExampleClassRelativePathAndName(wrongExampleID, out relativePathWrongExample, out nameWrongExample))
+      {
+        // recupero del parametro da passare al programma nella nuova configurazione 
+        string showWrongExampleParams = ServiceLocator.GetParallelExeService.GetWrongExamplePagePresentationExeParams(wrongExampleID, relativePathWrongExample, nameWrongExample);
+        // richiamo il programma in questa nuova versione 
+        ServiceLocator.GetParallelExeService.RunProcessAsAdmin(Constants.EXENAME, showWrongExampleParams);
+      }
     }
   }
 }

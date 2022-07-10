@@ -14,27 +14,47 @@ namespace DesignPatterns.Utils
 
     /// <summary>
     /// Verifica della modalità in cui il programma deve essere lanciato per il caso corrente 
+    /// Le diverse proprieta e ID vengono specificate a seconda della casistica in cui il programma viene effettivamente aperto 
     /// </summary>
     /// <param name="args"></param>
-    /// <param name="desPatternID"></param>
-    /// <param name="desPatternDescription"></param>
+    /// <param name="entityID"></param>
+    /// <param name="prop1"></param>
     /// <returns></returns>
-        internal Constants.PROGRAM_MODES GetProgramCurrExeType(string[] args, out int desPatternID, out string desPatternDescription)
+        internal Constants.PROGRAM_MODES GetProgramCurrExeType(string[] args, 
+          out int entityID, 
+          out string prop1,
+          out string prop2)
     {
       // modo di default 
       Constants.PROGRAM_MODES currModeDefault = Constants.PROGRAM_MODES.PRESENTATION;
       // inizializzazione parametri out 
-      desPatternID = 0;
-      desPatternDescription = String.Empty;
+      entityID = 0;
+      prop1 = String.Empty;
+      prop2 = String.Empty;
       // impostazione per il caso di demo 
       if (args[0] == Constants.PROGRAM_MODES.CODE_DEMO.ToString())
         currModeDefault = Constants.PROGRAM_MODES.CODE_DEMO;
+      else if (args[0] == Constants.PROGRAM_MODES.WRONG_EXAMPLE.ToString())
+        currModeDefault = Constants.PROGRAM_MODES.WRONG_EXAMPLE;
+
+      #region ATTRIBUTI EXTRA DA RECUPERARE PER IL CASO CORRENTE 
+
       // se mi trovo nel caso di demo devo anche valorizzare gli attributi relativi al design pattern
       if(currModeDefault == Constants.PROGRAM_MODES.CODE_DEMO)
       {
-        int.TryParse(args[1], out desPatternID); // conversione per l'ID del design pattern attuale 
-        desPatternDescription = args[2];
+        int.TryParse(args[1], out entityID); // conversione per l'ID del design pattern attuale 
+        prop1 = args[2];
       }
+      // sto visualizzando un wrong example di cui devo recuperare la classe e lavorare sul display in diversi colori 
+      else if(currModeDefault == Constants.PROGRAM_MODES.WRONG_EXAMPLE)
+      {
+        int.TryParse(args[1], out entityID); // conversione dell'ID per l'esempio corrente 
+        prop1 = args[2]; // questa proprieta coincide con il relative path nel quale andare a trovare la classe corrispodente 
+        prop2 = args[3]; // nome della classe corrispondente 
+      }
+
+      #endregion
+
       return currModeDefault;
     }
 
@@ -95,7 +115,21 @@ namespace DesignPatterns.Utils
             MemLists.DesignPatterns_Types = ServiceLocator.GetAccessDBService.GetDesignPatternsTypes();
             // load di tutte le descrizioni per le tipologie di design patterns correnti 
             MemLists.DesignTypesDescriptions = ServiceLocator.GetAccessDBService.GetDesignPatternTypeDescriptions();
+      // recupero di tutti gli esempi disponibili per i design patterns correnti 
+      MemLists.DesignPatternsExamples = ServiceLocator.GetAccessDBService.GetDesignPatternsExamples();
         }
+
+
+    /// <summary>
+    /// Permette il recupero dei soli esempi tra cui si deve ricercare per l'esempio corrente 
+    /// questa è l'unica attività di backend necessaria per la visualizzazione dell'esempio corrente 
+    /// ed è necessaria per l'eventuale recupero delle righe da marcare all'interno del file in visualizzazione 
+    /// </summary>
+    internal void LoadExamplesFromDB()
+    {
+      // recupero di tutti gli esempi disponibili per i design patterns correnti 
+      MemLists.DesignPatternsExamples = ServiceLocator.GetAccessDBService.GetDesignPatternsExamples();
+    }
 
 
     /// <summary>

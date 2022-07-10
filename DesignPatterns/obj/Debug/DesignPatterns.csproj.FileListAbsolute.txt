@@ -338,5 +338,4 @@ I:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.pdb
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.Properties.Resource.resources
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csproj.GenerateResource.cache
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\SingletonService.cs
-I:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs

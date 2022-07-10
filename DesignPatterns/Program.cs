@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Properties;
+﻿using DesignPatterns.Model;
+using DesignPatterns.Properties;
 using DesignPatterns.ViewConsole;
 using DesignPatterns.ViewConsole.ConsolePageServices;
 using System;
@@ -28,10 +29,11 @@ namespace DesignPatterns
       try
       {
         // verifica per la modalità corrente di programma 
-        int idDesPattern = 0;
-        string nameDesPattern = String.Empty;
+        int idAttribute = 0;
+        string prop_1 = String.Empty;
+        string prop_2 = String.Empty;
         // recupero modalità di esecuzione per il programma corrente 
-        Utils.Constants.PROGRAM_CURR_MODE = ServiceLocator.GetConfigurationsService.GetProgramCurrExeType(args, out idDesPattern, out nameDesPattern);
+        Utils.Constants.PROGRAM_CURR_MODE = ServiceLocator.GetConfigurationsService.GetProgramCurrExeType(args, out idAttribute, out prop_1, out prop_2);
         if (Utils.Constants.PROGRAM_CURR_MODE
           // modalita di presentazione per l'esecuzione corrente 
           == Utils.Constants.PROGRAM_MODES.PRESENTATION)
@@ -57,14 +59,32 @@ namespace DesignPatterns
         else if (Utils.Constants.PROGRAM_CURR_MODE == Utils.Constants.PROGRAM_MODES.CODE_DEMO)
         {
           // impostazione dei parametri constanti per ID e Nome design pattern demo attuale 
-          Utils.Constants.DESPATTERN_DEMO_ID = idDesPattern;
-          Utils.Constants.DESPATTERN_DEMO_DESCRIPTION = nameDesPattern;
+          Utils.Constants.DESPATTERN_DEMO_ID = idAttribute;
+          Utils.Constants.DESPATTERN_DEMO_DESCRIPTION = prop_1;
 
           // lettura delle configurazioni iniziali ridotte di programma (db)
           ServiceLocator.GetConfigurationsService.LoadDBParams(true);
 
           // verifica validità per il design pattern corrente (deve essere presente nella lista dei design pattern recuperati ed essere configurata la live demo)
-          ServiceLocator.GetDesignPatternsService.StartLiveDemo(idDesPattern, nameDesPattern);
+          ServiceLocator.GetDesignPatternsService.StartLiveDemo(idAttribute, prop_1);
+        }
+        // programma chiamato nella fase di visualizzazione di un esempio scorretto per la classe corrente 
+        else if(Utils.Constants.PROGRAM_CURR_MODE == Utils.Constants.PROGRAM_MODES.WRONG_EXAMPLE)
+        {
+          // carico tutti gli esempi dal DB 
+          ServiceLocator.GetConfigurationsService.LoadExamplesFromDB();
+
+          // verifico la presenza per l'esempio corrente e recupero l'oggetto che sto ricercando 
+          DesignPatterns_Examples exampleFound = null;
+          if (ServiceLocator.GetPrintExampleService.CheckWrongExamplePresence(idAttribute, prop_1, prop_2,
+            out exampleFound))
+          {
+            // print dell'esempio per il caso corrente 
+            ServiceLocator.GetPrintExampleService.PrintWrongExample_CONSOLE(exampleFound);
+          }
+          // print del messaggio standard di not found per il contesto corrente 
+          else
+            ServiceLocator.GetPrintExampleService.PrintWrongExample_NOTFOUNDMsg();
         }
         // ECCEZIONE: non ho trovato nessuna modalità utile per il programma corrente 
         else

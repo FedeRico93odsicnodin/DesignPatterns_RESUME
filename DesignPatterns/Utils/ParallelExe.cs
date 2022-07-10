@@ -77,5 +77,18 @@ namespace DesignPatterns.Utils
       // ritorno direttamente la stringa che deve essere passata come parametro per il design pattern attuale 
       return Constants.PROGRAM_MODES.CODE_DEMO.ToString() + " " + desPatternID + " " + desPatternName;
     }
+
+
+    /// <summary>
+    /// Ritorno della stringa da passare come parametro per la visualizzazione del wrong example 
+    /// </summary>
+    /// <param name="wrongExampleID"></param>
+    /// <param name="classRelativePATH"></param>
+    /// <param name="className"></param>
+    /// <returns></returns>
+    internal string GetWrongExamplePagePresentationExeParams(int wrongExampleID, string classRelativePATH, string className)
+    {
+      return Constants.PROGRAM_MODES.WRONG_EXAMPLE.ToString() + " " + wrongExampleID + " " + classRelativePATH + " " + className;
+    }
   }
 }

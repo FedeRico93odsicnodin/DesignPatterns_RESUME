@@ -61,6 +61,15 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code not available.
+        /// </summary>
+        internal static string CODE_NOT_AVAILABLE {
+            get {
+                return ResourceManager.GetString("CODE_NOT_AVAILABLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Demo.
         /// </summary>
         internal static string DEMO_BTN_TXT {
@@ -127,6 +136,15 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File code not found.
+        /// </summary>
+        internal static string FILE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("FILE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         internal static string MAIN_BTN_TXT {
@@ -145,11 +163,29 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No code to display.
+        /// </summary>
+        internal static string NO_CODE_TO_DISPLAY {
+            get {
+                return ResourceManager.GetString("NO_CODE_TO_DISPLAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prev.
         /// </summary>
         internal static string PREV_BTN_TXT {
             get {
                 return ResourceManager.GetString("PREV_BTN_TXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong.
+        /// </summary>
+        internal static string WRONG_EXAMPLE_BTN {
+            get {
+                return ResourceManager.GetString("WRONG_EXAMPLE_BTN", resourceCulture);
             }
         }
     }

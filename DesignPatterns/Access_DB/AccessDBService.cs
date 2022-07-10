@@ -179,9 +179,13 @@ namespace DesignPatterns.Access_DB
     }
 
 
+    /// <summary>
+    /// Recupero di tutti gli esempi disponibili per i design patterns
+    /// </summary>
+    /// <returns></returns>
     public List<DesignPatterns_Examples> GetDesignPatternsExamples()
     {
-      List<DesignPatterns_Examples> currDesignPatternsExamples = new List<DesignPatterns_Examples>();
+    List<DesignPatterns_Examples> currDesignPatternsExamples = new List<DesignPatterns_Examples>();
 
       using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
       {
@@ -196,7 +200,8 @@ namespace DesignPatterns.Access_DB
               string relPath = (string)reader["RelativePath_Example"];
               string name = (string)reader["Name_Example"];
               bool isWrong = (bool)reader["IsWrong"];
-              List<int[]> markedLines = ServiceLocator.GetExtraConvertersService.GetMarkedLines((string)reader["MarkedLine"]);
+              string markedLinesStr = (reader["MarkedLines"] != DBNull.Value) ? (string)reader["MarkedLines"] : String.Empty;
+              List<int[]> markedLines = ServiceLocator.GetExtraConvertersService.GetMarkedLines(markedLinesStr);
               // aggiunta per il design pattern corrente
               currDesignPatternsExamples.Add(new DesignPatterns_Examples()
               {

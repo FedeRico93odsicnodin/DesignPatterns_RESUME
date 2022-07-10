@@ -78,7 +78,7 @@ namespace DesignPatterns.Access_DB
     /// <summary>
     /// Query di recupero per gli esempi legati ai design patterns attuali
     /// </summary>
-    private static string _GETDESPATTERNEXAMPLES_QUERY = @"SELECT ID, RelativePath_Example, Name_Example, IsWrong, MarkedLine FROM Designpatterns_Examples";
+    private static string _GETDESPATTERNEXAMPLES_QUERY = @"SELECT ID, RelativePath_Example, Name_Example, IsWrong, MarkedLines FROM Designpatterns_Examples";
 
     internal static string GETDESPATTERNEXAMPLES_QUERY()
     {

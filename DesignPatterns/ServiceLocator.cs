@@ -134,5 +134,24 @@ namespace DesignPatterns
     }
 
     #endregion
+
+
+    #region SERVIZIO RELATIVO AL PRINT A CONSOLE DEI DIVERSI ESEMPI PER I DESGIN PATTERNS 
+
+    private static PrintExampleService _printExampleService;
+
+
+    internal static PrintExampleService GetPrintExampleService
+    {
+      get
+      {
+        if (_printExampleService == null)
+          _printExampleService = new PrintExampleService();
+
+        return _printExampleService;
+      }
+    }
+
+    #endregion
   }
 }
