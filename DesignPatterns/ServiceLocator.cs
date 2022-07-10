@@ -95,5 +95,26 @@ namespace DesignPatterns
     }
 
     #endregion
+
+
+    #region SERVIZIO RELATIVO A LAUNCH DELLA DEMO PER IL DESIGN PATTERN SELEZIONATO 
+
+    private static ParallelExe _parallelExeService;
+
+
+    internal static ParallelExe GetParallelExeService
+    {
+      get
+      {
+        if (_parallelExeService == null)
+          _parallelExeService = new ParallelExe();
+
+        return _parallelExeService;
+      }
+  
+    }
+
+
+    #endregion
   }
 }

@@ -121,5 +121,47 @@ namespace DesignPatterns.Utils
     internal static string CODEEXAMPLE_FILE = "SingletonService.cs";
 
 
+    #region MODALITA' DISPONIBILI PER IL PROGRAMMA CORRENTE
+
+    /// <summary>
+    /// Modalità di avviamento per il programma corrente: nel caso in cui viene avviato il layer di presentazione (default)
+    /// viene avviata l'interfaccia di presentazione di tutti i design patterns 
+    /// nel caso in cui viene avviata la demo devono essere passati anche i parametri relativi al design pattern corrispondente per la demo corrente
+    /// per questo caso viene invocato un recupero ridotto dei parametri necessari per la presentazione 
+    /// </summary>
+    internal enum PROGRAM_MODES
+    {
+      PRESENTATION = 1,
+      CODE_DEMO = 2
     }
+
+
+    /// <summary>
+    /// Run corrente per l'applicazione: di default viene impostato il layer di presentazione di tutti i design patterns 
+    /// </summary>
+    internal static PROGRAM_MODES PROGRAM_CURR_MODE = PROGRAM_MODES.PRESENTATION;
+
+
+    /// <summary>
+    /// Nome eseguibile che viene lanciato nelle 2 modalità in base al contesto di esecuzione corrente 
+    /// </summary>
+    internal static string EXENAME = "DesignPatterns.exe";
+
+
+    /// <summary>
+    /// ID per il design pattern di cui si è lanciato il tool in modalità di demo 
+    /// </summary>
+    internal static int DESPATTERN_DEMO_ID = 0;
+
+
+    /// <summary>
+    /// Nome per il design pattern che è stato lanciato per la modalità di demo 
+    /// </summary>
+    internal static string DESPATTERN_DEMO_DESCRIPTION = String.Empty;
+
+    #endregion
+
+
+
+  }
 }

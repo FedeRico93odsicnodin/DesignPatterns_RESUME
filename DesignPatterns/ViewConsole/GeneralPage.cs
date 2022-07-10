@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.Model.ViewModel;
 using DesignPatterns.Properties;
+using DesignPatterns.Utils;
 using DesignPatterns.ViewConsole.ConsolePageServices;
 using System;
 using System.Collections.Generic;
@@ -402,6 +403,8 @@ namespace DesignPatterns.ViewConsole
           ColorScheme = colorScheme,
           Visible = false,
         };
+        // impostazione azione di inovke parallel esecuzione di una seconda istanza di processo per la visualizzazione della live
+        _showDemoPage.Clicked += () => InvokeParallelExeShowLiveDemo(viewBagBase.Design_PatternID, viewBagBase.DesignPatternName);
         _mainWindow.Add(_showDemoPage);
       }
       else
@@ -648,6 +651,20 @@ namespace DesignPatterns.ViewConsole
         return ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME;
 
       return currColorScheme;
+    }
+
+
+    /// <summary>
+    /// Invoke della seconda istanza di programma per la visualizzazione del live demo per il design pattern attuale 
+    /// </summary>
+    /// <param name="desPatternID"></param>
+    /// <param name="desPatternName"></param>
+    private void InvokeParallelExeShowLiveDemo(int desPatternID, string desPatternName)
+    {
+      // preparazione dei parametri per la seconda applicazione 
+      string paramsDEMO = ServiceLocator.GetParallelExeService.GetDesPatternDemoPresentationExeParams(desPatternID, desPatternName);
+      // richiamo servizio per launch seconda applicazione 
+      ServiceLocator.GetParallelExeService.RunProcessAsAdmin(Constants.EXENAME, paramsDEMO);
     }
   }
 }

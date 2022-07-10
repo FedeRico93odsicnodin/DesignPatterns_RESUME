@@ -88,6 +88,45 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to During the execution the following exception occur:
+        ///{0}
+        ///----
+        ///{1}.
+        /// </summary>
+        internal static string EXCEPTION_MAIN_DISPLAY {
+            get {
+                return ResourceManager.GetString("EXCEPTION_MAIN_DISPLAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No correct modes identified for the current application.
+        /// </summary>
+        internal static string EXCEPTION_MAIN_NOMODEAPP {
+            get {
+                return ResourceManager.GetString("EXCEPTION_MAIN_NOMODEAPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Design pattern were found for ID {0} and Name &apos;{1}&apos;.
+        /// </summary>
+        internal static string EXCEPTION_MISSING_DESPATTERN {
+            get {
+                return ResourceManager.GetString("EXCEPTION_MISSING_DESPATTERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Demo found for the design pattern of ID {0} and Name &apos;{1}&apos;.
+        /// </summary>
+        internal static string EXEPTION_DEMO_NOTFOUND {
+            get {
+                return ResourceManager.GetString("EXEPTION_DEMO_NOTFOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         internal static string MAIN_BTN_TXT {

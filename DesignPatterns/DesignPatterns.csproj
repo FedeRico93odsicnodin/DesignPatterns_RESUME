@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Access_DB\AccessDBService.cs" />
     <Compile Include="Access_DB\QueryStrings.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Strategy.cs" />
     <Compile Include="DesignPatterns\Creational\SingletonService.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -78,6 +79,7 @@
     <Compile Include="Utils\Configurations.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\MemLists.cs" />
+    <Compile Include="Utils\ParallelExe.cs" />
     <Compile Include="ViewConsole\ConsolePageServices\PageContextSelector.cs" />
     <Compile Include="ViewConsole\ConsolePageServices\ViewConsoleConstants.cs" />
     <Compile Include="ViewConsole\GeneralPage.cs" />
@@ -91,7 +93,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DesignPatterns\Behavioural\" />
     <Folder Include="DesignPatterns\Structural\" />
   </ItemGroup>
   <ItemGroup>

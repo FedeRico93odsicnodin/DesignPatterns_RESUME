@@ -126,6 +126,21 @@
   <data name="EXAMPLE_BTN_TXT" xml:space="preserve">
     <value>Exmp</value>
   </data>
+  <data name="EXCEPTION_MAIN_DISPLAY" xml:space="preserve">
+    <value>During the execution the following exception occur:
+{0}
+----
+{1}</value>
+  </data>
+  <data name="EXCEPTION_MAIN_NOMODEAPP" xml:space="preserve">
+    <value>No correct modes identified for the current application</value>
+  </data>
+  <data name="EXCEPTION_MISSING_DESPATTERN" xml:space="preserve">
+    <value>No Design pattern were found for ID {0} and Name '{1}'</value>
+  </data>
+  <data name="EXEPTION_DEMO_NOTFOUND" xml:space="preserve">
+    <value>No Demo found for the design pattern of ID {0} and Name '{1}'</value>
+  </data>
   <data name="MAIN_BTN_TXT" xml:space="preserve">
     <value>Main</value>
   </data>

@@ -28,23 +28,19 @@ namespace DesignPatterns.Utils
     {
       try
       {
-        string CurrentDirectory = String.Empty; // TODO: sostituire con il percorso dell'eseguibile attuale  
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         startInfo.UseShellExecute = true;
-        startInfo.WorkingDirectory = CurrentDirectory;
-        startInfo.FileName = Path.Combine(CurrentDirectory, exeName);
+        startInfo.FileName = exeName; // l'eseguibile è nello stesso percorso dell'eseguibile originale 
         startInfo.Verb = "runas";
         //MLHIDE
         startInfo.Arguments = parameters;
         startInfo.ErrorDialog = true;
-
         Process process = System.Diagnostics.Process.Start(startInfo);
         process.WaitForExit();
         return process.ExitCode;
       }
       catch (Win32Exception ex)
       {
-        //WriteLog(ex);
         switch (ex.NativeErrorCode)
         {
           case 1223:
@@ -67,5 +63,19 @@ namespace DesignPatterns.Utils
       pero conviene anche disattivare la finestra principale nel mentre
      
      */
+
+
+      /// <summary>
+      /// Permette di ottenere i parametri relativi al launch della seconda istanza di programma per il layer di demo 
+      /// per il design pattern corrente 
+      /// </summary>
+      /// <param name="desPatternID"></param>
+      /// <param name="desPatternName"></param>
+      /// <returns></returns>
+    internal string GetDesPatternDemoPresentationExeParams(int desPatternID, string desPatternName)
+    {
+      // ritorno direttamente la stringa che deve essere passata come parametro per il design pattern attuale 
+      return Constants.PROGRAM_MODES.CODE_DEMO.ToString() + " " + desPatternID + " " + desPatternName;
+    }
   }
 }
