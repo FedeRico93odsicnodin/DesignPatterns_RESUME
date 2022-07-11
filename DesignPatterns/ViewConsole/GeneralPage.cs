@@ -57,7 +57,7 @@ namespace DesignPatterns.ViewConsole
     /// <summary>
     /// Descrizione per la pagina corrente
     /// </summary>
-    private TextView _descriptionView { get; set; }
+    private Label _descriptionView { get; set; }
 
 
     /// <summary>
@@ -118,6 +118,22 @@ namespace DesignPatterns.ViewConsole
     /// viene impostata la descrizione per la label e nel blocco di testo mostrato il codice 
     /// </summary>
     private Label _labelDescriptionExample { get; set; }
+
+    #endregion
+
+
+    #region COSTANTI DI VISUALIZZAZIONE CONTENUTO PAGINA 
+
+    /// <summary>
+    /// Posizione relativa alla linea dove sono presenti tutti i buttons di pagina (in testa alla pagina corrente)
+    /// </summary>
+    private Pos Y_BUTTON_LINE = 1;
+
+
+    /// <summary>
+    /// Posizione in Y relativa al posizionamento iniziale per il contenuto di pagina corrente
+    /// </summary>
+    private Pos Y_CONTENT_START = 3;
     
     #endregion
 
@@ -229,7 +245,7 @@ namespace DesignPatterns.ViewConsole
           Width = Dim.Fill() - 4,
           Height = Dim.Fill() - 10,
           X = 2,
-          Y = 2,
+          Y = Y_CONTENT_START,
           ColorScheme = ViewConsoleConstants.LABEL_EXAMPLE_DESCRIPTION_COLORSCHEME,
           Visible = false
         };
@@ -272,14 +288,15 @@ namespace DesignPatterns.ViewConsole
     /// <param name="colorScheme"></param>
     private void CreateDescriptionText(ColorScheme colorScheme)
     {
+
       // testo di descrizione 
       if (_descriptionView == null)
-        _descriptionView = new TextView()
+        _descriptionView = new Label()
         {
           Width = Dim.Fill() - 4,
           Height = Dim.Fill() - 10,
           X = 2,
-          Y = 2,
+          Y = Y_CONTENT_START,
           ColorScheme = colorScheme,
           Visible = true
         };
@@ -300,40 +317,31 @@ namespace DesignPatterns.ViewConsole
     /// <param name="markedLines"></param>
     protected void DrawTextBlockShowedExample(List<string> sampleLines, List<int[]> markedLines)
     {
+
+      View scrollBarView = new View()
+      {
+        Width = Dim.Fill() - 4,
+        Height = Dim.Fill() - 10,
+        X = 2,
+        Y = Pos.Bottom(_labelDescriptionExample) + 1,
+        ColorScheme = Colors.TopLevel,
+        Visible = true,
+      };
+
       // devo disattivare la description view del contesto precedente 
       _descriptionView.Visible = false;
       // recupero della lista di textview da inserire per il contesto corrente. Punto di partenza: dove avevo disattivato il precedente controllo
-      List<TextView> currTextViews = ServiceLocator.GetPrintExampleService.GetTextViewCorrectExample(
+      List<Label> currTextViews = ServiceLocator.GetPrintExampleService.GetTextViewCorrectExample(
         sampleLines, 
         markedLines,
         2,
         Pos.Bottom(_labelDescriptionExample) + 1
         );
       // per ogni blocco devo disegnare la view corrispondente 
-      foreach (TextView currTxtView in currTextViews)
+      foreach (Label currTxtView in currTextViews)
         _mainWindow.Add(currTxtView);
-      // devo ridisegnare la posizione dei buttons in funzione dell'ultimo blocco di testo
-      RedrawButtonPosition(currTextViews.Last());
     }
-
-
-    /// <summary>
-    /// Ridisegno la posizione relativa dei buttons rispetto all'ultima linea di testo presa in considerazione 
-    /// </summary>
-    /// <param name="lastTextView"></param>
-    private void RedrawButtonPosition(TextView lastTextView)
-    {
-      // ricalcolo delle posizioni per tutti i buttons coinvolti
-      _nextButton.Y = Pos.Bottom(lastTextView) + 1;
-      _prevButton.Y = Pos.Bottom(lastTextView) + 1;
-      _mainMenuButton.Y = Pos.Bottom(lastTextView) + 1;
-      _showDemoPage.Y = Pos.Bottom(lastTextView) + 1;
-      _showExamplePage.Y = Pos.Bottom(lastTextView) + 1;
-      _forwardDescrButton.Y = Pos.Bottom(lastTextView) + 1;
-      _wrongExampleButton.Y = Pos.Bottom(lastTextView) + 1;
-      _wrongExampleButton.X = Pos.Right(lastTextView) - 10;
-    }
-
+    
     
     /// <summary>
     /// Impostazione del testo principale per la pagina corrente
@@ -345,15 +353,6 @@ namespace DesignPatterns.ViewConsole
       // impostazione della dimensione da attribuire al textblock 
       int numLines = descriptionText.Split('\n').Length;
       _descriptionView.Height = numLines + 2;
-      // ricalcolo delle posizioni per tutti i buttons coinvolti
-      _nextButton.Y = Pos.Bottom(_descriptionView) + 1;
-      _prevButton.Y = Pos.Bottom(_descriptionView) + 1;
-      _mainMenuButton.Y = Pos.Bottom(_descriptionView) + 1;
-      _showDemoPage.Y = Pos.Bottom(_descriptionView) + 1;
-      _showExamplePage.Y = Pos.Bottom(_descriptionView) + 1;
-      _forwardDescrButton.Y = Pos.Bottom(_descriptionView) + 1;
-      _wrongExampleButton.Y = Pos.Bottom(_descriptionView) + 1;
-      _wrongExampleButton.X = Pos.Right(_descriptionView) - 10;
     }
     
 
@@ -388,7 +387,7 @@ namespace DesignPatterns.ViewConsole
         _nextButton = new Button()
         {
           X = 14,
-          Y = Pos.Bottom(_mainWindow) + 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.NEXT_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = true
@@ -404,7 +403,7 @@ namespace DesignPatterns.ViewConsole
         _prevButton = new Button()
         {
           X = 4,
-          Y = Pos.Bottom(_mainWindow) - 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.PREV_BTN_TXT,
           ColorScheme = DecidePrevButtonColor(colorScheme),
           Visible = true,
@@ -420,7 +419,7 @@ namespace DesignPatterns.ViewConsole
         _mainMenuButton = new Button()
         {
           X = 24,
-          Y = Pos.Bottom(_mainWindow) - 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.MAIN_BTN_TXT,
           ColorScheme =
           colorScheme,
@@ -438,7 +437,7 @@ namespace DesignPatterns.ViewConsole
         _showExamplePage = new Button()
         {
           X = 14,
-          Y = Pos.Bottom(_mainWindow) - 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.EXAMPLE_BTN_TXT,
           ColorScheme = ViewConsoleConstants.BUTTON_EXAMPLE_COLORSCHEME, // colore specifico per la visualizzazione di questo tipo di button
           Visible = false,
@@ -454,7 +453,7 @@ namespace DesignPatterns.ViewConsole
         _showDemoPage = new Button()
         {
           X = 34,
-          Y = Pos.Bottom(_mainWindow) - 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.DEMO_BTN_TXT,
           ColorScheme = colorScheme,
           Visible = false,
@@ -471,7 +470,7 @@ namespace DesignPatterns.ViewConsole
         _forwardDescrButton = new Button()
         {
           X = 14,
-          Y = Pos.Bottom(_mainWindow) - 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.DSCR_BTN_TXT, // impostazione della label di visualizzazione descrizione 
           ColorScheme = ViewConsoleConstants.BUTTON_DESCR_COLORSCHEME,
           Visible = false
@@ -488,7 +487,7 @@ namespace DesignPatterns.ViewConsole
         _wrongExampleButton = new Button()
         {
           X = 64,
-          Y = Pos.Bottom(_mainWindow) - 2,
+          Y = Y_BUTTON_LINE,
           Text = Resource.WRONG_EXAMPLE_BTN, // impostazione della label di visualizzazione descrizione 
           ColorScheme = colorScheme,
           Visible = false // di default questo button è disattivato: appena viene attivato viene lanciato il programma per il counterexample corrente 
@@ -532,6 +531,12 @@ namespace DesignPatterns.ViewConsole
     protected void Btn_WrongExample_Activation(bool activation)
     {
       _wrongExampleButton.Visible = activation;
+    }
+
+
+    protected void Btn_Main_Activation(bool activation)
+    {
+      _mainMenuButton.Visible = activation;
     }
 
     #endregion
@@ -632,7 +637,7 @@ namespace DesignPatterns.ViewConsole
         Width = Dim.Fill() - 4,
         Height = Dim.Fill() - 4,
         X = 2,
-        Y = 2,
+        Y = Y_CONTENT_START,
         ColorScheme = colorScheme,
         Visible = true
       };

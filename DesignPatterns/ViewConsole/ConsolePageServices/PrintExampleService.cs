@@ -115,19 +115,19 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <param name="startingX"></param>
     /// <param name="startingY"></param>
     /// <returns></returns>
-    internal List<TextView> GetTextViewCorrectExample(List<string> sampleLines,
+    internal List<Label> GetTextViewCorrectExample(List<string> sampleLines,
       List<int[]> sampleMarkedLines, 
-      int startingX, 
+      Pos startingX, 
       Pos startingY)
     {
       // inizializzazione della lista di blocchi 
-      List<TextView> listBlocks = new List<TextView>();
+      List<Label> listBlocks = new List<Label>();
       // linee per l'esempio corrente recuperate da ViewModel
       List<string> GetLinesTEST = sampleLines;
       // contatore relativo alla riga corrente 
       int finalLinesCounter = 1;
       int currBlockLineCounter = 0; // blocco di linee corrente: mi serve per impostare l'altezza del blocco per il caso corrente 
-      TextView currBlockLine = new TextView(); // blocco di linea corrente 
+      Label currBlockLine = new Label(); // blocco di linea corrente 
       string currTextBlock = String.Empty; // blocco di linee finale da aggiungere rispetto al contesto corrente 
       foreach (string lineText in GetLinesTEST)
       {
@@ -136,13 +136,13 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         {
           if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines))
           {
-            currBlockLine = new TextView()
+            currBlockLine = new Label()
             {
               Width = Dim.Fill() - 4,
               X = startingX,
               Y = startingY,
               ColorScheme = colorSchemeAddedLevel,
-              Visible = true
+              Visible = true,
             };
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
@@ -151,7 +151,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
           }
           else
           {
-            currBlockLine = new TextView()
+            currBlockLine = new Label()
             {
               Width = Dim.Fill() - 4,
               X = startingX,
@@ -198,13 +198,14 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             currTextBlock = String.Empty;
             currBlockLineCounter = 1;
             // creazione del nuovo blocco 
-            currBlockLine = new TextView()
+            currBlockLine = new Label()
             {
               Width = Dim.Fill() - 4,
               X = startingX, // la X rimane sempre fissa allo startX
               Y = Pos.Bottom(listBlocks.Last()), // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
               ColorScheme = colorSchemeAddedLevel,
-              Visible = true
+              Visible = true,
+
             };
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
@@ -224,13 +225,14 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             currTextBlock = String.Empty;
             currBlockLineCounter = 1;
             // creazione del nuovo blocco 
-            currBlockLine = new TextView()
+            currBlockLine = new Label()
             {
               Width = Dim.Fill() - 4,
               X = startingX, // la X rimane sempre fissa allo startX
               Y = Pos.Bottom(listBlocks.Last()), // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
               ColorScheme = colorSchemeNormalLevel,
-              Visible = true
+              Visible = true,
+              
             };
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;

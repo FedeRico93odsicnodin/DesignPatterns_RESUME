@@ -35,6 +35,14 @@ namespace DesignPatterns.ViewConsole
       _desPatternsMapperSelector = new Dictionary<int, Button>();
       // impostazione dei parametri principali
       base.InitMainTabs(ViewParams.Tab_ColorScheme);
+      // disattivazione dei buttons relativi alla visualizzazione dei diversi comandi 
+      base.Btn_Demo_Activation(false);
+      base.Btn_Example_Activation(false);
+      base.Btn_ForwardDescr_Activation(false);
+      base.Btn_Next_Activation(false);
+      base.Btn_Prev_Activation(false);
+      base.Btn_WrongExample_Activation(false);
+      base.Btn_Main_Activation(false);
       // creazione delle diverse tabs
       CreateDesignTypesTabs();
     }

@@ -343,3 +343,7 @@ I:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csprojAssem
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Animal_WrongImplementation1.cs
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Flys.cs
 I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Animal_Implementation2.cs
+I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Animal_Implementation3.cs
+I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Animal_Implementation4.cs
+I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Dog.cs
+I:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Strategy\Main_Strategy.cs

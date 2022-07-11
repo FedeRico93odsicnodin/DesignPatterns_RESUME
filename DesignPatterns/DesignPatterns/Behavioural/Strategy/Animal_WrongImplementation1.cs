@@ -25,7 +25,7 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
 
     private double Speed { get => _speed; set => _speed = value; }
 
-    private string Sound { get => _sound; set => _sound = value; }
+    public string Sound { get => _sound; set => _sound = value; }
 
     /// <summary>
     /// The "wrong" implementation

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
 {
-  public class Animal_Implementation2
+  public class Animal_Implementation3
   {
     private string _name;
     private double _height;
@@ -28,5 +28,14 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
     private double Speed { get => _speed; set => _speed = value; }
 
     public string Sound { get => _sound; set => _sound = value; }
+
+    /// <summary>
+    /// Getting the value of the 'fly' property implemented through the interface
+    /// </summary>
+    /// <returns></returns>
+    public string TryToFly()
+    {
+      return FlyingType.fly();
+    }
   }
 }
