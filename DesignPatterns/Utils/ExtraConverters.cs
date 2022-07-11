@@ -97,5 +97,21 @@ namespace DesignPatterns.Utils
       // per tutti gli altri casi ritorn false (non ho trovato la linea come da marcare di un determinato colore 
       return false;
     }
+
+
+    /// <summary>
+    /// Permette di ottenere la stringa completa di codice a partire dalla visualizzazione a livello di lista di tutte le stringhe 
+    /// relative alla creazione del testo attuale 
+    /// </summary>
+    /// <param name="currTxtLines"></param>
+    /// <returns></returns>
+    public string GetTextCodeFromList(List<string> currTxtLines)
+    {
+      string finalTxt = String.Empty;
+      foreach (string currString in currTxtLines)
+        finalTxt += currString + Environment.NewLine;
+
+      return finalTxt;
+    }
   }
 }

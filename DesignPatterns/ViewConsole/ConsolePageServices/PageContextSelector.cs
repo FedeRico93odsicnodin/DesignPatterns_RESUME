@@ -194,6 +194,17 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
 
       #endregion
 
+      // se la pagina corrente ha un esempio associato, ne recupero le linee e i markers per la visualizzazione s
+      if(currViewBagConsole.HasCode)
+      {
+        List<int[]> markedLines;
+        currViewBagConsole.ListCompleteText = GetCodeToShow(
+          currViewBagConsole.DesignPatternDescriptionID, 
+          currViewBagConsole.CodeClassID,
+          out markedLines);
+        currViewBagConsole.MarkedPositionsLines = markedLines;
+      }
+
       return currViewBagConsole;
     }
 
@@ -569,12 +580,14 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// </summary>
     /// <param name="entityID"></param>
     /// <param name="codeSampleID"></param>
+    /// <param name="markedLines"></param>
     /// <returns></returns>
-    internal string GetCodeToShow(int entityID, int codeSampleID)
+    private List<string> GetCodeToShow(int entityID, int codeSampleID, out List<int[]> markedLines)
     {
+      markedLines = null;
       // se non ho ID maggiori di 0 allora ritorno non aver la possibilità di display
-      if(entityID == 0 || codeSampleID == 0)
-        return Resource.NO_CODE_TO_DISPLAY;
+      if (entityID == 0 || codeSampleID == 0)
+        return new List<string> { Resource.NO_CODE_TO_DISPLAY };
       string finalText = String.Empty;
       // inizializzazione del percorso e del nome del file da visualizzare per il contesto corrente 
       string fileCurrDirectory = String.Empty;
@@ -583,21 +596,19 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       DesignPatterns_Examples currSample = MemLists.DesignPatternsExamples.Where(x => x.ID == codeSampleID && x.IsWrong == false).FirstOrDefault();
       // se non trovo niente allora ritorno no code to display
       if (currSample == null)
-        return Resource.NO_CODE_TO_DISPLAY;
+        return new List<string> { Resource.NO_CODE_TO_DISPLAY };
+      markedLines = currSample.MarkedLines; // recupero delle linee che devono essere evidenziate da contesto corrente 
       // valorizzazione del percorso da cui prendere l'esempio 
       fileCurrDirectory = currSample.RelativePath_Example;
       fileCurrFile = currSample.Name_Example;
       // controllo che il file esista 
       if (!File.Exists(Path.Combine(Environment.CurrentDirectory, fileCurrDirectory, fileCurrFile)))
-        return Resource.FILE_NOT_FOUND;
+        return new List<string> { Resource.FILE_NOT_FOUND };
       // recupero finale delle stringhe da mostrare 
       List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, fileCurrDirectory, fileCurrFile)).ToList();
-      foreach (string codeLine in GetLinesTEST)
-        finalText += codeLine + Environment.NewLine;
-      return finalText;
+      return GetLinesTEST;
     }
 
-    
 
     /// <summary>
     /// Recupero degli elementi che devono essere passati come parametri per il programma in fase di visualizzazione dell'esempio scorretto 

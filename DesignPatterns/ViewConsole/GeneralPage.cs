@@ -293,12 +293,47 @@ namespace DesignPatterns.ViewConsole
     /// Definizione alternativa data rispetto alla precedente per il draw del blocco 
     /// se infatti viene trovato l'esempio viene eseguito il draw a blocchi per evidenziare eventualmente la presenza di
     /// aggiunte rispetto alle definizioni iniziali del codice 
+    /// NB: questo modo di disgnare i blocchi lo utilizzo solo se effettivamente ci sono delle lines per cui ha senso avedere una evidenziatura 
+    /// altrimenti utilizzo l'altro (vedere la pagina di esempio)
     /// </summary>
-    /// <param name="exampleID"></param>
-    private void DrawTextBlockShowedExample(int exampleID)
+    /// <param name="sampleLines"></param>
+    /// <param name="markedLines"></param>
+    protected void DrawTextBlockShowedExample(List<string> sampleLines, List<int[]> markedLines)
     {
-
+      // devo disattivare la description view del contesto precedente 
+      _descriptionView.Visible = false;
+      // recupero della lista di textview da inserire per il contesto corrente. Punto di partenza: dove avevo disattivato il precedente controllo
+      List<TextView> currTextViews = ServiceLocator.GetPrintExampleService.GetTextViewCorrectExample(
+        sampleLines, 
+        markedLines,
+        2,
+        2
+        );
+      // per ogni blocco devo disegnare la view corrispondente 
+      foreach (TextView currTxtView in currTextViews)
+        _mainWindow.Add(currTxtView);
+      // devo ridisegnare la posizione dei buttons in funzione dell'ultimo blocco di testo
+      RedrawButtonPosition(currTextViews.Last());
     }
+
+
+    /// <summary>
+    /// Ridisegno la posizione relativa dei buttons rispetto all'ultima linea di testo presa in considerazione 
+    /// </summary>
+    /// <param name="lastTextView"></param>
+    private void RedrawButtonPosition(TextView lastTextView)
+    {
+      // ricalcolo delle posizioni per tutti i buttons coinvolti
+      _nextButton.Y = Pos.Bottom(lastTextView) + 1;
+      _prevButton.Y = Pos.Bottom(lastTextView) + 1;
+      _mainMenuButton.Y = Pos.Bottom(lastTextView) + 1;
+      _showDemoPage.Y = Pos.Bottom(lastTextView) + 1;
+      _showExamplePage.Y = Pos.Bottom(lastTextView) + 1;
+      _forwardDescrButton.Y = Pos.Bottom(lastTextView) + 1;
+      _wrongExampleButton.Y = Pos.Bottom(lastTextView) + 1;
+      _wrongExampleButton.X = Pos.Right(lastTextView) - 10;
+    }
+
     
     /// <summary>
     /// Impostazione del testo principale per la pagina corrente

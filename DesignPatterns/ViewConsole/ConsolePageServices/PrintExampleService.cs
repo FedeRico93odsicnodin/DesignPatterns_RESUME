@@ -115,16 +115,15 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <param name="startingX"></param>
     /// <param name="startingY"></param>
     /// <returns></returns>
-    internal List<TextView> GetTextViewCorrectExample(DesignPatterns_Examples foundExample, 
+    internal List<TextView> GetTextViewCorrectExample(List<string> sampleLines,
+      List<int[]> sampleMarkedLines, 
       int startingX, 
       int startingY)
     {
       // inizializzazione della lista di blocchi 
       List<TextView> listBlocks = new List<TextView>();
-      // recupero delle righe per l'esempio corrente 
-      List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory,
-        foundExample.RelativePath_Example,
-        foundExample.Name_Example)).ToList();
+      // linee per l'esempio corrente recuperate da ViewModel
+      List<string> GetLinesTEST = sampleLines;
       // contatore relativo alla riga corrente 
       int finalLinesCounter = 1;
       int currBlockLineCounter = 1; // blocco di linee corrente: mi serve per impostare l'altezza del blocco per il caso corrente 
@@ -135,7 +134,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         // CASO 1: distinzione del caso in cui sto partendo (prima linea + definizione del blocco)
         if(lineText == GetLinesTEST.First())
         {
-          if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines))
+          if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines))
           {
             currBlockLine = new TextView()
             {
@@ -172,11 +171,11 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
           // CASO 2.1: non ho il cambio per il blocco corrente: continuo ad aggiungere le linee 
           if(
             // ho trovato un'altra linea aggiunta 
-            (ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)
+            (ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines)
             && currBlockLine.ColorScheme == colorSchemeAddedLevel) 
             || 
             // ho trovato un'altra linea gia presente 
-            (!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)) 
+            (!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines)) 
             && currBlockLine.ColorScheme == colorSchemeNormalLevel
             )
           {
@@ -187,7 +186,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
           }
           // CASO 2.2: sto cambiando il blocco: devo aggiungere il blocco precedente al set della lista e passare alla nuova inizializzazione
           // caso nel quale passo ad un blocco di aggiunta 
-          else if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)
+          else if(ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines)
             && currBlockLine.ColorScheme == colorSchemeNormalLevel)
           {
             // impostazione testo e altezza blocco corrente 
@@ -213,7 +212,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
           }
           // CASO 2.2 ma passo ad un blocco di testo gia presente 
-          else if(!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, foundExample.MarkedLines)
+          else if(!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines)
             && currBlockLine.ColorScheme == colorSchemeAddedLevel)
           {
             // impostazione testo e altezza blocco corrente 

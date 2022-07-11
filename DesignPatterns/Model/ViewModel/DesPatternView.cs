@@ -158,6 +158,21 @@ namespace DesignPatterns.Model.ViewModel
 
     internal int WrongCodeClassID { get; set; }
 
+    #endregion
+
+
+    #region LISTE UTILIZZATE PER LA RENDERIZZAZIONE DELL'ESEMPIO CORRENTE 
+
+    /// <summary>
+    /// Linee di testo che devono essere renderizzate per l'esempio corrente 
+    /// </summary>
+    internal List<string> ListCompleteText { get; set; }
+
+
+    /// <summary>
+    /// Linee relative al caso corrente che devono essere evidenziate a seconda del caso 
+    /// </summary>
+    internal List<int[]> MarkedPositionsLines { get; set; }
 
     #endregion
   }
