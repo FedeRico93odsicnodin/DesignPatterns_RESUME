@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
 {
-  /// <summary>
-  /// This is a class representing a generic animal in a first implementation
-  /// </summary>
-  public class Animal_Implementation1
+  public class Animal_Implementation2
   {
     private string _name;
     private double _height;
@@ -17,6 +14,8 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
     private string _favFood;
     private double _speed;
     private string _sound;
+
+    public Flys FlyingType;
 
     public string Name { get => _name; set => _name = value; }
 
@@ -29,6 +28,5 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
     private double Speed { get => _speed; set => _speed = value; }
 
     private string Sound { get => _sound; set => _sound = value; }
-    
   }
 }

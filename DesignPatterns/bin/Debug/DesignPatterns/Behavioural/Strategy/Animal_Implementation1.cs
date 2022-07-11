@@ -9,7 +9,7 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Strategy
   /// <summary>
   /// This is a class representing a generic animal in a first implementation
   /// </summary>
-  internal class Animal_Implementation1
+  public class Animal_Implementation1
   {
     private string _name;
     private double _height;

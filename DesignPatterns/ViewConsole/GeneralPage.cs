@@ -307,7 +307,7 @@ namespace DesignPatterns.ViewConsole
         sampleLines, 
         markedLines,
         2,
-        2
+        Pos.Bottom(_labelDescriptionExample) + 1
         );
       // per ogni blocco devo disegnare la view corrispondente 
       foreach (TextView currTxtView in currTextViews)

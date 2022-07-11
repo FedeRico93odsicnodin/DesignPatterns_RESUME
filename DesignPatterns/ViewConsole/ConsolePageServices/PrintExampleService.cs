@@ -103,7 +103,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     /// <summary>
     /// ColorScheme per i blocchi che sono stati aggiunti con la descrizione corrente 
     /// </summary>
-    private ColorScheme colorSchemeAddedLevel = Colors.Menu;
+    private ColorScheme colorSchemeAddedLevel = Colors.Error;
 
 
     /// <summary>
@@ -118,7 +118,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     internal List<TextView> GetTextViewCorrectExample(List<string> sampleLines,
       List<int[]> sampleMarkedLines, 
       int startingX, 
-      int startingY)
+      Pos startingY)
     {
       // inizializzazione della lista di blocchi 
       List<TextView> listBlocks = new List<TextView>();
@@ -126,7 +126,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       List<string> GetLinesTEST = sampleLines;
       // contatore relativo alla riga corrente 
       int finalLinesCounter = 1;
-      int currBlockLineCounter = 1; // blocco di linee corrente: mi serve per impostare l'altezza del blocco per il caso corrente 
+      int currBlockLineCounter = 0; // blocco di linee corrente: mi serve per impostare l'altezza del blocco per il caso corrente 
       TextView currBlockLine = new TextView(); // blocco di linea corrente 
       string currTextBlock = String.Empty; // blocco di linee finale da aggiungere rispetto al contesto corrente 
       foreach (string lineText in GetLinesTEST)
@@ -202,7 +202,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             {
               Width = Dim.Fill() - 4,
               X = startingX, // la X rimane sempre fissa allo startX
-              Y = Pos.Bottom(listBlocks.Last()) + 1, // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
+              Y = Pos.Bottom(listBlocks.Last()), // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
               ColorScheme = colorSchemeAddedLevel,
               Visible = true
             };
@@ -228,7 +228,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             {
               Width = Dim.Fill() - 4,
               X = startingX, // la X rimane sempre fissa allo startX
-              Y = Pos.Bottom(listBlocks.Last()) + 1, // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
+              Y = Pos.Bottom(listBlocks.Last()), // per la Y devo considerare il bottom dell'ultimo blocco che è stato aggiunto alla lista e + 1
               ColorScheme = colorSchemeNormalLevel,
               Visible = true
             };
@@ -238,6 +238,14 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
           }
 
+        }
+        // aggiunta dell'ultimo blocco
+        if(lineText == GetLinesTEST.Last())
+        {
+          currBlockLine.Text = currTextBlock;
+          currBlockLine.Height = currBlockLineCounter;
+          // inserimento del blocco corrente all'interno della lista 
+          listBlocks.Add(currBlockLine);
         }
         
       }

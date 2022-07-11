@@ -58,10 +58,15 @@
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_WrongImplementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DesignPatterns\Behavioural\Strategy\Flys.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Strategy\Flys.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\Behavioural\Strategy\Strategy.cs" />
     <Compile Include="DesignPatterns\Creational\SingletonService.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
