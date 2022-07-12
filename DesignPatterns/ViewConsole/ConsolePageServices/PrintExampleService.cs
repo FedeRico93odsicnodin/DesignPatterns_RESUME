@@ -118,7 +118,8 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
     internal List<Label> GetTextViewCorrectExample(List<string> sampleLines,
       List<int[]> sampleMarkedLines, 
       Pos startingX, 
-      Pos startingY)
+      Pos startingY, 
+      out int FinalLinesCounter)
     {
       // inizializzazione della lista di blocchi 
       List<Label> listBlocks = new List<Label>();
@@ -251,6 +252,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
         }
         
       }
+      FinalLinesCounter = finalLinesCounter;
       // una volta creati correttamente tutti i blocchi ritorno la lista dei textview
       return listBlocks;
     }

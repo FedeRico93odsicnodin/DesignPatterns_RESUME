@@ -164,5 +164,14 @@ namespace DesignPatterns.Utils
 
 
 
+    #region PARAMETRI RELATIVI AL SET DELLA WINDOW SIZE CORRENTE
+
+    internal static int WIN_SCREEN_WIDTH = 0;
+
+
+    internal static int WIN_SCREEN_HEIGHT = 0;
+
+    #endregion
+
   }
 }

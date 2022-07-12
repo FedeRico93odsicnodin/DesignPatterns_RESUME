@@ -140,6 +140,9 @@ namespace DesignPatterns.Utils
     /// </summary>
     private void LoadViewConsolePagesFromDBElements()
     {
+      // impostazione dimensione per schermo corrente
+      SetWinConsoleDimensions();
+
       // creazione della pagina di partenza per l'interfaccia console corrente
       ServiceLocator.GetContextSelectorService.PrepareMainPageContext();
 
@@ -169,9 +172,23 @@ namespace DesignPatterns.Utils
         exceptionStackTrace
         );
     }
-    
+
     #endregion
 
+
+    #region DIMENSIONI WINDOWS CONSOLE 
+
+    /// <summary>
+    /// Set dei parametri relativi alla dimensione corrente per 
+    /// la win screen
+    /// </summary>
+    internal void SetWinConsoleDimensions()
+    {
+      Constants.WIN_SCREEN_WIDTH = Console.WindowWidth;
+      Constants.WIN_SCREEN_HEIGHT = Console.WindowHeight;
+    }
+
+    #endregion 
 
 
 

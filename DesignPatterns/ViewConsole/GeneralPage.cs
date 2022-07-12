@@ -195,7 +195,14 @@ namespace DesignPatterns.ViewConsole
     public int PageContextEnum { get; protected set; }
 
     #endregion
+
+
+    #region VARIABILI PER LA PARTENZA CONTENUTO CORRENTE 
+
+    private int StartingContent_Y { get; set; }
     
+    #endregion
+
 
     /// <summary>
     /// Permette l'impostazione del label title e del color per il title 
@@ -279,6 +286,8 @@ namespace DesignPatterns.ViewConsole
       _labelDescriptionExample.Height = numLines;
       // impostazione della posizione di partenza del blocco di esempio
       _descriptionView.Y = Pos.Bottom(_labelDescriptionExample) + 1;
+      // salvataggio della variabile per la partenza del contenuto corrente 
+      StartingContent_Y = numLines;
     }
 
 
@@ -317,32 +326,40 @@ namespace DesignPatterns.ViewConsole
     /// <param name="markedLines"></param>
     protected void DrawTextBlockShowedExample(List<string> sampleLines, List<int[]> markedLines)
     {
-
-      View scrollBarView = new View()
-      {
-        Width = Dim.Fill() - 4,
-        Height = Dim.Fill() - 10,
-        X = 2,
-        Y = Pos.Bottom(_labelDescriptionExample) + 1,
-        ColorScheme = Colors.TopLevel,
-        Visible = true,
-      };
-
       // devo disattivare la description view del contesto precedente 
       _descriptionView.Visible = false;
       // recupero della lista di textview da inserire per il contesto corrente. Punto di partenza: dove avevo disattivato il precedente controllo
       List<Label> currTextViews = ServiceLocator.GetPrintExampleService.GetTextViewCorrectExample(
-        sampleLines, 
+        sampleLines,
         markedLines,
-        2,
-        Pos.Bottom(_labelDescriptionExample) + 1
-        );
-      // per ogni blocco devo disegnare la view corrispondente 
+        0,
+        0,
+        out int finalLinesCounter);
+
+      var scrollView = new ScrollView(new Rect(2, StartingContent_Y + 7, 
+        Constants.WIN_SCREEN_WIDTH - 10, 
+        Constants.WIN_SCREEN_HEIGHT - 10))
+      {
+        ContentSize = new Size(Constants.WIN_SCREEN_WIDTH - 7, finalLinesCounter + 1),
+        //ContentOffset = new Point (0, 0),
+        ShowVerticalScrollIndicator = true,
+        ShowHorizontalScrollIndicator = false
+      };
+      FrameView currFr = new FrameView()
+      {
+        Width = Dim.Fill() - 4,
+        Height = Dim.Fill() - 10,
+        X = 0,
+        Y = 0,
+        Visible = true
+      };
+      
       foreach (Label currTxtView in currTextViews)
-        _mainWindow.Add(currTxtView);
+        scrollView.Add(currTxtView);
+      _mainWindow.Add(scrollView);
     }
-    
-    
+
+
     /// <summary>
     /// Impostazione del testo principale per la pagina corrente
     /// </summary>
@@ -770,5 +787,8 @@ namespace DesignPatterns.ViewConsole
         ServiceLocator.GetParallelExeService.RunProcessAsAdmin(Constants.EXENAME, showWrongExampleParams);
       }
     }
+
+
+
   }
 }
