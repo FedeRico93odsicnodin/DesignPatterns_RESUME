@@ -144,11 +144,17 @@
   <data name="EXEPTION_DEMO_NOTFOUND" xml:space="preserve">
     <value>No Demo found for the design pattern of ID {0} and Name '{1}'</value>
   </data>
+  <data name="EXIT_BTN_TXT" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="FILE_NOT_FOUND" xml:space="preserve">
     <value>File code not found</value>
   </data>
   <data name="MAIN_BTN_TXT" xml:space="preserve">
     <value>Main</value>
+  </data>
+  <data name="MINIMIZE_BTN_TXT" xml:space="preserve">
+    <value>Minimize</value>
   </data>
   <data name="NEXT_BTN_TXT" xml:space="preserve">
     <value>Next</value>

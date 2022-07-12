@@ -119,6 +119,12 @@ namespace DesignPatterns.ViewConsole
     /// </summary>
     private Label _labelDescriptionExample { get; set; }
 
+
+    /// <summary>
+    /// Scrollview contenente il set di testo finale 
+    /// </summary>
+    private ScrollView _scrollViewContainer { get; set; }
+
     #endregion
 
 
@@ -127,13 +133,14 @@ namespace DesignPatterns.ViewConsole
     /// <summary>
     /// Posizione relativa alla linea dove sono presenti tutti i buttons di pagina (in testa alla pagina corrente)
     /// </summary>
-    private Pos Y_BUTTON_LINE = 1;
+    private int Y_BUTTON_LINE = 1;
 
 
     /// <summary>
     /// Posizione in Y relativa al posizionamento iniziale per il contenuto di pagina corrente
     /// </summary>
-    private Pos Y_CONTENT_START = 3;
+    private int Y_CONTENT_START = 3;
+    
     
     #endregion
 
@@ -169,25 +176,7 @@ namespace DesignPatterns.ViewConsole
     /// Tipo di pagina su cui si stanno visualizzando per le informazioni correnti
     /// </summary>
     public PAGE_TYPE PageType { get; protected set; }
-
-
-    /// <summary>
-    /// Enumerativo della descrizione per il design pattern attuale 
-    /// </summary>
-    public int DescriptionPatternID { get; protected set; }
-
-
-    /// <summary>
-    /// Descrizione applicata alla pagina corrente
-    /// </summary>
-    public string DesignPatternDescription { get; protected set; }
-
-
-    /// <summary>
-    /// ID tipologia di appartenenza per il design pattern attuale 
-    /// </summary>
-    public int DesignTypeID { get; protected set; }
-
+    
 
     /// <summary>
     /// Ordine della pagina per il contesto corrente
@@ -200,6 +189,30 @@ namespace DesignPatterns.ViewConsole
     #region VARIABILI PER LA PARTENZA CONTENUTO CORRENTE 
 
     private int StartingContent_Y { get; set; }
+
+    #endregion
+
+
+    #region BUTTON EXIT E RESIZE
+
+    /// <summary>
+    /// Azione di exit attiva su tutte le pagine: questa azione deve essere sempre attiva in quanto 
+    /// la pagina è in fullscreen mode 
+    /// </summary>
+    private Button _btnExit { get; set; }
+
+
+    /// <summary>
+    /// Azione di resize attiva su tutte le pagine: questa azione deve essere sempre attiva in quanto 
+    /// la pagina è in fullscreen mode 
+    /// </summary>
+    private Button _btnResize { get; set; }
+
+
+    /// <summary>
+    /// Colore di base per i comandi statici e sempre attivi sulla pagina corrente 
+    /// </summary>
+    private ColorScheme COLORSCHEME_BASE = Colors.TopLevel;
     
     #endregion
 
@@ -285,14 +298,40 @@ namespace DesignPatterns.ViewConsole
       int numLines = exampleDescr.Split('\n').Length;
       _labelDescriptionExample.Height = numLines;
       // impostazione della posizione di partenza del blocco di esempio
-      _descriptionView.Y = Pos.Bottom(_labelDescriptionExample) + 1;
+      //_descriptionView.Y = Pos.Bottom(_labelDescriptionExample) + 1;
       // salvataggio della variabile per la partenza del contenuto corrente 
       StartingContent_Y = numLines;
     }
 
 
     /// <summary>
+    /// Ottengo la scrollbarview per posizionare il testo nel contesto corrente 
+    /// questo sia che adotti una singola label (il metodo direttamente qui sotto) sia che venga adottata una lista 
+    /// in visualizzazione evidenziata per tutto il testo corrente 
+    /// NB: la grandezza finale del testo che viene scrollato deve essere passato come input per evitare di avere dei tagli 
+    /// </summary>
+    /// <param name="finalHeight"></param>
+    /// <returns></returns>
+    private ScrollView GetTextDescriptionContainer(int finalHeight)
+    {
+      int finalPosY = (_labelDescriptionExample.Visible == false) ? Y_CONTENT_START : StartingContent_Y + 7;
+      var scrollView = new ScrollView(new Rect(2, finalPosY,
+        Constants.WIN_SCREEN_WIDTH - 6,
+        Constants.WIN_SCREEN_HEIGHT - 10))
+      {
+        ContentSize = new Size(Constants.WIN_SCREEN_WIDTH - 7, finalHeight + 1),
+        //ContentOffset = new Point (0, 0),
+        ShowVerticalScrollIndicator = true,
+        ShowHorizontalScrollIndicator = false,
+        
+      };
+      return scrollView;
+    }
+
+
+    /// <summary>
     /// Impostazione del testo per la descrizione corrente
+    /// questo testo utilizza una sola label per la sua combinazione finale 
     /// </summary>
     /// <param name="colorScheme"></param>
     private void CreateDescriptionText(ColorScheme colorScheme)
@@ -302,16 +341,17 @@ namespace DesignPatterns.ViewConsole
       if (_descriptionView == null)
         _descriptionView = new Label()
         {
-          Width = Dim.Fill() - 4,
+          Width = Dim.Fill() - 10,
           Height = Dim.Fill() - 10,
-          X = 2,
-          Y = Y_CONTENT_START,
+          X = 0,
+          Y = 0,
           ColorScheme = colorScheme,
           Visible = true
         };
       else
         _descriptionView.ColorScheme = colorScheme; // cambio solo lo stile 
-      _mainWindow.Add(_descriptionView);
+      // inserimento del testo corrente nel contesto della scrollbar view 
+      
     }
 
 
@@ -336,27 +376,10 @@ namespace DesignPatterns.ViewConsole
         0,
         out int finalLinesCounter);
 
-      var scrollView = new ScrollView(new Rect(2, StartingContent_Y + 7, 
-        Constants.WIN_SCREEN_WIDTH - 10, 
-        Constants.WIN_SCREEN_HEIGHT - 10))
-      {
-        ContentSize = new Size(Constants.WIN_SCREEN_WIDTH - 7, finalLinesCounter + 1),
-        //ContentOffset = new Point (0, 0),
-        ShowVerticalScrollIndicator = true,
-        ShowHorizontalScrollIndicator = false
-      };
-      FrameView currFr = new FrameView()
-      {
-        Width = Dim.Fill() - 4,
-        Height = Dim.Fill() - 10,
-        X = 0,
-        Y = 0,
-        Visible = true
-      };
-      
+      _scrollViewContainer = GetTextDescriptionContainer(finalLinesCounter);
       foreach (Label currTxtView in currTextViews)
-        scrollView.Add(currTxtView);
-      _mainWindow.Add(scrollView);
+        _scrollViewContainer.Add(currTxtView);
+      _mainWindow.Add(_scrollViewContainer);
     }
 
 
@@ -364,12 +387,16 @@ namespace DesignPatterns.ViewConsole
     /// Impostazione del testo principale per la pagina corrente
     /// </summary>
     /// <param name="descriptionText"></param>
+    /// <param name="dimension"></param>
     protected void SetDescriptionText(string descriptionText)
     {
       _descriptionView.Text = descriptionText;
       // impostazione della dimensione da attribuire al textblock 
       int numLines = descriptionText.Split('\n').Length;
-      _descriptionView.Height = numLines + 2;
+      _descriptionView.Height = numLines + 1;
+      _scrollViewContainer = GetTextDescriptionContainer(numLines + 1);
+      _scrollViewContainer.Add(_descriptionView);
+      _mainWindow.Add(_scrollViewContainer);
     }
     
 
@@ -392,6 +419,45 @@ namespace DesignPatterns.ViewConsole
         _mainWindow.ColorScheme = colorScheme;
 
     }
+
+
+    /// <summary>
+    /// Set dei buttons sempre attivi per la pagina corrente 
+    /// questi comprendono il resize e l'uscita dall'applicazione in full screen
+    /// NB: questa inizializzazione deve essere eseguita dopo aver effettivamente impostato le dimensioni per la main window
+    /// </summary>
+    private void SetBaseButtons()
+    {
+      if (_btnExit == null)
+      {
+        _btnExit = new Button()
+        {
+          X = Pos.Right(_mainWindow) - 15,
+          Y = 0,
+          Text = Resource.EXIT_BTN_TXT,
+          ColorScheme = COLORSCHEME_BASE,
+          Visible = true
+        };
+        // impostazione dell'azione di visualizzazione pagina successiva 
+        _btnExit.Clicked += () => PerformExit();
+        _mainWindow.Add(_btnExit);
+      }
+      if (_btnResize == null)
+      {
+        _btnResize = new Button()
+        {
+          X = Pos.Right(_mainWindow) - 30,
+          Y = 0,
+          Text = Resource.MINIMIZE_BTN_TXT,
+          ColorScheme = COLORSCHEME_BASE,
+          Visible = true
+        };
+        // impostazione dell'azione di visualizzazione pagina successiva 
+        _btnResize.Clicked += () => PerformResize();
+        _mainWindow.Add(_btnResize);
+      }
+    }
+
 
     /// <summary>
     /// Permette l'impostazione dei buttons per l'interfaccia attuale 
@@ -590,10 +656,10 @@ namespace DesignPatterns.ViewConsole
     {
       CreateTitleLabel(titleScheme);
       SetWindow(winScheme);
+      SetBaseButtons();
       SetButtons(btnScheme);
       CreateLabelDescriptionExample(); // creazione della label di visualizzazione descrizione (visibile solo per gli esempi)
       CreateDescriptionText(txtColorScheme);
-      
     }
 
 
@@ -787,6 +853,33 @@ namespace DesignPatterns.ViewConsole
         ServiceLocator.GetParallelExeService.RunProcessAsAdmin(Constants.EXENAME, showWrongExampleParams);
       }
     }
+
+
+    #region AZIONI DI EXIT E RESIZE
+
+    /// <summary>
+    /// Azione di exit per il contesto corrente 
+    /// </summary>
+    private void PerformExit()
+    {
+      // TODO: eventualmente chiedere conferma per l'uscita dall'applicazione corrente 
+      // azione di uscita per il contesto corrente 
+      ServiceLocator.GetContextSelectorService.ExitFromApplication();
+    }
+
+
+    
+
+    /// <summary>
+    /// Azione di resize per il contesto corrente 
+    /// </summary>
+    private void PerformResize()
+    {
+      // richiamo azione per il minimize
+      ServiceLocator.GetContextSelectorService.MinimizeApplication();
+    }
+
+    #endregion
 
 
 

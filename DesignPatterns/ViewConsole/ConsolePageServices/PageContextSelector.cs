@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using static DesignPatterns.Utils.Constants;
@@ -630,6 +631,34 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       classRelativePath = currSample.RelativePath_Example;
       className = currSample.Name_Example;
       return true;
+    }
+
+    #endregion
+
+
+    #region AZIONI DI EXIT E RESIZE 
+
+    /// <summary>
+    /// Azione di uscita per il contesto corrente 
+    /// </summary>
+    internal void ExitFromApplication()
+    {
+      Environment.Exit(0);
+    }
+
+    [DllImport("kernel32.dll")]
+    static extern IntPtr GetConsoleWindow();
+
+    [DllImport("user32.dll")]
+    static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+    const int SW_SHOWMINIMIZED = 2;
+    internal void MinimizeApplication()
+    {
+      var handle = GetConsoleWindow();
+
+      // Hide
+      ShowWindow(handle, SW_SHOWMINIMIZED);
+      
     }
 
     #endregion

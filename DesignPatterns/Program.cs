@@ -1,23 +1,21 @@
 ﻿using DesignPatterns.Model;
 using DesignPatterns.Properties;
+using DesignPatterns.Utils;
 using DesignPatterns.ViewConsole;
 using DesignPatterns.ViewConsole.ConsolePageServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Terminal.Gui;
+using static DesignPatterns.Utils.Configurations;
 
 namespace DesignPatterns
 {
   class Program
   {
-    public static object Constansts { get; private set; }
-
-
-
-
     /// <summary>
     /// args: se non viene passato nessun parametro viene attivata di default la modalità di visualizzazione design patterns 
     /// altrimenti viene abilitatata la modalità 
@@ -25,7 +23,6 @@ namespace DesignPatterns
     /// <param name="args"></param>
     static void Main(string[] args)
     {
-
       try
       {
         // verifica per la modalità corrente di programma 
@@ -38,6 +35,9 @@ namespace DesignPatterns
           // modalita di presentazione per l'esecuzione corrente 
           == Utils.Constants.PROGRAM_MODES.PRESENTATION)
         {
+          // impostazione del full screen mode 
+          ServiceLocator.GetConfigurationsService.SetFullScreenMode();
+
           // inizializzazione dei contesti nei quali eseguire le diverse pagine 
           Application.Init();
           ViewConsoleConstants.ApplicationTop = Application.Top;
@@ -103,5 +103,6 @@ namespace DesignPatterns
 
 
     }
+    
   }
 }

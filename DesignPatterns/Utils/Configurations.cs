@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -186,6 +187,34 @@ namespace DesignPatterns.Utils
     {
       Constants.WIN_SCREEN_WIDTH = Console.WindowWidth;
       Constants.WIN_SCREEN_HEIGHT = Console.WindowHeight;
+    }
+
+    [DllImport("kernel32.dll")]
+    private static extern IntPtr GetStdHandle(int handle);
+    /// <summary>
+    /// Impostazioni di full screen per la finestra attuale nel caso in cui apriamo una main window
+    /// </summary>
+    internal void SetFullScreenMode()
+    {
+      // impostazione full screen per la finestra corrente 
+      IntPtr hConsole = GetStdHandle(-11);
+      SetConsoleDisplayMode(hConsole, 1, out COORD b1);
+    }
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool SetConsoleDisplayMode(IntPtr ConsoleOutput, uint Flags, out COORD NewScreenBufferDimensions);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct COORD
+    {
+      public short X;
+      public short Y;
+
+      private COORD(short X, short Y)
+      {
+        this.X = X;
+        this.Y = Y;
+      }
     }
 
     #endregion 

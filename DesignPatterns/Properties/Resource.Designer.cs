@@ -136,6 +136,15 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string EXIT_BTN_TXT {
+            get {
+                return ResourceManager.GetString("EXIT_BTN_TXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File code not found.
         /// </summary>
         internal static string FILE_NOT_FOUND {
@@ -150,6 +159,15 @@ namespace DesignPatterns.Properties {
         internal static string MAIN_BTN_TXT {
             get {
                 return ResourceManager.GetString("MAIN_BTN_TXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        internal static string MINIMIZE_BTN_TXT {
+            get {
+                return ResourceManager.GetString("MINIMIZE_BTN_TXT", resourceCulture);
             }
         }
         
