@@ -471,3 +471,11 @@ C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\Des
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csproj.CopyComplete
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.exe
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.pdb
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\RobotPlan.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\Robot.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\Robot_2.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\RobotBuilder.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\OldRobotBuilder.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\OldRobotBuilder_2.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\RobotEngineer.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\Main_Builder.cs

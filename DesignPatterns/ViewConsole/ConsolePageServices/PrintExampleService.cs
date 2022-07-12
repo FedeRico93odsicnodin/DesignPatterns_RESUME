@@ -148,7 +148,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
             finalLinesCounter++;
-            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+            currTextBlock += lineText; // linea di blocco aggiunta per il blocco corrente 
           }
           else
           {
@@ -163,7 +163,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
             finalLinesCounter++;
-            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+            currTextBlock += lineText; // linea di blocco aggiunta per il blocco corrente 
           }
         }
         // CASO 2: sto iterando dalla seconda riga in poi
@@ -183,7 +183,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
             finalLinesCounter++;
-            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+            currTextBlock += Environment.NewLine + lineText; // linea di blocco aggiunta per il blocco corrente 
           }
           // CASO 2.2: sto cambiando il blocco: devo aggiungere il blocco precedente al set della lista e passare alla nuova inizializzazione
           // caso nel quale passo ad un blocco di aggiunta 
@@ -211,7 +211,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
             finalLinesCounter++;
-            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+            currTextBlock += lineText ; // linea di blocco aggiunta per il blocco corrente 
           }
           // CASO 2.2 ma passo ad un blocco di testo gia presente 
           else if(!ServiceLocator.GetExtraConvertersService.CheckLineToMark(finalLinesCounter, sampleMarkedLines)
@@ -238,7 +238,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
             // incremento per il numero di righe correnti 
             currBlockLineCounter++;
             finalLinesCounter++;
-            currTextBlock += lineText + Environment.NewLine; // linea di blocco aggiunta per il blocco corrente 
+            currTextBlock += lineText; // linea di blocco aggiunta per il blocco corrente 
           }
 
         }
