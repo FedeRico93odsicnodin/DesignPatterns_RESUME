@@ -18,18 +18,7 @@ namespace DesignPatterns.DesignPatterns
     {
         #region CREATIONAL PATTERNS
 
-
-        /// <summary>
-        /// Singleton service 
-        /// </summary>
-        public SingletonService GetSingletonService
-        {
-            get
-            {
-                return SingletonService.GetInstanceSingleton;
-            }
-        }
-
+    
 
     /// <summary>
     /// Partenza per la live demo del design pattern corrente in base alle specifiche passate 
@@ -52,7 +41,7 @@ namespace DesignPatterns.DesignPatterns
       {
         case 9:
           {
-            Main_Strategy.RunExample();
+            DesignPatternsSTEPS.Strategy_LiveDEMO();
             foundDesPattern = true;
             break;
           }

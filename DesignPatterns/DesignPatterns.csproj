@@ -84,6 +84,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DesignPatterns\DesignPatternsService.cs" />
+    <Compile Include="DesignPatterns\DesignPatternsSTEPS.cs" />
     <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPattern.cs" />
