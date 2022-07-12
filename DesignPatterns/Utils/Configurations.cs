@@ -122,6 +122,16 @@ namespace DesignPatterns.Utils
 
 
     /// <summary>
+    /// Recupero degli steps per la visualizzazione della DEMO per il design pattern corrente 
+    /// </summary>
+    internal void LoadDesignPatternDEMOSteps(int desPatternID)
+    {
+      // impostazione degli esempi di demo con il codice relativo al design pattern corrente 
+      MemLists.DesignPattern_DEMOStep = ServiceLocator.GetAccessDBService.GetDesignPatternDEMOSTEPS(desPatternID);
+    }
+
+
+    /// <summary>
     /// Permette il recupero dei soli esempi tra cui si deve ricercare per l'esempio corrente 
     /// questa è l'unica attività di backend necessaria per la visualizzazione dell'esempio corrente 
     /// ed è necessaria per l'eventuale recupero delle righe da marcare all'interno del file in visualizzazione 

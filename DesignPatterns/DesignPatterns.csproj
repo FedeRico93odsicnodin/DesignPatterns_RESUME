@@ -88,6 +88,7 @@
     <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPattern.cs" />
     <Compile Include="Model\DesignPatterns_Examples.cs" />
+    <Compile Include="Model\DesignPattern_DEMOStep.cs" />
     <Compile Include="Model\DesignType.cs" />
     <Compile Include="Model\DesignTypeDescription.cs" />
     <Compile Include="Model\ViewModel\DesPatternView.cs" />

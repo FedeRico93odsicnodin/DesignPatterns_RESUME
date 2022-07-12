@@ -79,6 +79,33 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [press a key to exit].
+        /// </summary>
+        internal static string DEMO_EXIT {
+            get {
+                return ResourceManager.GetString("DEMO_EXIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [press a key to run code].
+        /// </summary>
+        internal static string DEMO_RUN_CODE {
+            get {
+                return ResourceManager.GetString("DEMO_RUN_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [press a key to see code].
+        /// </summary>
+        internal static string DEMO_STANDARD_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("DEMO_STANDARD_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Descr.
         /// </summary>
         internal static string DSCR_BTN_TXT {

@@ -44,6 +44,9 @@ namespace DesignPatterns.Utils
     /// </summary>
     public static List<DesignPatterns_Examples> DesignPatternsExamples { get; set; }
 
+
+    public static List<DesignPattern_DEMOStep> DesignPattern_DEMOStep { get; set; }
+
     #endregion
 
 

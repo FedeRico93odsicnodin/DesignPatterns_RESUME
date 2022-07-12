@@ -220,5 +220,54 @@ namespace DesignPatterns.Access_DB
       return currDesignPatternsExamples;
     }
 
+
+    /// <summary>
+    /// Recupero degli steps da mostrare per il design pattern corrente e durante la fase di demo
+    /// Questo recupero viene fatto solo per il caso di design pattern corrente in DEMO
+    /// </summary>
+    /// <returns></returns>
+    public List<DesignPattern_DEMOStep> GetDesignPatternDEMOSTEPS(int currDesPatternID)
+    {
+      List<DesignPattern_DEMOStep> currDesignPatternsExamples = new List<DesignPattern_DEMOStep>();
+
+      using (OleDbConnection con = new OleDbConnection(Constants.GET_DBACCESS_CONNECTION()))
+      {
+        con.Open();
+        using (OleDbCommand cmd = new OleDbCommand(QueryStrings.GETDEMOSTEPS_QUERY(currDesPatternID), con))
+        {
+          using (OleDbDataReader reader = cmd.ExecuteReader())
+          {
+            while (reader.Read())
+            {
+              int id = (int)reader["ID"];
+              string description = (string)reader["Description_STEP"];
+              int numStep = (int)reader["Num_Step"];
+              int desPatternID = (int)reader["DesPattern_ID"];
+              string refFileRelativePath = (string)reader["Ref_File_RelativePath"];
+              string refFileName = (string)reader["Ref_File_Name"];
+              string fileLinesStr = (reader["File_Lines"] != DBNull.Value) ? (string)reader["File_Lines"] : String.Empty;
+              List<int[]> fileLines = ServiceLocator.GetExtraConvertersService.GetMarkedLines(fileLinesStr);
+              bool seeEffect = (bool)reader["See_Effect"];
+              // aggiunta per il design pattern corrente
+              currDesignPatternsExamples.Add(new DesignPattern_DEMOStep()
+              {
+                ID = id,
+                Description = description,
+                Num_Step = numStep,
+                DesPattern_ID = desPatternID,
+                Ref_File_RelativePath = refFileRelativePath,
+                Ref_File_Name = refFileName,
+                File_Lines = fileLines,
+                See_Effect = seeEffect
+              });
+            }
+          }
+        }
+        con.Close();
+      }
+
+      return currDesignPatternsExamples;
+    }
+
   }
 }

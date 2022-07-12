@@ -52,8 +52,7 @@ namespace DesignPatterns.DesignPatterns
       {
         case 9:
           {
-            Strategy strategyPattern = new Strategy();
-            strategyPattern.StartDemo();
+            Main_Strategy.RunExample();
             foundDesPattern = true;
             break;
           }

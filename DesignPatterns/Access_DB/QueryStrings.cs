@@ -87,5 +87,22 @@ namespace DesignPatterns.Access_DB
 
     #endregion
 
+
+    #region QUERY PER IL RECUPERO DELLE LINEE DI DEMO
+
+    private static string _GETDEMOSTEPS_QUERY = @"SELECT ID, Description_STEP, Num_Step, DesPattern_ID, Ref_File_RelativePath, Ref_File_Name, File_Lines, See_Effect FROM DesignPatterns_DEMOSteps WHERE DesPattern_ID = {0}";
+
+
+    /// <summary>
+    /// Recupero delle specifiche per la visualizzazione della demo per il design pattern corrente
+    /// </summary>
+    /// <param name="desPatternID"></param>
+    /// <returns></returns>
+    internal static string GETDEMOSTEPS_QUERY(int desPatternID)
+    {
+      return String.Format(_GETDEMOSTEPS_QUERY, desPatternID);
+    }
+
+    #endregion
   }
 }

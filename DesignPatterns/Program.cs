@@ -65,6 +65,9 @@ namespace DesignPatterns
           // lettura delle configurazioni iniziali ridotte di programma (db)
           ServiceLocator.GetConfigurationsService.LoadDBParams(true);
 
+          // lettura degli steps di demo per il design pattern corrente 
+          ServiceLocator.GetConfigurationsService.LoadDesignPatternDEMOSteps(idAttribute);
+
           // verifica validità per il design pattern corrente (deve essere presente nella lista dei design pattern recuperati ed essere configurata la live demo)
           ServiceLocator.GetDesignPatternsService.StartLiveDemo(idAttribute, prop_1);
         }

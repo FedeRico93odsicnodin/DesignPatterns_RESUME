@@ -257,6 +257,162 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       return listBlocks;
     }
 
+    #endregion
+
+
+    #region PRINTING PER IL CASO DI DEMO 
+
+    /// <summary>
+    /// Stampo in console il messaggio relativo allo step corrente in base alle specifiche 
+    /// </summary>
+    /// <param name="currStep"></param>
+    /// <returns></returns>
+    internal void DEMO_GetVisualConsoleElementForCase(DesignPattern_DEMOStep currStep)
+    {
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.BackgroundColor = ConsoleColor.Black;
+      Console.WriteLine(currStep.Description);
+      if(currStep.See_Effect)
+      {
+        GetShowExamplePressKeyDescription();
+      }
+      else
+      {
+        GetStdPressKeyDescription();
+      }
+    }
+
+
+    /// <summary>
+    /// Print del codice associato allo step di demo corrente 
+    /// </summary>
+    /// <param name="currStep"></param>
+    internal void DEMO_PrintAssociatedCodeLines(DesignPattern_DEMOStep currStep)
+    {
+      // recupero del testo associato allo step corrente 
+      List<string> GetLinesTEST = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, currStep.Ref_File_RelativePath, currStep.Ref_File_Name)).ToList();
+      // se la proprieta per File_Lines non è valorizzata allora stampo tutte le linee della lista 
+      if(currStep.File_Lines == null)
+      {
+        PrintDEMOLines(GetLinesTEST);
+      }
+      else if(currStep.File_Lines.Count() == 0)
+      {
+        PrintDEMOLines(GetLinesTEST);
+      }
+      // recupero delle sole linee da mostrare per l'esempio corrente 
+      List<string> linesToShow = GetLineToShowInDEMO(GetLinesTEST, currStep.File_Lines);
+      PrintDEMOLines(linesToShow);
+      if (currStep.See_Effect)
+      {
+        GetShowExamplePressKeyDescription();
+      }
+      else
+      {
+        GetStdPressKeyDescription();
+      }
+    }
+
+
+    /// <summary>
+    /// Recupero delle sole linee da mostrare all'interno del contesto corrente 
+    /// </summary>
+    /// <param name="allFileLines"></param>
+    /// <param name="allFileLines"></param>
+    /// <returns></returns>
+    private List<string> GetLineToShowInDEMO(List<string> allFileLines, List<int[]> positions)
+    {
+      // recupero delle sole righe da mostrare per il contesto corrente 
+      List<string> lineToShow = new List<string>();
+      int currLineCounter = 1;
+      foreach(string currLine in allFileLines)
+      {
+        if (ServiceLocator.GetExtraConvertersService.CheckLineToMark(currLineCounter, positions))
+          lineToShow.Add(currLine);
+        currLineCounter++;
+
+      }
+      return lineToShow;
+    }
+
+
+    /// <summary>
+    /// Print effettivo per le linee di codice relative allo step di DEMO corrente 
+    /// </summary>
+    /// <param name="linesDEMO"></param>
+    private void PrintDEMOLines(List<string> linesDEMO)
+    {
+      // impostazione dei colori per la console e il caso corrente 
+      Console.ForegroundColor = ConsoleColor.Cyan;
+      Console.BackgroundColor = ConsoleColor.DarkBlue;
+
+      foreach (string demoLine in linesDEMO)
+        Console.WriteLine(demoLine);
+    }
+
+
+    /// <summary>
+    /// Permette di ottenere la colorazione standard per il press key console 
+    /// </summary>
+    private void GetStdPressKeyDescription()
+    {
+      GiveANewLineDefault();
+      Console.ForegroundColor = ConsoleColor.DarkBlue;
+      Console.BackgroundColor = ConsoleColor.White;
+      Console.WriteLine(Resource.DEMO_STANDARD_DESCRIPTION);
+      Console.ReadKey();
+      GiveANewLineDefault();
+    }
+
+
+    /// <summary>
+    /// Permette di ottenere la colorazione per lo show example e il press key 
+    /// </summary>
+    private void GetShowExamplePressKeyDescription()
+    {
+      GiveANewLineDefault();
+      Console.ForegroundColor = ConsoleColor.DarkGreen;
+      Console.BackgroundColor = ConsoleColor.White;
+      Console.WriteLine(Resource.DEMO_RUN_CODE);
+      Console.ReadKey();
+      GiveANewLineDefault();
+    }
+
+
+    /// <summary>
+    /// Nuova linea di a capo con la colorazione standrd 
+    /// </summary>
+    private void GiveANewLineDefault()
+    {
+      Console.BackgroundColor = ConsoleColor.Black;
+      Console.Write(Environment.NewLine);
+    }
+
+
+    /// <summary>
+    /// Reset dei colori allo stadio iniziale per eseguire l'effettivo run dell'esempio
+    /// </summary>
+    internal void DEMO_ResetColorParameters()
+    {
+      Console.Write(Environment.NewLine);
+      Console.BackgroundColor = ConsoleColor.Black;
+      Console.ForegroundColor = ConsoleColor.White;
+      Console.Write(Environment.NewLine);
+    }
+
+
+    /// <summary>
+    /// Visualizzazione del comando di uscita 
+    /// </summary>
+    internal void DEMO_ShowExitLabel()
+    {
+      GiveANewLineDefault();
+      Console.ForegroundColor = ConsoleColor.Black;
+      Console.BackgroundColor = ConsoleColor.White;
+      Console.WriteLine(Resource.DEMO_EXIT);
+      Console.ReadKey();
+      GiveANewLineDefault();
+    }
 
     #endregion
   }

@@ -123,6 +123,15 @@
   <data name="DEMO_BTN_TXT" xml:space="preserve">
     <value>Demo</value>
   </data>
+  <data name="DEMO_EXIT" xml:space="preserve">
+    <value>[press a key to exit]</value>
+  </data>
+  <data name="DEMO_RUN_CODE" xml:space="preserve">
+    <value>[press a key to run code]</value>
+  </data>
+  <data name="DEMO_STANDARD_DESCRIPTION" xml:space="preserve">
+    <value>[press a key to see code]</value>
+  </data>
   <data name="DSCR_BTN_TXT" xml:space="preserve">
     <value>Descr</value>
   </data>
