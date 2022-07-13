@@ -109,6 +109,24 @@
     </Compile>
     <Compile Include="DesignPatterns\DesignPatternsService.cs" />
     <Compile Include="DesignPatterns\DesignPatternsSTEPS.cs" />
+    <Compile Include="DesignPatterns\Structural\Adapter\EnemyAttacker.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Adapter\EnemyRobot.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Adapter\EnemyRobot2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Adapter\EnemyRobotAdapter.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Adapter\EnemyTank.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Adapter\Main_Adapter.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPattern.cs" />
@@ -146,9 +164,7 @@
     <None Include="ExtraFiles\Design patterns RESUME - Notes.docx" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DesignPatterns\Structural\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Access_DB\Design_Patterns.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

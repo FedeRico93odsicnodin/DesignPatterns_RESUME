@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational.Builder;
+using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
@@ -15,7 +16,7 @@ namespace DesignPatterns.DesignPatterns
   /// </summary>
   public static class DesignPatternsSTEPS
   {
-    #region BNEHAVIOURAL
+    #region BEHAVIOURAL
 
     /// <summary>
     /// Demo per lo strategy
@@ -109,6 +110,79 @@ namespace DesignPatterns.DesignPatterns
       Console.WriteLine("Robot Arms Type: " + firstRobot.GetRobotArms());
       Console.WriteLine("Robot Legs Type: " + firstRobot.GetRobotLegs());
       Console.WriteLine("Robot Torso Type: " + firstRobot.GetRobotTorso());
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+    #endregion
+
+
+    #region STRUCTURAL
+
+    /// <summary>
+    /// Demo for the adapter
+    /// </summary>
+    public static void Adapter_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // this is the 'standard' enemy, which implemnts the interface by default 
+      // and on this creation 
+      EnemyTank rx7Tank = new EnemyTank();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      // this is the EnemyRobot, maybe it exists before the creation of the interface
+      // and the given standardization and it doesn't implemnt it by default 
+      EnemyRobot fredTheRobot = new EnemyRobot();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      // this is the adapter for our fred the robot
+      EnemyAttacker robotAdapter = new EnemyRobotAdapter(fredTheRobot);
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // CASE 1: the robot and its actions without using the adapter 
+      // free from the context of the standardization 
+      Console.WriteLine("the robot: ");
+      fredTheRobot.ReactToHuman("Paul");
+      fredTheRobot.WalkForwand();
+      fredTheRobot.SmashWithHands();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // CASE 2: the EnemyAttacker standardized at its creation 
+      // in this case the tank 
+      rx7Tank.AssignDriver("Frank");
+      rx7Tank.DriveForward();
+      rx7Tank.FireWeapon();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // CASE 3 (THE ADAPTED CASE): the robot seen with the implementation 
+      // of standard interface made through the adapter 
+      robotAdapter.AssignDriver("Mark");
+      robotAdapter.DriveForward();
+      robotAdapter.FireWeapon();
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();

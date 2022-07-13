@@ -479,3 +479,9 @@ C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\Des
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\OldRobotBuilder_2.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\RobotEngineer.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Builder\Main_Builder.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Adapter\EnemyAttacker.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Adapter\EnemyTank.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Adapter\EnemyRobot.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Adapter\EnemyRobot2.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Adapter\EnemyRobotAdapter.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Adapter\Main_Adapter.cs
