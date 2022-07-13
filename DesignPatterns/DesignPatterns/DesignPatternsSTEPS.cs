@@ -1,4 +1,5 @@
-﻿using DesignPatterns.DesignPatterns.Behavioural.Strategy;
+﻿using DesignPatterns.DesignPatterns.Behavioural.Chain_of_Responsibility;
+using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.Model;
@@ -58,6 +59,68 @@ namespace DesignPatterns.DesignPatterns
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
       
+    }
+
+
+    /// <summary>
+    /// Demo per il chain of responsibility
+    /// </summary>
+    public static void Chain_Of_Responsibility_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // elements of the chain initialization
+      Chain chainCalc1 = new AddNumbers();
+      Chain chainCalc2 = new SubNumbers();
+      Chain chainCalc3 = new MultNumbers();
+      Chain chainCalc4 = new DivNumbers();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      // making and setting the elements in the chain 
+      chainCalc1.SetNextChain(chainCalc2);
+      chainCalc2.SetNextChain(chainCalc3);
+      chainCalc3.SetNextChain(chainCalc4);
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // CASE 1 intializing the number object 
+      Numbers request = new Numbers(4, 2, "add");
+
+      // doing the calculus
+      chainCalc1.Calculate(request);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // CASE 2: intizializing the number object 
+      Numbers request2 = new Numbers(5, 5, "mult");
+      
+      // doing the calculus
+      chainCalc1.Calculate(request2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // CASE 3: initializing the number object 
+      Numbers request3 = new Numbers(2, 7, "not");
+
+      // failing in doing the calculus
+      chainCalc1.Calculate(request3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
 
     #endregion

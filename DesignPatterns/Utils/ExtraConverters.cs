@@ -113,5 +113,37 @@ namespace DesignPatterns.Utils
 
       return finalTxt;
     }
+
+
+    /// <summary>
+    /// Preparazione del nome del pattern che deve essere passato alla procedura di demo o di esempio 
+    /// come parametro di programma 
+    /// </summary>
+    /// <param name="patternName"></param>
+    /// <returns></returns>
+    public string PreparePatternNameForParams(string patternName)
+    {
+      // nessuna necessita di preparazione 
+      if (patternName.IndexOf(" ") == -1)
+        return patternName;
+
+      patternName = patternName.Replace(" ", "_");
+      return patternName;
+    }
+
+
+    /// <summary>
+    /// Preparazione inversa per il pattern corrente dopo che è stato ottenuto come parametro per la procedura corrente 
+    /// </summary>
+    /// <param name="patternChangedName"></param>
+    /// <returns></returns>
+    public string RevertPatternNameAsInputParameter(string patternChangedName)
+    {
+      if (patternChangedName.IndexOf("_") == -1)
+        return patternChangedName;
+
+      patternChangedName = patternChangedName.Replace("_", " ");
+      return patternChangedName;
+    }
   }
 }

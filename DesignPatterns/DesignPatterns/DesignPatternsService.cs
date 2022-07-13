@@ -57,6 +57,12 @@ namespace DesignPatterns.DesignPatterns
             foundDesPattern = true;
             break;
           }
+        case 10:
+          {
+            DesignPatternsSTEPS.Chain_Of_Responsibility_LiveDEMO();
+            foundDesPattern = true;
+            break;
+          }
       }
 
       // se non ho trovato nessuna corrispondenza live allora esco con una eccezione 

@@ -59,6 +59,7 @@ namespace DesignPatterns
         else if (Utils.Constants.PROGRAM_CURR_MODE == Utils.Constants.PROGRAM_MODES.CODE_DEMO)
         {
           // impostazione dei parametri constanti per ID e Nome design pattern demo attuale 
+          prop_1 = ServiceLocator.GetExtraConvertersService.RevertPatternNameAsInputParameter(prop_1); // riconverto gli spazi vuoti per il nome del pattern corrente 
           Utils.Constants.DESPATTERN_DEMO_ID = idAttribute;
           Utils.Constants.DESPATTERN_DEMO_DESCRIPTION = prop_1;
 

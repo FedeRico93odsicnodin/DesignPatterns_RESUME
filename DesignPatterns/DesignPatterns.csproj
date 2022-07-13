@@ -55,6 +55,23 @@
   <ItemGroup>
     <Compile Include="Access_DB\AccessDBService.cs" />
     <Compile Include="Access_DB\QueryStrings.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\AddNumbers.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\Chain.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\DivNumbers.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\Main_ChainOfResponsibility.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\MultNumbers.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\Numbers.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\SubNumbers.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

@@ -829,6 +829,8 @@ namespace DesignPatterns.ViewConsole
     /// <param name="desPatternName"></param>
     private void InvokeParallelExeShowLiveDemo(int desPatternID, string desPatternName)
     {
+      // preparazione del nome del pattern per essere compatibile a livello di parametri 
+      desPatternName = ServiceLocator.GetExtraConvertersService.PreparePatternNameForParams(desPatternName);
       // preparazione dei parametri per la seconda applicazione 
       string paramsDEMO = ServiceLocator.GetParallelExeService.GetDesPatternDemoPresentationExeParams(desPatternID, desPatternName);
       // richiamo servizio per launch seconda applicazione 
