@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural.Chain_of_Responsibility;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational.Builder;
+using DesignPatterns.DesignPatterns.Creational.Prototype;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
@@ -173,6 +174,56 @@ namespace DesignPatterns.DesignPatterns
       Console.WriteLine("Robot Arms Type: " + firstRobot.GetRobotArms());
       Console.WriteLine("Robot Legs Type: " + firstRobot.GetRobotLegs());
       Console.WriteLine("Robot Torso Type: " + firstRobot.GetRobotTorso());
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo per il Prototype
+    /// </summary>
+    public static void Prototype_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // the clone factory 
+      CloneFactory animalMaker = new CloneFactory();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      // the first sheep creation
+      Sheep sally = new Sheep();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // the cloned sheep 
+      Sheep clonedSheep = (Sheep)animalMaker.GetClone(sally);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // the first sheep 
+      Console.WriteLine(sally.ToString());
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // the cloned sheep 
+      Console.WriteLine(clonedSheep.ToString());
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
