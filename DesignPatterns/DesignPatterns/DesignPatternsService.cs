@@ -57,6 +57,12 @@ namespace DesignPatterns.DesignPatterns
             foundDesPattern = true;
             break;
           }
+        case 7:
+          {
+            DesignPatternsSTEPS.Bridge_LiveDEMO();
+            foundDesPattern = true;
+            break;
+          }
         case 9:
           {
             DesignPatternsSTEPS.Strategy_LiveDEMO();

@@ -3,6 +3,7 @@ using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Creational.Prototype;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
+using DesignPatterns.DesignPatterns.Structural.Bridge;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
@@ -297,6 +298,51 @@ namespace DesignPatterns.DesignPatterns
       robotAdapter.AssignDriver("Mark");
       robotAdapter.DriveForward();
       robotAdapter.FireWeapon();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    public static void Bridge_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // creating a first TV Device 
+      RemoteButton theTV = new TVRemoteMute(new TVDevice(1, 200));
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      // creating a second TV Device
+      RemoteButton theTV2 = new TVRemotePause(new TVDevice(1, 200));
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // testing the TV with MUTE button 
+      Console.WriteLine("testing the TV with the MUTE BUTTON");
+      theTV.ButtonFivePressed();
+      theTV.ButtonSixPressed();
+      theTV.ButtonNinePressed();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // testing the TV with the PAUSE button 
+      Console.WriteLine("testing the TV with the PAUSE BUTTON");
+      theTV2.ButtonFivePressed();
+      theTV2.ButtonSixPressed();
+      theTV2.ButtonNinePressed();
+      theTV2.DeviceFeedback();
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
