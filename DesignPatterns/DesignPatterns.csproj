@@ -72,6 +72,41 @@
     <Compile Include="DesignPatterns\Behavioural\Chain_of_Responsibility\SubNumbers.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\Command.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\Command2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\DeviceButton.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\DeviceButton2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\ElectronicDevice.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\Main_Command.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\Radio.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\Television.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnItAllOff.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnItAllOff2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnTVOff.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnTVOff2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnTVOn.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnTVOn2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnTVUp.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TurnTVUp2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Command\TVRemote.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

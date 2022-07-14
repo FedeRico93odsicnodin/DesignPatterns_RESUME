@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural.Chain_of_Responsibility;
+using DesignPatterns.DesignPatterns.Behavioural.Command;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Creational.Prototype;
@@ -121,6 +122,131 @@ namespace DesignPatterns.DesignPatterns
       // failing in doing the calculus
       chainCalc1.Calculate(request3);
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo per il COMMAND 
+    /// </summary>
+    public static void Command_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // running the first example 
+      ElectronicDevice newDevice = TVRemote.GetDevice();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      // getting the first command ON
+      TurnTVOn2 onCommand = new TurnTVOn2(newDevice);
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      // getting the first button
+      DeviceButton2 onPressed = new DeviceButton2(onCommand);
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // running the effect of the first button 
+      onPressed.Press();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      // getting the second command OFF (for the same device)
+      TurnTVOff2 offCommand = new TurnTVOff2(newDevice);
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      // passing the command to the button 
+      onPressed = new DeviceButton2(offCommand);
+
+      // STEP7
+      DesignPattern_DEMOStep step7 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 7).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // running the effect of the second command on first button
+      onPressed.Press();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP8
+      DesignPattern_DEMOStep step8 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 8).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step8);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step8);
+      // getting the third command Up 
+      TurnTVUp2 volUpCommand = new TurnTVUp2(newDevice);
+
+      // STEP9
+      DesignPattern_DEMOStep step9 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 9).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step9);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step9);
+      // passing the third command to the button 
+      onPressed = new DeviceButton2(volUpCommand);
+
+      // STEP10
+      DesignPattern_DEMOStep step10 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 10).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step10);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step10);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // running the effect of the third command multiple time 
+      onPressed.Press();
+      onPressed.Press();
+      onPressed.Press();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP11
+      DesignPattern_DEMOStep step11 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 11).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step11);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step11);
+      // instances of 2 more devices: a TV and a RADIO
+      Television theTV = new Television();
+      Radio theRadio = new Radio();
+
+      // STEP1
+      DesignPattern_DEMOStep step12 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 12).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step12);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step12);
+      // adding the 2 devices to the list of all devices
+      List<ElectronicDevice> allDevices = new List<ElectronicDevice>();
+      allDevices.Add(theTV);
+      allDevices.Add(theRadio);
+
+      // STEP13
+      DesignPattern_DEMOStep step13 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 13).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step13);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step13);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // running the turning off funcionality 
+      TurnItAllOff2 turnOffDevices = new TurnItAllOff2(allDevices);
+      DeviceButton2 turnThemOff = new DeviceButton2(turnOffDevices);
+      turnThemOff.Press();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP1
+      DesignPattern_DEMOStep step14 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 14).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step14);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step14);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // running the undo funcionalities on the devices
+      turnThemOff.PressUndo();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }

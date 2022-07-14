@@ -500,3 +500,12 @@ C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\Des
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Bridge\TVRemoteMute.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Bridge\TVRemotePause.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Bridge\Main_Bridge.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\ElectronicDevice.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\Television.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\Command.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\DeviceButton.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\TVRemote.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\Radio.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\TurnItAllOff.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\Command2.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Command\Main_Command.cs
