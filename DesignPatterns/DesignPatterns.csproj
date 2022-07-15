@@ -156,6 +156,27 @@
     <Compile Include="DesignPatterns\Creational\Builder\Robot_2.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\BlastEnemyShip.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\EnemyShip.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\EnemyShipFactory.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\EnemyShipTesting.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\Main_Factory.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\RocketEnemyShip.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Factory\UFOEnemyShip.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\Creational\Prototype\Animal.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
