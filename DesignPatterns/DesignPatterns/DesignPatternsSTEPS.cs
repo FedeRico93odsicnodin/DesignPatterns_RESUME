@@ -6,6 +6,7 @@ using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Creational.Prototype;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.DesignPatterns.Structural.Bridge;
+using DesignPatterns.DesignPatterns.Structural.Composite;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
@@ -503,6 +504,69 @@ namespace DesignPatterns.DesignPatterns
       theTV2.ButtonNinePressed();
       theTV2.DeviceFeedback();
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    public static void Composite_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // defining the music genres (by the means of songgroup implementation of the composition)
+      SongComponent industrialMusic = new SongGroup("Industrial", "description of music 1");
+      SongComponent heavyMetalMusic = new SongGroup("Heavy Metal", "some other descriptions for the second genre");
+      SongComponent dubstepMusic = new SongGroup("Dubstep", "the last description for the music to play");
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      // defining the list of every available song 
+      SongComponent everySong = new SongGroup("SongList", "every song available");
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      // adding the different music (before to the list of available list and then the songs to the different songlists)
+      // adding for the industrial music
+      everySong.Add(industrialMusic);
+      industrialMusic.Add(new Song("Head like a hole", "NIN", 1990));
+      industrialMusic.Add(new Song("Headhunter", "Front 242", 1988));
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      // adding the dubsteps songs as a second branch of the industrial music 
+      industrialMusic.Add(dubstepMusic);
+      // adding songs for the dubstep music 
+      dubstepMusic.Add(new Song("Centipede", "Knife Party", 2012));
+      dubstepMusic.Add(new Song("Tetris", "Doctor P", 2011));
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      // adding the branch of Metal Music to all the songs 
+      everySong.Add(heavyMetalMusic);
+      // adding songs to heavy metal 
+      heavyMetalMusic.Add(new Song("War Pigs", "Black Sabbath", 1970));
+      heavyMetalMusic.Add(new Song("Ace of Spades", "Motorhead", 1980));
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // instance of the DiscJockey which is able to play every song available
+      DiscJockey crazyLarry = new DiscJockey(everySong);
+      crazyLarry.GetSongList();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }

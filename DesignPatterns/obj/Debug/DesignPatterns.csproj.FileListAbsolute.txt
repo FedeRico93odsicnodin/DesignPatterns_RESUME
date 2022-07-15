@@ -512,3 +512,8 @@ C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\Des
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Singleton\Main_Singleton2.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Singleton\SingletonService.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Creational\Singleton\SingletonService2.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Composite\SongComponent.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Composite\SongGroup.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Composite\Song.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Composite\DiscJockey.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Composite\Main_Composite.cs

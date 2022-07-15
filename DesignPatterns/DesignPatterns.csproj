@@ -218,6 +218,21 @@
     <Compile Include="DesignPatterns\Structural\Bridge\TVRemotePause.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Structural\Composite\DiscJockey.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Composite\Main_Composite.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Composite\Song.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Composite\SongComponent.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Composite\SongGroup.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPattern.cs" />

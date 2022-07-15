@@ -228,7 +228,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       bool verifyNextPage = (MemLists.DesignPatterns_Descriptions.Where(
         x => x.ID_VisualActionType == (int)pageType &&
         x.ID_DesignPattern == EntityPatternID &&
-        (x.ID > EntityID || x.ID_Vis > ContextID)
+        (x.ID_Vis > ContextID)
         ).Count() > 0);
 
       return verifyNextPage;
@@ -249,7 +249,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       // nessuna altra pagina successiva per il design pattern corrente 
       bool verifyNextPage = (MemLists.DesignPatterns_Descriptions.Where(x =>
         x.ID_DesignPattern == EntityPatternID &&
-        (x.ID > EntityID || x.ID_Vis > ContextID)
+        (x.ID_Vis > ContextID)
         ).Count() == 0);
 
       return verifyNextPage;
@@ -269,7 +269,7 @@ namespace DesignPatterns.ViewConsole.ConsolePageServices
       // verifica di presenza di una pagina che abbia entity ID o contesto di pagina minori
       bool verifyPrevPage = (MemLists.DesignPatterns_Descriptions.Where(x =>
         x.ID_DesignPattern == EntityPatternID &&
-        (x.ID < EntityID || x.ID_Vis < ContextID)
+        (x.ID_Vis < ContextID)
         ).Count() > 0);
       
       return verifyPrevPage;
