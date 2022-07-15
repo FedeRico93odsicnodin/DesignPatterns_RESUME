@@ -8,14 +8,13 @@ using static DesignPatterns.Utils.Constants;
 
 namespace DesignPatterns.DesignPatterns.Creational
 {
-    public sealed class SingletonService : DesignPatternSpecs
+    public sealed class SingletonService
     {
+
+        private static int _counter = 0;
         private static SingletonService _istanceSingleton = null;
-
-
-
         /// <summary>
-        /// Getter per una singola istanza di questa classe che è sealed rispetto alle proprieta reltive alla classe stessa 
+        /// Getter for the single instance of the class (which is sealed)
         /// </summary>
         public static SingletonService GetInstanceSingleton
         {
@@ -27,15 +26,17 @@ namespace DesignPatterns.DesignPatterns.Creational
                 return _istanceSingleton;
             }
         }
-
-
         /// <summary>
-        /// Costruttore privato: in modo da non avere la possibile istanza in un'altra classe 
+        /// Private constructor: not invokable from another class
         /// </summary>
         private SingletonService()
         {
-            // attribuzione design pattern corrente 
-            //base.DesignPatternName = DESIGN_PATTERN_ENUM.Singleton;
+          _counter++;
+          Console.WriteLine("counter value " + _counter);
+        }
+        public void PrintDetails(string message)
+        {
+          Console.WriteLine(message);
         }
     }
 }

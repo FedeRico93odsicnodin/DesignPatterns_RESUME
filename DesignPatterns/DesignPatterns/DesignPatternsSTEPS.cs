@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural.Chain_of_Responsibility;
 using DesignPatterns.DesignPatterns.Behavioural.Command;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
+using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Creational.Prototype;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
@@ -351,6 +352,38 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // the cloned sheep 
       Console.WriteLine(clonedSheep.ToString());
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo per il Singleton 
+    /// </summary>
+    public static void Singleton_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // assuming Singleton is created from student class 
+      // we refer to the GetInstance property from the Singleton class 
+      SingletonService fromStudent = SingletonService.GetInstanceSingleton;
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      fromStudent.PrintDetails("From Student");
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // assuming Singleton is created from employee class 
+      // we refer to the GetInstance property from the Singleton class 
+      // (BUT: in this case the singleton was already created by the student before)
+      SingletonService fromEmployee = SingletonService.GetInstanceSingleton;
+      fromEmployee.PrintDetails("From Employee");
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();

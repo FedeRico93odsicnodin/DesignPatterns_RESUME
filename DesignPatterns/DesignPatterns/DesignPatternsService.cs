@@ -39,6 +39,12 @@ namespace DesignPatterns.DesignPatterns
       bool foundDesPattern = false;
       switch(designPatternID)
       {
+        case 1:
+          {
+            DesignPatternsSTEPS.Singleton_LiveDEMO();
+            foundDesPattern = true;
+            break;
+          }
         case 4:
           {
             DesignPatternsSTEPS.Builder_LiveDEMO();

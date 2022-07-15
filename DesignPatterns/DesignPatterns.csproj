@@ -168,7 +168,16 @@
     <Compile Include="DesignPatterns\Creational\Prototype\Sheep.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="DesignPatterns\Creational\SingletonService.cs">
+    <Compile Include="DesignPatterns\Creational\Singleton\Main_Singleton.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Singleton\Main_Singleton2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Singleton\SingletonService.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Creational\Singleton\SingletonService2.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DesignPatterns\DesignPatternsService.cs" />
@@ -246,7 +255,9 @@
     <None Include="ExtraFiles\Design patterns RESUME - Notes.docx" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Creational\Singleton\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Access_DB\Design_Patterns.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
