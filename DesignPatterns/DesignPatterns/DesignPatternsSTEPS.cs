@@ -8,6 +8,7 @@ using DesignPatterns.DesignPatterns.Creational.Prototype;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.DesignPatterns.Structural.Bridge;
 using DesignPatterns.DesignPatterns.Structural.Composite;
+using DesignPatterns.DesignPatterns.Structural.Decorator;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
@@ -611,6 +612,21 @@ namespace DesignPatterns.DesignPatterns
       crazyLarry.GetSongList();
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
 
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    public static void Decorator_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // adding the different components dynamically for creating the pizza we want 
+      Pizza3 basicPizza = new TomatoSauce(new Mozzarella(new PlainPizza()));
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
