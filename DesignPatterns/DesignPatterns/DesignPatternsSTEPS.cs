@@ -3,6 +3,7 @@ using DesignPatterns.DesignPatterns.Behavioural.Command;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
+using DesignPatterns.DesignPatterns.Creational.Factory;
 using DesignPatterns.DesignPatterns.Creational.Prototype;
 using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.DesignPatterns.Structural.Bridge;
@@ -220,7 +221,7 @@ namespace DesignPatterns.DesignPatterns
       Television theTV = new Television();
       Radio theRadio = new Radio();
 
-      // STEP1
+      // STEP12
       DesignPattern_DEMOStep step12 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 12).FirstOrDefault();
       ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step12);
       ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step12);
@@ -385,6 +386,49 @@ namespace DesignPatterns.DesignPatterns
       // (BUT: in this case the singleton was already created by the student before)
       SingletonService fromEmployee = SingletonService.GetInstanceSingleton;
       fromEmployee.PrintDetails("From Employee");
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo per la Factory 
+    /// </summary>
+    public static void Factory_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // creating the new ship factory 
+      EnemyShipFactory factoryShip = new EnemyShipFactory();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // asking to the user which ship wants to create 
+      Console.WriteLine("Please select the ship (U , R , B)");
+      Console.WriteLine("(by default the Rocket ship will be returned)");
+      string input = Console.ReadKey(true).KeyChar.ToString();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      // giving the input to the factory 
+      EnemyShip returnedShip = factoryShip.CreateShip(input);
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // seeing the effects of the created ship for the case
+      EnemyShipTesting.DoStuffEnemy(returnedShip);
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();

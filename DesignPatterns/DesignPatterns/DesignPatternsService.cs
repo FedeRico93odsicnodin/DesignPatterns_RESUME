@@ -45,6 +45,12 @@ namespace DesignPatterns.DesignPatterns
             foundDesPattern = true;
             break;
           }
+        case 2:
+          {
+            DesignPatternsSTEPS.Factory_LiveDEMO();
+            foundDesPattern = true;
+            break;
+          }
         case 4:
           {
             DesignPatternsSTEPS.Builder_LiveDEMO();
