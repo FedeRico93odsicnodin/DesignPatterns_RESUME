@@ -10,10 +10,12 @@ using DesignPatterns.DesignPatterns.Structural.Bridge;
 using DesignPatterns.DesignPatterns.Structural.Composite;
 using DesignPatterns.DesignPatterns.Structural.Decorator;
 using DesignPatterns.DesignPatterns.Structural.Facade;
+using DesignPatterns.DesignPatterns.Structural.FlyWeight;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -679,6 +681,15 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
 
+
+    /// <summary>
+    /// Demo per il flyweight
+    /// </summary>
+    public static void FlyWeight_LiveDEMO()
+    {
+      Main_Flyweight.RunExample(); // directly running example without step
+    }
+    
     #endregion
   }
 }

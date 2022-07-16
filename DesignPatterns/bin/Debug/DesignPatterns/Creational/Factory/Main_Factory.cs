@@ -16,7 +16,7 @@ namespace DesignPatterns.DesignPatterns.Creational.Factory
       // asking to the user which ship wants to create 
       Console.WriteLine("Please select the ship (U , R , B)");
       Console.WriteLine("(by default the Rocket ship will be returned)");
-      string input = Console.ReadKey().ToString();
+      string input = Console.ReadKey(true).KeyChar.ToString();
 
       // giving the input to the factory 
       EnemyShip returnedShip = factoryShip.CreateShip(input);
