@@ -9,6 +9,7 @@ using DesignPatterns.DesignPatterns.Structural.Adapter;
 using DesignPatterns.DesignPatterns.Structural.Bridge;
 using DesignPatterns.DesignPatterns.Structural.Composite;
 using DesignPatterns.DesignPatterns.Structural.Decorator;
+using DesignPatterns.DesignPatterns.Structural.Facade;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
@@ -627,6 +628,53 @@ namespace DesignPatterns.DesignPatterns
       // adding the different components dynamically for creating the pizza we want 
       Pizza3 basicPizza = new TomatoSauce(new Mozzarella(new PlainPizza()));
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    public static void Facade_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // creating a new instance of FACADE for accessing the bank account
+      // for the creation the account number and the security code have to be passed
+      BankAccountFacade accessingBank = new BankAccountFacade(12345678, 1234);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // using some methods for doing operations on bank account 
+      // withdrawing some cash
+      accessingBank.WithdrawCash(50);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // using some methods for doing operations on bank account 
+      // withdrawing some cash
+      accessingBank.WithdrawCash(990);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // using some methods for doing operations on bank account 
+      // deposite some cash
+      accessingBank.DepositCash(1000);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
