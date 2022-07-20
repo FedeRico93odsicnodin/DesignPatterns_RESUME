@@ -11,6 +11,7 @@ using DesignPatterns.DesignPatterns.Structural.Composite;
 using DesignPatterns.DesignPatterns.Structural.Decorator;
 using DesignPatterns.DesignPatterns.Structural.Facade;
 using DesignPatterns.DesignPatterns.Structural.FlyWeight;
+using DesignPatterns.DesignPatterns.Structural.Proxy;
 using DesignPatterns.Model;
 using DesignPatterns.Utils;
 using System;
@@ -688,6 +689,81 @@ namespace DesignPatterns.DesignPatterns
     public static void FlyWeight_LiveDEMO()
     {
       Main_Flyweight.RunExample(); // directly running example without step
+    }
+
+
+    /// <summary>
+    /// Demo for the Proxy
+    /// </summary>
+    public static void Proxy_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // those first set of methods are used without the proxy peremeter
+      ATMMachine atmMachine = new ATMMachine();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.InsertCard();
+
+      atmMachine.EjectCard();
+
+      atmMachine.InsertCard();
+
+      atmMachine.InsertPin(1234);
+
+      atmMachine.RequestCash(200);
+
+      atmMachine.InsertCard();
+
+      atmMachine.InsertPin(1111);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      // NEW STUFF: Proxy Design Pattern Code
+      // the interface limits access to just the methods you want 
+      // made accessible 
+      GetATMData atmProxy = new ATMProxy();
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      Console.WriteLine("Current ATM State: " + atmProxy.GetATMState().ToString());
+      Console.WriteLine("Cash in ATM Machine: " + atmProxy.GetCashInMachine());
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // The user can't perform this action because ATMProxy doesn't have access 
+      // to that potentially harmful method
+      // atmProxy.SetCashInMachine(10000);
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      // applying the PROXY to the first ATM machine instead:
+      // the money have been decrease by the request of cash and the state is haspin one
+      atmProxy = new ATMProxy(atmMachine);
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      Console.WriteLine("Current ATM State: " + atmProxy.GetATMState().ToString());
+      Console.WriteLine("Cash in ATM Machine: " + atmProxy.GetCashInMachine());
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
     
     #endregion

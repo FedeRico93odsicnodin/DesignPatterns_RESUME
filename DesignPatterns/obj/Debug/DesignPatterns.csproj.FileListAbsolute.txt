@@ -544,3 +544,8 @@ C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\Des
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\FlyWeight\ConsoleRectangle.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\FlyWeight\FlyweightMapping.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\FlyWeight\Main_Flyweight.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\ATMState.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\GetATMData.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\ATMMachine.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\Main_Proxy.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\ATMProxy.cs

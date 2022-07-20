@@ -315,6 +315,25 @@
     <Compile Include="DesignPatterns\Structural\FlyWeight\Main_Flyweight.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Structural\Proxy\ATMMachine.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Proxy\ATMProxy.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Proxy\ATMState.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Proxy\GetATMData.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Proxy\HasCard.cs" />
+    <Compile Include="DesignPatterns\Structural\Proxy\HasPin.cs" />
+    <Compile Include="DesignPatterns\Structural\Proxy\Main_Proxy.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Structural\Proxy\NoCard.cs" />
+    <Compile Include="DesignPatterns\Structural\Proxy\NoCash.cs" />
     <Compile Include="Model\DesignPatternDescription.cs" />
     <Compile Include="Model\DesignPatternSpecs.cs" />
     <Compile Include="Model\DesignPattern.cs" />

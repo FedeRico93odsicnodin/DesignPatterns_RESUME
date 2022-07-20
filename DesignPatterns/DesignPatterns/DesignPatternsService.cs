@@ -117,6 +117,12 @@ namespace DesignPatterns.DesignPatterns
             foundDesPattern = true;
             break;
           }
+        case 15:
+          {
+            DesignPatternsSTEPS.Proxy_LiveDEMO();
+            foundDesPattern = true;
+            break;
+          }
       }
 
       // se non ho trovato nessuna corrispondenza live allora esco con una eccezione 
