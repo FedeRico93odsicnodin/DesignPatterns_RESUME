@@ -20,10 +20,7 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Iterator
       // is more clear 
       DiscJockey discJockeyMike = new DiscJockey(songs70s, songs80s, songs90s);
       discJockeyMike.ShowTheSongs();
-
-      Console.ReadKey(); 
-      Console.WriteLine("\n\n\n");
-
+      
       ////////// SECOND BLOCK //////////
       // creation of the new iterator without using the definition of the songs
       // the iteration could be 
@@ -48,9 +45,6 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Iterator
         Console.WriteLine(songInfo.ToString());
       }
       
-      Console.ReadKey();
-      Console.WriteLine("\n\n\n");
-
       ////////// THIRD BLOCK //////////
       // lists of songs which implement the iterator definition 
       SongsOfThe70s2 songs70s2 = new SongsOfThe70s2();
@@ -61,8 +55,7 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Iterator
       // on all possible collection sets
       DiscJockey2 discJockeyTom = new DiscJockey2(songs70s2, songs80s2, songs90s2);
       discJockeyTom.ShowTheSongs();
-
-      Console.ReadKey();
+      
     }
   }
 }

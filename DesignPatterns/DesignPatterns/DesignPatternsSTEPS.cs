@@ -260,6 +260,97 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
 
+
+    /// <summary>
+    /// Demo per Iterator 
+    /// </summary>
+    public static void Iterator_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      ////////// FIRST BLOCK //////////
+      // lists of songs which do not implement the iterator definition
+      SongsOfThe70s songs70s = new SongsOfThe70s();
+      SongsOfThe80s songs80s = new SongsOfThe80s();
+      SongsOfThe90s songs90s = new SongsOfThe90s();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // showing the result of the bad implementation: it is correct but using the iterator 
+      // is more clear 
+      DesignPatterns.Behavioural.Iterator.DiscJockey discJockeyMike = new DesignPatterns.Behavioural.Iterator.DiscJockey(songs70s, songs80s, songs90s);
+      discJockeyMike.ShowTheSongs();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ////////// SECOND BLOCK //////////
+      // creation of the new iterator without using the definition of the songs
+      // the iteration could be 
+      Collection aSetOfSongs = new Collection();
+      aSetOfSongs.AddItem(new SongInfo("Losing My Religion", "REM", 1991));
+      aSetOfSongs.AddItem(new SongInfo("Roam", "B 52s", 1989));
+      aSetOfSongs.AddItem(new SongInfo("Imagine", "John Lennon", 1971));
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // iteration forward 
+      OrderIterator songIterator = (OrderIterator)aSetOfSongs.GetEnumerator();
+      while (songIterator.MoveNext())
+      {
+        SongInfo songInfo = (SongInfo)songIterator.Current();
+        Console.WriteLine(songInfo.ToString());
+      }
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // configuring for going behind and reset for the iterator 
+      aSetOfSongs.ReverseDirection();
+      songIterator = (OrderIterator)aSetOfSongs.GetEnumerator();
+      while (songIterator.MoveNext())
+      {
+        SongInfo songInfo = (SongInfo)songIterator.Current();
+        Console.WriteLine(songInfo.ToString());
+      }
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ////////// THIRD BLOCK //////////
+      // lists of songs which implement the iterator definition 
+      SongsOfThe70s2 songs70s2 = new SongsOfThe70s2();
+      SongsOfThe80s2 songs80s2 = new SongsOfThe80s2();
+      SongsOfThe90s2 songs90s2 = new SongsOfThe90s2();
+
+      // STEP7
+      DesignPattern_DEMOStep step7 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 7).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // showing the result of the good implementation: this is the standardazed implementation
+      // on all possible collection sets
+      DiscJockey2 discJockeyTom = new DiscJockey2(songs70s2, songs80s2, songs90s2);
+      discJockeyTom.ShowTheSongs();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
     #endregion
 
 
@@ -765,15 +856,6 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
-    }
-
-
-    /// <summary>
-    /// Demo for the iterator 
-    /// </summary>
-    public static void Iterator_LiveDEMO()
-    {
-      Main_Iterator.RunExample();
     }
     
     #endregion
