@@ -108,6 +108,20 @@
     <Compile Include="DesignPatterns\Behavioural\Command\TVRemote.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Iterator\Collection.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\DiscJockey.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\DiscJockey2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\Iterator.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\IteratorAggregate.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\Main_Iterator.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\OrderIterator.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongInfo.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongsOfThe70s.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongsOfThe70s2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongsOfThe80s.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongsOfThe80s2.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongsOfThe90s.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Iterator\SongsOfThe90s2.cs" />
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural.Chain_of_Responsibility;
 using DesignPatterns.DesignPatterns.Behavioural.Command;
+using DesignPatterns.DesignPatterns.Behavioural.Iterator;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
@@ -612,7 +613,7 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // instance of the DiscJockey which is able to play every song available
-      DiscJockey crazyLarry = new DiscJockey(everySong);
+      DesignPatterns.Structural.Composite.DiscJockey crazyLarry = new DesignPatterns.Structural.Composite.DiscJockey(everySong);
       crazyLarry.GetSongList();
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
 
@@ -764,6 +765,15 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo for the iterator 
+    /// </summary>
+    public static void Iterator_LiveDEMO()
+    {
+      Main_Iterator.RunExample();
     }
     
     #endregion
