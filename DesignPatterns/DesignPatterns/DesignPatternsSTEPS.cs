@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.DesignPatterns.Behavioural.Chain_of_Responsibility;
 using DesignPatterns.DesignPatterns.Behavioural.Command;
 using DesignPatterns.DesignPatterns.Behavioural.Iterator;
+using DesignPatterns.DesignPatterns.Behavioural.Mediator;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
@@ -346,6 +347,78 @@ namespace DesignPatterns.DesignPatterns
       // on all possible collection sets
       DiscJockey2 discJockeyTom = new DiscJockey2(songs70s2, songs80s2, songs90s2);
       discJockeyTom.ShowTheSongs();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo per il Mediator 
+    /// </summary>
+    public static void Mediator_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // instance of the mediator between the different clients 
+      StockMediator nyse = new StockMediator();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // first broker: it receives the instance of the mediator just created 
+      GormanSlacks broker = new GormanSlacks(nyse);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // second broker: it receives the instance of the mediator too
+      JTPoorman broker2 = new JTPoorman(nyse);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // sold offers of the first broker 
+      broker.SaleOffer("MSFT", 100);
+      broker.SaleOffer("GOOG", 50);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // sold / bought offers of the second broker
+      broker2.BuyOffer("MSFT", 100);
+      broker2.SaleOffer("NRG", 10);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // sold offers by the first broker
+      broker.BuyOffer("NRF", 10);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+      // STEP7
+      DesignPattern_DEMOStep step7 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 7).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // getting all the set of the bought and sold offers 
+      nyse.GetStockOfferings();
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
