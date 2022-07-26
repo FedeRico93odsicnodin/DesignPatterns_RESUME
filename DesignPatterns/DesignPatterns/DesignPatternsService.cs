@@ -135,6 +135,12 @@ namespace DesignPatterns.DesignPatterns
             foundDesPattern = true;
             break;
           }
+        case 18:
+          {
+            DesignPatternsSTEPS.Memento_LiveDEMO();
+            foundDesPattern = true;
+            break;
+          }
       }
 
       // se non ho trovato nessuna corrispondenza live allora esco con una eccezione 

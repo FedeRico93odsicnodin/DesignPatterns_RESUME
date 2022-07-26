@@ -2,6 +2,7 @@
 using DesignPatterns.DesignPatterns.Behavioural.Command;
 using DesignPatterns.DesignPatterns.Behavioural.Iterator;
 using DesignPatterns.DesignPatterns.Behavioural.Mediator;
+using DesignPatterns.DesignPatterns.Behavioural.Memento;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
@@ -422,6 +423,15 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
+
+    /// <summary>
+    /// Demo per il Memento 
+    /// </summary>
+    public static void Memento_LiveDEMO()
+    {
+      MementoTest currTest = new MementoTest();
     }
 
     #endregion

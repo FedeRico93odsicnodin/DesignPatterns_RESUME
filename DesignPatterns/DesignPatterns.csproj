@@ -165,6 +165,7 @@
     <Compile Include="DesignPatterns\Behavioural\Mediator\StockOffer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Memento\MementoTest.cs" />
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
