@@ -89,7 +89,7 @@ namespace DesignPatterns
           // print del messaggio standard di not found per il contesto corrente 
           else
             ServiceLocator.GetPrintExampleService.PrintWrongExample_NOTFOUNDMsg();
-        }
+        } 
         // ECCEZIONE: non ho trovato nessuna modalità utile per il programma corrente 
         else
           throw new Exception(Resource.EXCEPTION_MAIN_NOMODEAPP);

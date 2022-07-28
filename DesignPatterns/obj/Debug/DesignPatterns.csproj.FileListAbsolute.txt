@@ -567,3 +567,7 @@ C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\Des
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Mediator\JTPoorman.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Mediator\Main_Mediator.cs
 C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Mediator\StockMediator.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Memento\Memento.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Memento\Originator.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Memento\Caretaker.cs
+C:\Users\fnigro\Documents\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Memento\MementoTest.cs
