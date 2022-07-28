@@ -3,6 +3,7 @@ using DesignPatterns.DesignPatterns.Behavioural.Command;
 using DesignPatterns.DesignPatterns.Behavioural.Iterator;
 using DesignPatterns.DesignPatterns.Behavioural.Mediator;
 using DesignPatterns.DesignPatterns.Behavioural.Memento;
+using DesignPatterns.DesignPatterns.Behavioural.Observer;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
@@ -432,6 +433,94 @@ namespace DesignPatterns.DesignPatterns
     public static void Memento_LiveDEMO()
     {
       MementoTest currTest = new MementoTest();
+    }
+
+
+    /// <summary>
+    /// Demo per Observer 
+    /// </summary>
+    public static void Observer_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      StockGrabber stockGrabber = new StockGrabber();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      StockObserver observer1 = new StockObserver(stockGrabber);
+
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      stockGrabber.SetIBMPrice(197);
+      stockGrabber.SetAAPLPrice(677.60);
+      stockGrabber.SetGOOGPrice(676.40);
+
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Create a second Observer that will be sent updates from Subject 
+      StockObserver observer2 = new StockObserver(stockGrabber);
+
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // setting a second set of prices by the stockgrabber 
+      stockGrabber.SetIBMPrice(198);
+      stockGrabber.SetAAPLPrice(777.60);
+      stockGrabber.SetGOOGPrice(656.29);
+
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // delete one of the observers 
+      stockGrabber.Unregister(observer2);
+
+      // STEP7
+      DesignPattern_DEMOStep step7 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 7).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // setting a third set of prices by the stockgrabber 
+      stockGrabber.SetIBMPrice(200);
+      stockGrabber.SetAAPLPrice(277.60);
+      stockGrabber.SetGOOGPrice(622.34);
+
+      // STEP8
+      DesignPattern_DEMOStep step8 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 8).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step8);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step8);
+      // creating the random price generation services 
+      PriceGenerator IBMPriceGeneration = new PriceGenerator(stockGrabber, "IBM");
+      PriceGenerator AAPLPriceGeneration = new PriceGenerator(stockGrabber, "AAPL");
+      PriceGenerator GOOGPriceGeneration = new PriceGenerator(stockGrabber, "GOOG");
+
+      // STEP9
+      DesignPattern_DEMOStep step9 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 9).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step9);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step9);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      Console.BackgroundColor = ConsoleColor.Black;
+      // starting the random generation services 
+      IBMPriceGeneration.StartPriceSell();
+      AAPLPriceGeneration.StartPriceSell();
+      GOOGPriceGeneration.StartPriceSell();
+
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
 
     #endregion

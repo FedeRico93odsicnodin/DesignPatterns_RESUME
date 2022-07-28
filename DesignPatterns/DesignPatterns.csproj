@@ -177,6 +177,24 @@
     <Compile Include="DesignPatterns\Behavioural\Memento\Originator.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Observer\Main_Observer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Observer\Observer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Observer\PriceGenerator.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Observer\StockGrabber.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Observer\StockObserver.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\Observer\Subject.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
