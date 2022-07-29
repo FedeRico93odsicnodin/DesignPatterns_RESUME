@@ -6,6 +6,7 @@ using DesignPatterns.DesignPatterns.Behavioural.Memento;
 using DesignPatterns.DesignPatterns.Behavioural.Observer;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
 using DesignPatterns.DesignPatterns.Behavioural.Template_Method;
+using DesignPatterns.DesignPatterns.Behavioural.Visitor;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Creational.Factory;
@@ -627,6 +628,57 @@ namespace DesignPatterns.DesignPatterns
             ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
             // making the sandwich
             cust13Hoagie.MakeSandwich();
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+            // Lettura comando di exit
+            ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+        }
+
+
+        /// <summary>
+        /// Demo for the visitor 
+        /// </summary>
+        public static void Visitor_LiveDEMO()
+        {
+            // STEP1
+            DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+            // initialization of the 2 possible fee applications (Visitor)
+            TaxVisitor taxCalc = new TaxVisitor();
+            TaxHolidayVisitor taxHolidayCalc = new TaxHolidayVisitor();
+
+            // STEP2
+            DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+            // initializing some products to which there's the need to apply taxes
+            Necessity milk = new Necessity(3.47);
+            Liquor vodka = new Liquor(11.99);
+            Tobacco cigars = new Tobacco(19.99);
+
+            // STEP3
+            DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+            // displaying normal year period price with taxes 
+            Console.WriteLine(milk.Accept(taxCalc));
+            Console.WriteLine(vodka.Accept(taxCalc));
+            Console.WriteLine(cigars.Accept(taxCalc));
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+            // STEP4
+            DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+            // calculating the tax holiday prices
+            Console.WriteLine("\n\nTAX HOLIDAY PRICES\n\n");
+
+            // displaying holiday prices with taxes 
+            Console.WriteLine(milk.Accept(taxHolidayCalc));
+            Console.WriteLine(vodka.Accept(taxHolidayCalc));
+            Console.WriteLine(cigars.Accept(taxHolidayCalc));
             ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
             // Lettura comando di exit
             ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
