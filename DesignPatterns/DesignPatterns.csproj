@@ -38,6 +38,7 @@
       <HintPath>..\packages\NStack.Core.0.17.1\lib\netstandard2.0\NStack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -478,6 +479,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Access_DB\Design_Patterns.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Access_DB\Design_Patterns_%28old%29.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

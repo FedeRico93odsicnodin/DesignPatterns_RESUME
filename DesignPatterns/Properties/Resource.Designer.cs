@@ -124,6 +124,33 @@ namespace DesignPatterns.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database not defined, please insert a valid configuration for this property..
+        /// </summary>
+        internal static string EXCEPTION_CONFIG_DBNOTDEFINED {
+            get {
+                return ResourceManager.GetString("EXCEPTION_CONFIG_DBNOTDEFINED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Impossible to retrieve info from DB of type &apos;{0}&apos;.
+        /// </summary>
+        internal static string EXCEPTION_CONFIG_PARAMNOTLOADED {
+            get {
+                return ResourceManager.GetString("EXCEPTION_CONFIG_PARAMNOTLOADED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, define the type of path for the Access DB.
+        /// </summary>
+        internal static string EXCEPTION_CONFIG_PATHTYPENOTDEFINED {
+            get {
+                return ResourceManager.GetString("EXCEPTION_CONFIG_PATHTYPENOTDEFINED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to During the execution the following exception occur:
         ///{0}
         ///----

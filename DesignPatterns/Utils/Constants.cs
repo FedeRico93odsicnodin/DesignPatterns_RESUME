@@ -19,13 +19,13 @@ namespace DesignPatterns.Utils
         /// Nome per il file Access da cui vengono lette le informazioni
         /// NB per come il progetto viene configurato questo file deve essere sempre costante 
         /// </summary>
-        internal const string DB_ACCESS_NAME = "Design_Patterns.accdb";
+        internal static string DB_ACCESS_NAME = "Design_Patterns.accdb";
 
 
         /// <summary>
         /// Percorso relativo alla folder rispetto al progetto nel quale il file access si trova 
         /// </summary>
-        internal const string DB_ACCESS_RELATIVEPATH = "Access_DB\\";
+        internal static string DB_ACCESS_PATH = "Access_DB\\";
 
 
         /// <summary>
@@ -48,6 +48,14 @@ namespace DesignPatterns.Utils
         {
             DB_ACCESS_CONNECTION = String.Format(ACCESS_CONN_CONSTPART, accessDBPath);
         }
+
+
+    /// <summary>
+    /// Questa informazione per stabilire se il percorso corrente per il database di tipo access sia 
+    /// assoluto: direct location in una folder 
+    /// relativo: cioe ricondotto alla solution su cui è avviato il progetto 
+    /// </summary>
+    public static bool IS_ACCESS_REL_PATH = false;
 
 
         /// <summary>
@@ -170,6 +178,26 @@ namespace DesignPatterns.Utils
 
 
     internal static int WIN_SCREEN_HEIGHT = 0;
+
+    #endregion
+
+
+    #region PARAMETRI DI ACCESSO A DB 
+
+    /// <summary>
+    /// indicazione della tipologia di database che viene utilizzato per il contesto corrente 
+    /// </summary>
+    public enum DB_TYPE
+    {
+      NOT_DEFINED,
+      ACCESS,
+      SQL_SERVER 
+    };
+
+    /// <summary>
+    /// Modalita di accesso corrente alle informazioni
+    /// </summary>
+    public static DB_TYPE ACCESS_DB_MODE = DB_TYPE.NOT_DEFINED;
 
     #endregion
 

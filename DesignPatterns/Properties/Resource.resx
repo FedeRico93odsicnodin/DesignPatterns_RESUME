@@ -138,6 +138,15 @@
   <data name="EXAMPLE_BTN_TXT" xml:space="preserve">
     <value>Exmp</value>
   </data>
+  <data name="EXCEPTION_CONFIG_DBNOTDEFINED" xml:space="preserve">
+    <value>Database not defined, please insert a valid configuration for this property.</value>
+  </data>
+  <data name="EXCEPTION_CONFIG_PARAMNOTLOADED" xml:space="preserve">
+    <value>Impossible to retrieve info from DB of type '{0}'</value>
+  </data>
+  <data name="EXCEPTION_CONFIG_PATHTYPENOTDEFINED" xml:space="preserve">
+    <value>Please, define the type of path for the Access DB</value>
+  </data>
   <data name="EXCEPTION_MAIN_DISPLAY" xml:space="preserve">
     <value>During the execution the following exception occur:
 {0}

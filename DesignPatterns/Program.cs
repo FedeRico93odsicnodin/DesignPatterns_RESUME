@@ -25,6 +25,8 @@ namespace DesignPatterns
     {
       try
       {
+        // lettura delle configurazioni iniziali dal file di configurazione 
+        ServiceLocator.GetConfigurationsService.ReadConfigFile();
         // verifica per la modalità corrente di programma 
         int idAttribute = 0;
         string prop_1 = String.Empty;

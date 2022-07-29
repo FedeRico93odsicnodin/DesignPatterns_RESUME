@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DesignPatterns.Utils.Constants;
 
 namespace DesignPatterns.Utils
 {
@@ -144,6 +145,27 @@ namespace DesignPatterns.Utils
 
       patternChangedName = patternChangedName.Replace("_", " ");
       return patternChangedName;
+    }
+
+
+    /// <summary>
+    /// Ottengo la modalità di accesso database per l'istanza corrente 
+    /// questa determina la modalità di recupero delle informazioni disponibili
+    /// NB: questa configurazione è bloccante nel caso in cui impostata sbagliata 
+    /// </summary>
+    /// <param name="instance"></param>
+    /// <returns></returns>
+    public DB_TYPE GetDBTypeCurrInstance(string instance)
+    {
+      // configurazione per un database di tipo access 
+      if (instance.ToLower() == DB_TYPE.ACCESS.ToString().ToLower())
+        return DB_TYPE.ACCESS;
+
+      // configurazione per un database di tipo sql server 
+      if (instance.ToLower() == DB_TYPE.SQL_SERVER.ToString().ToLower())
+        return DB_TYPE.SQL_SERVER;
+
+      return DB_TYPE.NOT_DEFINED;
     }
   }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static DesignPatterns.Utils.Constants;
 
 namespace DesignPatterns.Utils
 {
@@ -68,11 +69,27 @@ namespace DesignPatterns.Utils
         /// </summary>
         public void LoadDBParams(bool reduced = false)
         {
+          // indicazione di caricamento avvenuto correttamente da db 
+          bool parametersLoaded = false;
+
+          // metodi validi nel caso in cui sia in presenza di un database Access
+          if(Constants.ACCESS_DB_MODE == DB_TYPE.ACCESS)
+          {
             // impostazione relativa al database access di provenienza descrizioni diversi design patterns
             CreateConnString_Access();
             // load delle liste iniziali di configurazione 
             LoadInitialListsDB(reduced);
-            
+            parametersLoaded = true; // parametri correttamente caricati 
+          }
+          // TODO: eventuale implementazione per altri tipi di sorgente 
+
+
+          // se non sono riuscito a caricare tutti i parametri genero una eccezione 
+          if (!parametersLoaded)
+          {
+            string generatedException = String.Format(Resource.EXCEPTION_CONFIG_PARAMNOTLOADED, Constants.ACCESS_DB_MODE.ToString());
+            throw new Exception(generatedException);
+          }
         }
 
     /// <summary>
@@ -91,10 +108,18 @@ namespace DesignPatterns.Utils
         /// </summary>
         private void CreateConnString_Access()
         {
-            // impostazione della stringa di connessione per il database attuale 
-            Constants.SET_DBACCESS_CONNECTION(
-                Path.Combine(Environment.CurrentDirectory, Constants.DB_ACCESS_RELATIVEPATH, Constants.DB_ACCESS_NAME)
-                );
+          string currPathAccess = String.Empty;
+          // percorso relativo rispetto alla solution corrente 
+          if (Constants.IS_ACCESS_REL_PATH)
+            currPathAccess = Path.Combine(Environment.CurrentDirectory, Constants.DB_ACCESS_PATH, Constants.DB_ACCESS_NAME);
+          // percorso assoluto 
+          else
+            currPathAccess = Constants.DB_ACCESS_PATH + Constants.DB_ACCESS_NAME;
+
+          // impostazione della stringa di connessione per il database attuale 
+          Constants.SET_DBACCESS_CONNECTION(
+              currPathAccess
+              );
         }
 
 
@@ -126,8 +151,24 @@ namespace DesignPatterns.Utils
     /// </summary>
     internal void LoadDesignPatternDEMOSteps(int desPatternID)
     {
-      // impostazione degli esempi di demo con il codice relativo al design pattern corrente 
-      MemLists.DesignPattern_DEMOStep = ServiceLocator.GetAccessDBService.GetDesignPatternDEMOSTEPS(desPatternID);
+      bool parametersLoaded = false;
+
+      // recupero dei parametri per una configurazione access 
+      if(Constants.ACCESS_DB_MODE == DB_TYPE.ACCESS)
+      {
+        // impostazione degli esempi di demo con il codice relativo al design pattern corrente 
+        MemLists.DesignPattern_DEMOStep = ServiceLocator.GetAccessDBService.GetDesignPatternDEMOSTEPS(desPatternID);
+        parametersLoaded = true;
+      }
+      // TODO: eventuale implementazione per altre modalità di accesso 
+
+
+      // se non sono riuscito a caricare tutti i parametri genero una eccezione 
+      if (!parametersLoaded)
+      {
+        string generatedException = String.Format(Resource.EXCEPTION_CONFIG_PARAMNOTLOADED, Constants.ACCESS_DB_MODE.ToString());
+        throw new Exception(generatedException);
+      }
     }
 
 
@@ -138,10 +179,25 @@ namespace DesignPatterns.Utils
     /// </summary>
     internal void LoadExamplesFromDB()
     {
-      // impostazione relativa al database access di provenienza descrizioni diversi design patterns
-      CreateConnString_Access();
-      // recupero di tutti gli esempi disponibili per i design patterns correnti 
-      MemLists.DesignPatternsExamples = ServiceLocator.GetAccessDBService.GetDesignPatternsExamples();
+      bool parametersLoaded = false;
+      // recupero dei parametri per una configurazione access 
+      if (Constants.ACCESS_DB_MODE == DB_TYPE.ACCESS)
+      {       
+        // impostazione relativa al database access di provenienza descrizioni diversi design patterns
+        CreateConnString_Access();
+        // recupero di tutti gli esempi disponibili per i design patterns correnti 
+        MemLists.DesignPatternsExamples = ServiceLocator.GetAccessDBService.GetDesignPatternsExamples();
+        parametersLoaded = true;
+      }
+      // TODO: eventuale implementazione per altre modalità di accesso 
+
+
+      // se non sono riuscito a caricare tutti i parametri genero una eccezione 
+      if (!parametersLoaded)
+      {
+        string generatedException = String.Format(Resource.EXCEPTION_CONFIG_PARAMNOTLOADED, Constants.ACCESS_DB_MODE.ToString());
+        throw new Exception(generatedException);
+      }
     }
 
 
@@ -227,8 +283,56 @@ namespace DesignPatterns.Utils
       }
     }
 
-    #endregion 
+    #endregion
 
+
+    #region LETTURA DEI PARAMETRI DAL FILE APP CONFIG PRIMA DELL'AVVIO DELL'APPLICAZIONE 
+
+    /// <summary>
+    /// Lettura delle configurazioni iniziali dal file di configurazione per l'importazione dei parametri di base per l'applicazione corrente 
+    /// </summary>
+    public void ReadConfigFile()
+    {
+      // modalità di accesso a database
+      string accessDBMode = System.Configuration.ConfigurationManager.AppSettings["AccessDBMode"];
+      DB_TYPE currDB = ServiceLocator.GetExtraConvertersService.GetDBTypeCurrInstance(accessDBMode);
+      // se non trovo nessuna modalità di accesso allora devo generare eccezione 
+      if (currDB == DB_TYPE.NOT_DEFINED)
+        throw new Exception(Resource.EXCEPTION_CONFIG_DBNOTDEFINED);
+
+      // impostazione della tipologia di accesso corrente 
+      Constants.ACCESS_DB_MODE = currDB;
+
+      // impostazioni necessarie solamente per un database di tipo access 
+      if(Constants.ACCESS_DB_MODE == DB_TYPE.ACCESS)
+      {
+        // impostazione del percorso relativo o assouluto per il datbaase di tipo access 
+        string isAccessRelativePath = System.Configuration.ConfigurationManager.AppSettings["isAccessRelativePath"];
+        if (isAccessRelativePath.ToLower() != "true" && isAccessRelativePath.ToLower() != "false")
+          throw new Exception(Resource.EXCEPTION_CONFIG_PATHTYPENOTDEFINED);
+        // impostazione della proprieta di percorso relativo 
+        Constants.IS_ACCESS_REL_PATH = (isAccessRelativePath == "true") ? true : false;
+
+        // lettura del percorso 
+        string databasePath = System.Configuration.ConfigurationManager.AppSettings["AccessDBPath"].Trim();
+        // impostazione slash finale 
+        if (!databasePath.EndsWith("\\"))
+          databasePath = databasePath += "\\";
+        // impostazione del path per il database access 
+        Constants.DB_ACCESS_PATH = databasePath;
+
+        // lettura del nome 
+        string databaseName = System.Configuration.ConfigurationManager.AppSettings["AccessDBName"].Trim();
+        // impostazione slash finale 
+        // impostazione del path per il database access 
+        Constants.DB_ACCESS_NAME = databaseName;
+      }
+      
+    }
+
+
+
+    #endregion
 
 
   }
