@@ -523,6 +523,71 @@ namespace DesignPatterns.DesignPatterns
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
 
+
+    /// <summary>
+    /// Demo per State
+    /// </summary>
+    public static void State_LiveDEMO()
+    {
+      // STEP1
+      DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+      // those first set of methods are used without the proxy peremeter
+      ATMMachine atmMachine = new ATMMachine();
+
+      // STEP2
+      DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.InsertCard();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP3
+      DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+      atmMachine.EjectCard();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP4
+      DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.InsertCard();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP5
+      DesignPattern_DEMOStep step5 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 5).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step5);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.InsertPin(1234);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP6
+      DesignPattern_DEMOStep step6 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 6).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step6);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.RequestCash(200);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP7
+      DesignPattern_DEMOStep step7 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 7).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step7);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.InsertCard();
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // STEP8
+      DesignPattern_DEMOStep step8 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 8).FirstOrDefault();
+      ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step8);
+      ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step8);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      atmMachine.InsertPin(1111);
+      ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+      // Lettura comando di exit
+      ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+    }
+
     #endregion
 
 

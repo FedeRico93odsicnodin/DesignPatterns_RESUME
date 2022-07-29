@@ -195,6 +195,21 @@
     <Compile Include="DesignPatterns\Behavioural\Observer\Subject.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="DesignPatterns\Behavioural\State\ATMMachine.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\State\ATMState.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\State\HasCard.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\State\HasPin.cs" />
+    <Compile Include="DesignPatterns\Behavioural\State\Main_State.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="DesignPatterns\Behavioural\State\NoCard.cs" />
+    <Compile Include="DesignPatterns\Behavioural\State\NoCash.cs" />
     <Compile Include="DesignPatterns\Behavioural\Strategy\Animal_Implementation1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
