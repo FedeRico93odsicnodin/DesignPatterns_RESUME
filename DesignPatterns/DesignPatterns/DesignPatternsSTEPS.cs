@@ -5,6 +5,7 @@ using DesignPatterns.DesignPatterns.Behavioural.Mediator;
 using DesignPatterns.DesignPatterns.Behavioural.Memento;
 using DesignPatterns.DesignPatterns.Behavioural.Observer;
 using DesignPatterns.DesignPatterns.Behavioural.Strategy;
+using DesignPatterns.DesignPatterns.Behavioural.Template_Method;
 using DesignPatterns.DesignPatterns.Creational;
 using DesignPatterns.DesignPatterns.Creational.Builder;
 using DesignPatterns.DesignPatterns.Creational.Factory;
@@ -587,6 +588,49 @@ namespace DesignPatterns.DesignPatterns
       // Lettura comando di exit
       ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
     }
+
+
+        /// <summary>
+        /// Live demo per il template method 
+        /// </summary>
+        public static void TemplateMethod_LiveDEMO()
+        {
+            // STEP1
+            DesignPattern_DEMOStep step1 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 1).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step1);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step1);
+            // creating a new Italian sandwich (ingredients and preparation)
+            ItalianHoagie cust12Hoagie = new ItalianHoagie();
+
+            // STEP2
+            DesignPattern_DEMOStep step2 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 2).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step2);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step2);
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+            // making the sandwich
+            cust12Hoagie.MakeSandwich();
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+
+            Console.WriteLine("\n\n");
+
+            // STEP3
+            DesignPattern_DEMOStep step3 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 3).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step3);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step3);
+            // creating a new Veggie hoagie
+            VeggieHoagie cust13Hoagie = new VeggieHoagie();
+
+            // STEP4
+            DesignPattern_DEMOStep step4 = MemLists.DesignPattern_DEMOStep.Where(x => x.Num_Step == 4).FirstOrDefault();
+            ServiceLocator.GetPrintExampleService.DEMO_GetVisualConsoleElementForCase(step4);
+            ServiceLocator.GetPrintExampleService.DEMO_PrintAssociatedCodeLines(step4);
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+            // making the sandwich
+            cust13Hoagie.MakeSandwich();
+            ServiceLocator.GetPrintExampleService.DEMO_ResetColorParameters();
+            // Lettura comando di exit
+            ServiceLocator.GetPrintExampleService.DEMO_ShowExitLabel();
+        }
 
     #endregion
 

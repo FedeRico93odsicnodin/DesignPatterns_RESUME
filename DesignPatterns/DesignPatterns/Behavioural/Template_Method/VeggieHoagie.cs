@@ -6,22 +6,31 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.DesignPatterns.Behavioural.Template_Method
 {
-    public class ItalianHoagie : Hoagie
+    public class VeggieHoagie : Hoagie
     {
-        private string[] _meatUsed = { "Salami", "Pepperoni", "Capicola Ham" };
-        private string[] _cheeseUsed = { "Provolone" };
         private string[] _veggiesUsed = { "Lettuce", "Tomatoes", "Onions", "Sweet Peppers" };
         private string[] _condimentsUsed = { "Oil", "Vinegar" };
 
-
         /// <summary>
-        /// Specializations for the Italian sandwich
+        /// Overriding for not adding the elements concerning the meats and the cheeses 
+        /// to the current veggie sandwich
         /// </summary>
+        /// <returns></returns>
+        public override bool CustomerWantsMeat()
+        {
+            return false;
+        }
+
+
+        public override bool CustomerWantsCheese()
+        {
+            return false;
+        }
+
+
         public override void AddCheese()
         {
-            Console.WriteLine("Adding the Cheese\n");
-            for (int i = 0; i < _cheeseUsed.Length; i++)
-                Console.Write(_cheeseUsed[0] + " ");
+            // nothing to do
         }
 
         public override void AddCondiments()
@@ -33,16 +42,14 @@ namespace DesignPatterns.DesignPatterns.Behavioural.Template_Method
 
         public override void AddMeat()
         {
-            Console.WriteLine("Adding the Meat\n");
-            for (int i = 0; i < _meatUsed.Length; i++)
-                Console.Write(_meatUsed[0] + " ");
+            // nothing to do
         }
 
         public override void AddVegetables()
         {
             Console.WriteLine("Adding the Vegetables\n");
             for (int i = 0; i < _veggiesUsed.Length; i++)
-                Console.Write(_veggiesUsed[0] + " "); 
+                Console.Write(_veggiesUsed[0] + " ");
         }
     }
 }
