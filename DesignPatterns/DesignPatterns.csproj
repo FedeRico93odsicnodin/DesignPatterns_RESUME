@@ -236,6 +236,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DesignPatterns\Behavioural\Strategy\Strategy.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Template_Method\Hoagie.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Template_Method\ItalianHoagie.cs" />
+    <Compile Include="DesignPatterns\Behavioural\Template_Method\ItalianHoagie_FirstImplementation.cs" />
     <Compile Include="DesignPatterns\Creational\Builder\Main_Builder.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
