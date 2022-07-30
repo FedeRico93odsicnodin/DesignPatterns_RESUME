@@ -511,6 +511,7 @@
     <None Include="ExtraFiles\User Manual\20220730_Design Patterns RESUME - User Manual.pdf" />
     <None Include="ExtraFiles\User Manual\Design Patterns RESUME - User Manual.pptx" />
     <None Include="packages.config" />
+    <None Include="Releases\20220730_DesignPatterns_RESUME_Console.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Creational\Singleton\" />
