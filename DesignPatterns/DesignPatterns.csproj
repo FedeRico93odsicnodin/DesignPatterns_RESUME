@@ -507,6 +507,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ExtraFiles\Design patterns RESUME - Notes.docx" />
+    <None Include="ExtraFiles\Developer Manual\Design Patterns RESUME - Dev Manual.pptx" />
+    <None Include="ExtraFiles\User Manual\20220730_Design Patterns RESUME - User Manual.pdf" />
+    <None Include="ExtraFiles\User Manual\Design Patterns RESUME - User Manual.pptx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

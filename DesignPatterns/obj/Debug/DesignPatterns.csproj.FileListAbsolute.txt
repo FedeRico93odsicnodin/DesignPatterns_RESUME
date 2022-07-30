@@ -702,7 +702,6 @@ D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\ATMState.cs
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\GetATMData.cs
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Structural\Proxy\Main_Proxy.cs
-D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csprojAssemblyReference.cache
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.Properties.Resource.resources
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\obj\Debug\DesignPatterns.csproj.GenerateResource.cache
 D:\GIT\DesignPatterns_RESUME\DesignPatterns\bin\Debug\DesignPatterns\Behavioural\Template_Method\Hoagie.cs
