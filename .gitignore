@@ -45,3 +45,6 @@
     # Office Temp Files
     ~$*
 /.vs/DesignPatterns/v17/.suo
+/DesignPatterns_Adapter/obj/Debug
+/.vs
+/DesignPatterns_Adapter/obj
